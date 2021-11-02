@@ -27,6 +27,18 @@ def create_money_entry(email, date, amount, address, city, state, zip, locname, 
 
     return money
 
+def total_money(user_email):
+    all_user_results = Monies.query.filter_by(email = user_email).all()
+    total_found = 0
+    total_missed = 0
+    for elem in all_user_results:
+        if elem.missed == False:
+            total_found += elem.amount
+        elif elem.missed == True:
+            total_missed += elem.amount
+    
+    return {'Total_Found': total_found, "Total_Missed": total_missed}
+
 def daily_average(user_email):
     all_user_results = Monies.query.filter_by(email = user_email).all()
     total = 0
@@ -37,8 +49,19 @@ def daily_average(user_email):
         if elem.date not in unique_days:
             unique_days.append(elem.date)
 
-    return total / len(unique_days)
+    return round(total / len(unique_days), 2)
 
+def most_freq_money_and_year(user_email):
+    all_user_results = Monies.query.filter_by(email = user_email).all()
+
+    money_years = []
+    for elem in all_user_results:
+        money_years.append(elem.money_year)
+
+    money_year_counter = Counter(money_years)
+
+    return money_year_counter
+#stats function that does all stats, to have fewer queries and returns dictionary of all stats, or one function per stat
 
 if __name__ == "__main__":
     from server import app

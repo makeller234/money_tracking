@@ -7,14 +7,16 @@ Dashboard Page
 <div class='container-fluid'>
     <div class='row'>
         <div class='col-3'>
-            <label for='stats'>Choose What Stats You Want to See:</label>
-            <select name='stats' id='stats' action='/dashboard'>
-                <option value='day_avg'>Daily Average</option>
-                <option value='all_stats'>Show Me EVERYTHING!</option>
+            Grand Total: {{ total_found + total_missed}}
+            <br>
+            You Found: {{ total_found }} 
+            <br>
+            You Missed: {{ total_missed }}
+            <br>
+            A daily Average: {{ day_avg }}
+            <br>
+            Most Freq Money Yeay: {{ money_years }}
 
-            </select>
-            <input type="submit">
-            {{ day_avg }}
         </div>
         <div class='col-9'>
             A GRAPH OR TWO HERE

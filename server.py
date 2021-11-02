@@ -99,13 +99,11 @@ def coin_entry():
 
 @app.route('/dashboard')
 def dashboard():
-
-    stat_choice = request.args.get('stats')
-    print('TESTING STAT CHOICE')
-    print(stat_choice)
+    total = crud.total_money(session['email'])
     day_avg = crud.daily_average(session['email'])
+    money_years = crud.most_freq_money_and_year(session['email'])
 
-    return render_template('dashboard.html', day_avg = day_avg)
+    return render_template('dashboard.html', day_avg = day_avg, total_found = total['Total_Found'], total_missed = total['Total_Missed'], money_years = money_years)
 
 
 
