@@ -15,11 +15,15 @@ def homepage():
 
 @app.route('/user_login', methods=['POST'])
 def login():
+
+    ## SET UP catch for if they need ot create an account versus already have one
     email = request.form.get('email')
+    password = request.form.get('password')
     first_name = request.form.get('fname')
     last_name = request.form.get('lname')
 
     session['email'] = email
+    session['password'] = password
 
     return render_template('coin_entry.html', email = email, first_name = first_name, last_name = last_name)
 
