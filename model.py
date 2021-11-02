@@ -14,6 +14,8 @@ class User(db.Model):
     lname = db.Column(db.String(30), nullable = False)
     password = db.Column(db.String(30), nullable = False)
 
+    user = db.relationship("Monies", back_populates = 'monies')
+
     def __repr__(self):
         return f'<email = {self.email} fname = {self.fname}>'
 
@@ -27,12 +29,15 @@ class Monies(db.Model):
     amount = db.Column(db.Numeric, nullable = False)
     address = db.Column(db.String(30))
     city = db.Column(db.String(30))
+    state = db.Column(db.String(3), nullable = False)
     zip = db.Column(db.String(30))
     locname = db.Column(db.String(50))
     missed = db.Column(db.Boolean)
     money_year = db.Column(db.Integer)
     money_type = db.Column(db.String(15), nullable = False)
     dow = db.Column(db.Integer)
+
+    monies = db.relationship("User", back_populates = 'user')
 
     def __repr__(self):
         return f'<email = {self.email}, amount = {self.amount}, locname = {self.locname}, id = {self.id}>'

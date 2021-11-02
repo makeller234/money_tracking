@@ -21,24 +21,20 @@ def create_account():
     Then logs them in by saving their email to the session"""
 
     email = request.form.get('email').lower()
-    print('************************')
-    print(f'create user email {email}')
-    fname = request.form.get('fname')
-    lname = request.form.get('lname')
+    first_name = request.form.get('fname')
+    last_name = request.form.get('lname')
     password = request.form.get('password')
 
     user = crud.get_user_by_email(email)
-    print('************************')
-    print(f'user email after get function {user.email}')
 
-    if user.email == email:
+    if user:
         flash(f'{email} is already associated with an account. Please log in')
+        return redirect('/')
+        
     else:
-        crud.create_user(email, fname, lname, password)
+        new_user = crud.create_user(email, first_name, last_name, password)
         session['email'] = email
-
-    
-    return render_template('coin_entry.html', first_name = user.fname)
+        return render_template('coin_entry.html', first_name = new_user.fname)
 
 @app.route('/user_login', methods=['POST'])
 def login():
@@ -48,15 +44,18 @@ def login():
     email = request.form.get('email').lower()
     password = request.form.get('password')
 
-
     user = crud.get_user_by_email(email)
+
     if not user or user.password != password:
         flash(f'The email or password you entered is not correct. Please try again')
+
+        return redirect('/')
+
     else:
         session['email'] = email
         flash(f'Welcome back, {user.fname} {user.lname}!')
 
-    return render_template('coin_entry.html', first_name = user.fname)
+        return render_template('coin_entry.html', first_name = user.fname)
 
 
 
