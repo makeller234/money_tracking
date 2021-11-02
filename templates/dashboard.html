@@ -3,4 +3,28 @@
 
 {% block body %}
 Dashboard Page
+
+<div class='container-fluid'>
+    <div class='row'>
+        <div class='col-3'>
+            <label for='stats'>Choose What Stats You Want to See:</label>
+            <select name='stats' id='stats' action='/dashboard'>
+                <option value='day_avg'>Daily Average</option>
+                <option value='all_stats'>Show Me EVERYTHING!</option>
+
+            </select>
+            <input type="submit">
+            {{ day_avg }}
+        </div>
+        <div class='col-9'>
+            A GRAPH OR TWO HERE
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col-12'>
+            Wowza, a map!
+        </div>
+    </div>
+
+</div>
 {% endblock %}

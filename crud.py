@@ -1,5 +1,6 @@
 """CRUD Operations"""
 from model import db, User, Monies, connect_to_db
+from collections import Counter
 
 def create_user(email, fname, lname, password):
     """Creates and returns a new user"""
@@ -25,6 +26,18 @@ def create_money_entry(email, date, amount, address, city, state, zip, locname, 
     db.session.commit()
 
     return money
+
+def daily_average(user_email):
+    all_user_results = Monies.query.filter_by(email = user_email).all()
+    total = 0
+    unique_days = []
+    for elem in all_user_results:
+        total += elem.amount
+
+        if elem.date not in unique_days:
+            unique_days.append(elem.date)
+
+    return total / len(unique_days)
 
 
 if __name__ == "__main__":
