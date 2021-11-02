@@ -2,5 +2,19 @@
 {%block title%} Coin Entry {%endblock%}
 
 {% block body %}
-Hello, {{ first_name }}
+    <p>Hello, {{ first_name }}. Interested in logging some money today?</p>
+    <form action ='/coin_entry' method='POST'>
+        Date (Leave blank if today): <input type='date' name='date'></input>
+        Amount: <input type='number' name='amount' step='0.001' min='0'></input>
+        Address: <input type='text' name='address'></input>
+        City: <input type='text' name='city'></input>
+        State (2 digit abreviation): <input type='text' name='state'></input>
+        Zip Code: <input type='number' name='zip'></input>
+        Location Name: <input type='text' name='locname'></input>
+        Missed: <input type='radio' name='missed' value='y'><label>Yes</label></input>
+        <input type='radio' name='missed' value='n'><lable>No</lable></input>
+        Money Year: <input type='number' name='money_year'></input>
+        Money Type: <input type='text' name='money_type'></input>
+        <input type="submit">
+    </form>
 {% endblock %}

@@ -1,9 +1,10 @@
 
-import re
-import crud
+from datetime import datetime
 from flask import Flask, render_template, request, flash, session, redirect
 from model import connect_to_db
 from jinja2 import StrictUndefined
+import re
+import crud
 
 app = Flask(__name__)
 app.secret_key = 'picklesaretastey'
@@ -34,7 +35,8 @@ def create_account():
     else:
         new_user = crud.create_user(email, first_name, last_name, password)
         session['email'] = email
-        return render_template('coin_entry.html', first_name = new_user.fname)
+        session['fname'] = new_user.fname
+        return render_template('coin_entry.html', first_name = session['fname'])
 
 @app.route('/user_login', methods=['POST'])
 def login():
@@ -53,11 +55,47 @@ def login():
 
     else:
         session['email'] = email
-        flash(f'Welcome back, {user.fname} {user.lname}!')
+        session['fname'] = user.fname
+        #flash(f'Welcome back, {user.fname} {user.lname}!')
 
-        return render_template('coin_entry.html', first_name = user.fname)
+        return render_template('coin_entry.html', first_name = session['fname'])
 
+@app.route('/coin_entry', methods=['POST'])
+def coin_entry():
+    """takes coin entry info and adds to db. Coverts the year to correct formatting
+    and infers day of week(dow)"""
 
+    date = request.form.get('date')
+    #check if date is empty and assign it today's date, format to YYYY-MM-DD
+    #if it isn't blank, format it to correct format
+    if date == '':
+        d1 = datetime.today()
+        dow = d1.weekday()
+        date = d1.strftime('%Y-%m-%d')
+    else:
+        date = datetime.strptime(date,'%Y-%m-%d')
+        dow = date.weekday()
+
+    email = session['email']
+    amount = request.form.get('amount')
+    address = request.form.get('address')
+    city = request.form.get('city')
+    state = request.form.get('state')
+    zip = request.form.get('zip')
+    locname = request.form.get('locname')
+    missed = request.form.get('missed')
+    if missed =='y':
+        missed = True
+    else:
+        missed = False
+
+    money_year = request.form.get('money_year')
+    money_type = request.form.get('money_type')
+
+    #crud.create_money_entry(email, date, amount, address, city, state, zip, locname, missed, money_year, money_type, dow)
+    flash('You"ve successfully added money, add some more?')
+
+    return render_template('coin_entry.html', first_name = session['fname'])
 
 if __name__ == "__main__":
     connect_to_db(app)
