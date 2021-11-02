@@ -15,7 +15,7 @@ class User(db.Model):
     password = db.Column(db.String(30), nullable = False)
 
     def __repr__(self):
-        return f'<email = {self.email} fname = {self.fname}'
+        return f'<email = {self.email} fname = {self.fname}>'
 
 class Monies(db.Model):
     """Model For the Money"""
@@ -35,7 +35,7 @@ class Monies(db.Model):
     dow = db.Column(db.Integer)
 
     def __repr__(self):
-        return f'<email = {self.email}, amount = {self.amount}, locname = {self.locname}, id = {self.id}'
+        return f'<email = {self.email}, amount = {self.amount}, locname = {self.locname}, id = {self.id}>'
 
 
 def connect_to_db(app):
@@ -50,7 +50,6 @@ def connect_to_db(app):
 
 
 if __name__ == "__main__":
-    from flask import Flask
+    from server import app
 
-    app = Flask(__name__)
     connect_to_db(app)

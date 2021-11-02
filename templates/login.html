@@ -2,13 +2,20 @@
 {%block title%} Coin Entry {%endblock%}
 
 {% block body %}
-<h1>Please, Log In</h1>
+<h1>Log In</h1>
 <form action = '/user_login' method = 'POST'>
+    Email:<input type=text, name='email' required></input>
+    Password:<input type=password name='password' required></input>
+    <input type = "submit">
+</form>
+
+<h1>Create An Account</h1>
+<form action = '/create_account' method = 'POST'>
    
     First Name:<input type=text, name='fname' required></input>
     Last Name:<input type=text, name='lname' required></input>
     Email:<input type=text, name='email' required></input>
-    Password:<input type=text name='password' required></input>
+    Password:<input type=password name='password' required></input>
     <input type = "submit">
 </form>
 {% endblock %}
