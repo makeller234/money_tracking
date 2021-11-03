@@ -1,8 +1,8 @@
 """CRUD Operations"""
 from model import db, User, Monies, connect_to_db
-from collections import Counter
+from collections import Counter #counter takes in a list and returns a dictionary where the key is the count of an item and the value is the item
 import calendar
-#from datetime import datetime
+
 
 def create_user(email, fname, lname, password):
     """Creates and returns a new user"""
