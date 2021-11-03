@@ -1,6 +1,8 @@
 """CRUD Operations"""
 from model import db, User, Monies, connect_to_db
 from collections import Counter
+import calendar
+#from datetime import datetime
 
 def create_user(email, fname, lname, password):
     """Creates and returns a new user"""
@@ -55,13 +57,46 @@ def most_freq_money_and_year(user_email):
     all_user_results = Monies.query.filter_by(email = user_email).all()
 
     money_years = []
+    money_type = []
     for elem in all_user_results:
         money_years.append(elem.money_year)
-
+        money_type.append(elem.money_type)
+    #better to use this already made counter function, or build the dictionary myself to prove I know how...
     money_year_counter = Counter(money_years)
+    money_type_counter = Counter(money_type)
 
-    return money_year_counter
+    max_year_found = [(v,k) for k,v in money_year_counter.items()]
+    for item in max_year_found:
+        if item[1] == None:
+            max_year_found.remove(item)
+
+    max_type_found = [(v,k) for k,v in money_type_counter.items()]
+    for item in max_type_found:
+        if item[1] == None:
+            max_type_found.remove(item)
+
+    return {'year_count': max(max_year_found)[0], 'money_year':max(max_year_found)[1],
+            'type_count': max(max_type_found)[0], 'money_type': max(max_type_found)[1]}
 #stats function that does all stats, to have fewer queries and returns dictionary of all stats, or one function per stat
+
+def dow(user_email):
+    all_user_results = Monies.query.filter_by(email = user_email).all()
+
+    dates = []
+    for item in all_user_results:
+        dates.append(item.date.weekday())
+    dow_counter = Counter(dates)
+    max_dow = [(v,k) for k,v in dow_counter.items()]
+    for idx, val in enumerate(list(calendar.day_name)):
+        if idx == max(max_dow)[1]:
+            dow = val
+
+    return dow
+    
+def json(user_email):
+    all_user_results = Monies.query.filter_by(email = user_email).group_by(Monies.date).all()
+
+
 
 if __name__ == "__main__":
     from server import app

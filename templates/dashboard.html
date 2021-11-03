@@ -1,6 +1,8 @@
 {% extends 'base.html'%}
-{%block title%} Dashboard {%endblock%}
-
+{% block title %} Dashboard {% endblock %}
+{% block head %}
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.js'></script>
+{% endblock %}
 {% block body %}
 Dashboard Page
 
@@ -15,7 +17,11 @@ Dashboard Page
             <br>
             A daily Average: {{ day_avg }}
             <br>
-            Most Freq Money Yeay: {{ money_years }}
+            The most frequent year of a coin/bill is {{ money_year }} and it was found {{ money_count }} times!
+            <br>
+            The most frequent coin/bill is {{ money_type }} and it has been found {{ type_count }} times!
+            <br>
+            The Most Freq day of the week is: {{ dow }}
 
         </div>
         <div class='col-9'>
@@ -24,7 +30,7 @@ Dashboard Page
     </div>
     <div class='row'>
         <div class='col-12'>
-            Wowza, a map!
+           <canvas id='stackedbar'></canvas>
         </div>
     </div>
 
