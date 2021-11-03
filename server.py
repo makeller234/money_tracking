@@ -1,6 +1,6 @@
 
 from datetime import datetime
-from flask import Flask, render_template, request, flash, session, redirect
+from flask import Flask, render_template, request, flash, session, redirect, jsonify
 from model import connect_to_db
 from jinja2 import StrictUndefined
 import re
@@ -109,6 +109,7 @@ def dashboard():
     day_avg = crud.daily_average(session['email'])
     money_deets = crud.most_freq_money_and_year(session['email'])
     dow = crud.dow(session['email'])
+    
 
     return render_template('dashboard.html', day_avg = day_avg, total_found = total['Total_Found'],
                                             total_missed = total['Total_Missed'], money_year = money_deets['money_year'],
@@ -118,7 +119,9 @@ def dashboard():
 
 @app.route('/data_by_user.json')
 def data_by_user():
-    
+    totals_by_day = crud.json(session['email'])
+
+    return jsonify({'data':totals_by_day})
 
 
 

@@ -1,7 +1,9 @@
 {% extends 'base.html'%}
 {% block title %} Dashboard {% endblock %}
 {% block head %}
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.js'></script>
+    <script src='../static/js/charts.js' type='text/javascript'></script>
 {% endblock %}
 {% block body %}
 Dashboard Page
@@ -25,12 +27,12 @@ Dashboard Page
 
         </div>
         <div class='col-9'>
-            A GRAPH OR TWO HERE
+            <canvas id='stackedbar'></canvas>
         </div>
     </div>
     <div class='row'>
         <div class='col-12'>
-           <canvas id='stackedbar'></canvas>
+           One day a map here
         </div>
     </div>
 

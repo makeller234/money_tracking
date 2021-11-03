@@ -94,7 +94,16 @@ def dow(user_email):
     return dow
     
 def json(user_email):
-    all_user_results = Monies.query.filter_by(email = user_email).group_by(Monies.date).all()
+    all_user_results = Monies.query.filter_by(email = user_email).all()
+    # 0=Monday, 6=Sunday
+    totals_by_day = {0:{}, 1:{}, 2:{}, 3:{}, 4:{}, 5:{}, 6:{}}
+ 
+    for item in all_user_results:
+        coins_found_on = totals_by_day[item.date.weekday()]
+        coins_found_on[item.money_type] = coins_found_on.get(item.money_type, 0) + float(item.amount)
+
+
+    return totals_by_day
 
 
 
