@@ -75,12 +75,11 @@ def coin_entry():
     #check if date is empty and assign it today's date, format to YYYY-MM-DD
     #if it isn't blank, format it to correct format
     if date == '':
-        d1 = datetime.today()
-        dow = d1.weekday()
+        d1 = datetime.today() #maybe this line can be combined with the line right below it
         date = d1.strftime('%Y-%m-%d')
     else:
         date = datetime.strptime(date,'%Y-%m-%d')
-        dow = date.weekday()
+
 
     email = session['email']
     amount = request.form.get('amount')
@@ -98,7 +97,7 @@ def coin_entry():
     money_year = request.form.get('money_year')
     money_type = request.form.get('money_type')
 
-    crud.create_money_entry(email, date, amount, address, city, state, zip, locname, missed, money_year, money_type, dow)
+    crud.create_money_entry(email, date, amount, address, city, state, zip, locname, missed, money_year, money_type)
     flash('You"ve successfully added money, add some more?')
 
     return render_template('coin_entry.html', first_name = session['fname'])
@@ -108,7 +107,7 @@ def dashboard():
     total = crud.total_money(session['email'])
     day_avg = crud.daily_average(session['email'])
     money_deets = crud.most_freq_money_and_year(session['email'])
-    dow = crud.dow(session['email'])
+    dow = crud.most_freq_dow(session['email'])
     
 
     return render_template('dashboard.html', day_avg = day_avg, total_found = total['Total_Found'],

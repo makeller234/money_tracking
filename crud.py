@@ -20,10 +20,11 @@ def get_user_by_email(email):
 
     return User.query.get(email)
 
-def create_money_entry(email, date, amount, address, city, state, zip, locname, missed, money_year, money_type, dow):
+def create_money_entry(email, date, amount, address, city, state, zip, locname, missed, money_year, money_type):
 
     money = Monies(email=email, date=date, amount=amount, address=address, city=city, state=state, zip=zip,
-                    locname=locname, missed=missed, money_year=money_year, money_type=money_type, dow=dow)
+                    locname=locname, missed=missed, money_year=money_year, money_type=money_type)
+
     db.session.add(money)
     db.session.commit()
 
@@ -79,7 +80,7 @@ def most_freq_money_and_year(user_email):
             'type_count': max(max_type_found)[0], 'money_type': max(max_type_found)[1]}
 #stats function that does all stats, to have fewer queries and returns dictionary of all stats, or one function per stat
 
-def dow(user_email):
+def most_freq_dow(user_email):
     all_user_results = Monies.query.filter_by(email = user_email).all()
 
     dates = []

@@ -35,7 +35,6 @@ class Monies(db.Model):
     missed = db.Column(db.Boolean)
     money_year = db.Column(db.Integer)
     money_type = db.Column(db.String(15), nullable = False)
-    dow = db.Column(db.Integer)
 
     monies = db.relationship("User", back_populates = 'user')
 
