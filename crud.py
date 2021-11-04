@@ -52,7 +52,8 @@ def daily_average(user_email):
         if elem.date not in unique_days:
             unique_days.append(elem.date)
 
-    return round(total / len(unique_days), 2)
+    #returns total divided by the difference between the  min and max dates +1.  Need +1 b/c ex: 11/4-11/1 = 3 in timedelta, but it's actually 4 days
+    return round(total / ((max(unique_days)-min(unique_days)).days+1), 3)
 
 def most_freq_money_and_year(user_email):
     all_user_results = Monies.query.filter_by(email = user_email).all()

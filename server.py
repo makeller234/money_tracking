@@ -98,7 +98,7 @@ def coin_entry():
     money_type = request.form.get('money_type')
 
     crud.create_money_entry(email, date, amount, address, city, state, zip, locname, missed, money_year, money_type)
-    flash('You"ve successfully added money, add some more?')
+    flash("You've successfully added money, add some more?")
 
     return render_template('coin_entry.html', first_name = session['fname'])
 

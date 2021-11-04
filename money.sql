@@ -90,6 +90,7 @@ ALTER TABLE ONLY public.monies ALTER COLUMN id SET DEFAULT nextval('public.monie
 --
 
 COPY public.monies (id, email, date, amount, address, city, state, zip, locname, missed, money_year, money_type) FROM stdin;
+676	t3@email.com	2021-11-04	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	f	1234	est
 37	melissa.keller23@gmail.com	2021-04-12	0.010	16396 Wagner Way	Eden Prairie	MN	55344	Tavern 4&5	t	\N	penny
 42	melissa.keller23@gmail.com	2020-06-27	0.100	60684 MN-23	Finlayson	MN	55735	Cenex	t	\N	dime
 56	melissa.keller23@gmail.com	2021-07-24	1.000	Cedar Street	Houston	MN	55943	Hoedown	t	\N	$1
@@ -144,14 +145,14 @@ COPY public.monies (id, email, date, amount, address, city, state, zip, locname,
 620	melissa.keller23@gmail.com	2018-11-13	0.010	734 Grand Ave	Saint Paul 	MN	55105	Walgreens	t	\N	penny
 621	melissa.keller23@gmail.com	2019-01-02	0.010	734 Grand Ave	Saint Paul 	MN	55105	Walgreens	t	\N	penny
 622	melissa.keller23@gmail.com	2021-08-12	0.010	734 Grand Ave	Saint Paul 	MN	55105	Walgreens	t	\N	penny
+669	t3@email.com	2021-11-02	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	t	1234	test
+670	t3@email.com	2021-11-01	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	t	1234	test
+671	t3@email.com	2021-11-02	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	t	1234	test
+672	t3@email.com	2021-11-02	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	t	123	afdaffg
+675	t3@email.com	2021-11-02	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	t	123	est
 663	melissa.keller23@gmail.com	2019-05-24	0.010	100 Jefferson Dr 	Zumbrota	MN	55992	Kwik Trip	t	\N	penny
-669	t3@email.com	2021-11-02	0.010	test	test	mn	12345	test	t	1234	test
-670	t3@email.com	2021-11-01	0.010	test	test	te	12345	test	t	1234	test
-671	t3@email.com	2021-11-02	0.010	test	test	te	12345	test	t	1234	test
-672	t3@email.com	2021-11-02	0.010	test	test	sw	1234	asdg	t	123	afdaffg
 673	melissa.keller23@gmail.com	2021-10-30	0.250	2199 MN 36 E	North Saint Paul	MN	55109	Target	f	2018	quarter
 674	melissa.keller23@gmail.com	2021-10-30	0.050	2199 MN 36 E	North Saint Paul	MN	55109	Target	f	2021	nickel
-675	t3@email.com	2021-11-02	0.010	test	test	te	123	test	t	123	est
 1	melissa.keller23@gmail.com	2020-10-03	0.010	105 N Star Rd	Alden	MN	56009	Cenex	f	1978	penny
 2	melissa.keller23@gmail.com	2020-10-03	0.010	105 N Star Rd	Alden	MN	56009	Cenex	f	1979	penny
 3	melissa.keller23@gmail.com	2020-10-03	0.010	105 N Star Rd	Alden	MN	56009	Cenex	f	1979	penny
@@ -783,7 +784,7 @@ t3@email.com	Melissa3.0	ShesCooler	testing
 -- Name: monies_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mak
 --
 
-SELECT pg_catalog.setval('public.monies_id_seq', 675, true);
+SELECT pg_catalog.setval('public.monies_id_seq', 676, true);
 
 
 --
