@@ -107,7 +107,15 @@ def json(user_email):
 
     return totals_by_day
 
+def all_addresses(user_email):
+    all_user_addresses = Monies.query.with_entities(Monies.locname, Monies.address, Monies.city, Monies.state, Monies.zip).filter_by(email=user_email).all()
+    test = {}
+    i = 0
+    for address in all_user_addresses:
+        test[i] = {'loc':address[0],'addr':address[1], 'city':address[2], 'state':address[3], 'zip':address[4]}
+        i+=1
 
+    return test
 
 if __name__ == "__main__":
     from server import app

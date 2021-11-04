@@ -123,7 +123,11 @@ def data_by_user():
 
     return jsonify({'data':totals_by_day})
 
+@app.route('/all_addreses.json')
+def all_user_addresses():
+    addresses = crud.all_addresses(session['email'])
 
+    return jsonify({'data':addresses})
 
 if __name__ == "__main__":
     connect_to_db(app)
