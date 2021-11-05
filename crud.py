@@ -2,6 +2,7 @@
 from model import db, User, Monies, connect_to_db
 from collections import Counter #counter takes in a list and returns a dictionary where the key is the count of an item and the value is the item
 import calendar
+from datetime import date
 
 
 def create_user(email, fname, lname, password):
@@ -52,8 +53,8 @@ def daily_average(user_email):
         if elem.date not in unique_days:
             unique_days.append(elem.date)
 
-    #returns total divided by the difference between the  min and max dates +1.  Need +1 b/c ex: 11/4-11/1 = 3 in timedelta, but it's actually 4 days
-    return round(total / ((max(unique_days)-min(unique_days)).days+1), 3)
+    #returns total divided by the difference between the  min date and today's date +1.  Need +1 b/c ex: 11/4-11/1 = 3 in timedelta, but it's actually 4 days
+    return round(total / ((date.today()-min(unique_days)).days+1), 3)
 
 def most_freq_money_and_year(user_email):
     all_user_results = Monies.query.filter_by(email = user_email).all()

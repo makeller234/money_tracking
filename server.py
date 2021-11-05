@@ -9,7 +9,7 @@ import crud
 app = Flask(__name__)
 app.secret_key = 'picklesaretastey'
 app.jinja_env.undefined = StrictUndefined
-api_key = os.environ['API_KEY']
+API_KEY = os.environ['API_KEY']
 
 @app.route('/')
 def homepage():
@@ -114,7 +114,7 @@ def dashboard():
     return render_template('dashboard.html', day_avg = day_avg, total_found = total['Total_Found'],
                                             total_missed = total['Total_Missed'], money_year = money_deets['money_year'],
                                             money_count = money_deets['year_count'], type_count = money_deets['type_count'],
-                                            money_type = money_deets['money_type'], dow = dow, api_key=api_key)
+                                            money_type = money_deets['money_type'], dow = dow, API_KEY=API_KEY)
 
 
 @app.route('/data_by_user.json')
