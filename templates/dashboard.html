@@ -14,13 +14,13 @@ Dashboard Page
 <div class='container-fluid'>
     <div class='row'>
         <div class='col-3'>
-            Grand Total: {{ total_found + total_missed}}
+            Grand Total: {{ "$%.2f"|format(total_found + total_missed)}}
             <br>
-            You Found: {{ total_found }} 
+            You Found: {{ "$%.2f"|format(total_found) }} 
             <br>
-            You Missed: {{ total_missed }}
+            You Missed: {{ "$%.2f"|format(total_missed) }}
             <br>
-            A daily Average: {{ day_avg }}
+            A daily Average: {{ "$%.3f"|format(day_avg) }}
             <br>
             The most frequent year of a coin/bill is {{ money_year }} and it was found {{ money_count }} times!
             <br>

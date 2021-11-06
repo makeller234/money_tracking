@@ -9,7 +9,9 @@ import crud
 app = Flask(__name__)
 app.secret_key = 'picklesaretastey'
 app.jinja_env.undefined = StrictUndefined
+
 API_KEY = os.environ['API_KEY']
+
 
 @app.route('/')
 def homepage():
@@ -19,7 +21,7 @@ def homepage():
 
 @app.route('/create_account', methods=['POST'])
 def create_account():
-    """Creates an account for the user after checking that it doens't already exist
+    """Creates an account for the user after checking that one doesn't already exist
     Then logs them in by saving their email to the session"""
 
     email = request.form.get('email').lower()
@@ -48,7 +50,7 @@ def create_account():
 @app.route('/user_login', methods=['POST'])
 def login():
     """Uses the user's email and password to log them in.
-    Gives message if info is incorrect and stores email as cookie if logged in successfully"""
+    Gives message if info is incorrect and stores email as session if logged in successfully"""
 
     email = request.form.get('email').lower()
     password = request.form.get('password')
@@ -69,12 +71,11 @@ def login():
 
 @app.route('/coin_entry', methods=['POST'])
 def coin_entry():
-    """takes coin entry info and adds to db. Coverts the year to correct formatting
-    and infers day of week(dow)"""
+    """Takes coin entry info and adds to db. Coverts the date to correct formatting"""
 
     date = request.form.get('date')
-    #check if date is empty and assign it today's date, format to YYYY-MM-DD
-    #if it isn't blank, format it to correct format
+    #Check if date is empty and assign it today's date, format to YYYY-MM-DD
+    #If it isn't blank, format it to correct format
     if date == '':
         d1 = datetime.today() #maybe this line can be combined with the line right below it
         date = d1.strftime('%Y-%m-%d')

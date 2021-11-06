@@ -53,23 +53,50 @@ $.get('/data_by_user.json', res => {
     data_array_of_dicts.push(data_dict);
     data_dict = {'label':'','data':[], 'backgroundColor':''}
   }
-  
+
+  let a = 0;
+  let b = 0;
+  let c = 0;
+  let another_test_variable = 0;
   for (const elem in res_data){
+    // console.log(`${a}: elem`);
+    // console.log(res_data[elem]);
+    a+=1;
     for (const item of data_array_of_dicts){
-      console.log(item);
+      // console.log(`${b} item:`);
+      // console.log(item);
+      b+=1;
       for (const coin in res_data[elem]) {
-        //console.log(item['label']);
-        if (coin === item['label']);
+        // console.log(`${c} item label then coin:`)
+        // console.log(item['label']);
+        // console.log(coin);
+        c+=1
+        if (coin === item['label']){
+          // console.log('made it to inside IF statment');
           //console.log(coin);
           // console.log(res_data[elem]);
           //console.log(`item label ${item['label']}`);
+        
           item['data'].push(res_data[elem][coin]);
+          //another_test_variable += res_data[elem][coin];
+          
+
+          // console.log('IF data array of dicts')
+          // console.log(data_array_of_dicts)
+        }
+        else{
+          // console.log('made it to ELSE statment')
+          //item['data'].push(0);
+          // console.log('ELSE data array of dicts')
+          // console.log(data_array_of_dicts)
+        }
+
       }
       
     }
     
   }
-  console.log(data_array_of_dicts);
+console.log(data_array_of_dicts);
 
 
   //Graph DATA

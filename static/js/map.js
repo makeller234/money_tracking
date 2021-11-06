@@ -3,7 +3,6 @@
 const lat_lng_array = [];
 
 
-
 function initMap() {
 
     let map = new google.maps.Map(document.querySelector("#map"), {
