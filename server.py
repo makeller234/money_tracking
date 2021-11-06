@@ -129,6 +129,12 @@ def all_user_addresses():
 
     return jsonify({'data':addresses})
 
+@app.route('/coin_counts.json')
+def coin_counts():
+    coins = crud.coin_polar(session['email'])
+
+    return jsonify({'data': coins})
+
 if __name__ == "__main__":
     connect_to_db(app)
     app.run(host="0.0.0.0", debug=True)

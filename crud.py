@@ -109,14 +109,24 @@ def json(user_email):
     return totals_by_day
 
 def all_addresses(user_email):
-    all_user_addresses = Monies.query.with_entities(Monies.locname, Monies.address, Monies.city, Monies.state, Monies.zip).filter_by(email=user_email).all()
-    test = {}
+    all_user_addresses = Monies.query.with_entities(Monies.locname, Monies.address, Monies.city, Monies.state, Monies.zip, Monies.id).filter_by(email=user_email).all()
+    addresses = {}
     i = 0
     for address in all_user_addresses:
-        test[i] = {'loc':address[0],'addr':address[1], 'city':address[2], 'state':address[3], 'zip':address[4]}
+        addresses[i] = {'loc':address[0],'addr':address[1], 'city':address[2], 'state':address[3], 'zip':address[4], 'id':address[5]}
         i+=1
 
-    return test
+    return addresses
+
+def coin_polar(user_email):
+    all_user_coins = Monies.query.filter_by(email=user_email).all()
+    coin_list = [];
+    for item in all_user_coins:
+        coin_list.append(item.money_type)
+    coin_counts = Counter(coin_list)
+
+    return coin_counts
+
 
 if __name__ == "__main__":
     from server import app
