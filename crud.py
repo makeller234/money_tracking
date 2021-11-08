@@ -1,5 +1,6 @@
 """CRUD Operations"""
 from model import db, User, Monies, connect_to_db
+from sqlalchemy import extract
 from collections import Counter #counter takes in a list and returns a dictionary where the key is the count of an item and the value is the item
 import calendar
 from datetime import date
@@ -31,8 +32,15 @@ def create_money_entry(email, date, amount, address, city, state, zip, locname, 
 
     return money
 
-def total_money(user_email):
-    all_user_results = Monies.query.filter_by(email = user_email).all()
+#def total_money(user_email):
+def total_money(user_email, year): 
+    """takes in 2 parameters, email and year, and returns the total money found and missed for that user in that year"""
+
+    if year == 'All':
+        all_user_results = Monies.query.filter_by(email = user_email).all()
+    else:
+        all_user_results = Monies.query.filter_by(email = user_email).filter(extract('year', Monies.date)==year).all()
+ 
     total_found = 0
     total_missed = 0
     for elem in all_user_results:
@@ -40,11 +48,14 @@ def total_money(user_email):
             total_found += elem.amount
         elif elem.missed == True:
             total_missed += elem.amount
-    
+
     return {'Total_Found': total_found, "Total_Missed": total_missed}
 
-def daily_average(user_email):
-    all_user_results = Monies.query.filter_by(email = user_email).all()
+def daily_average(user_email, year):
+    if year == 'All':
+        all_user_results = Monies.query.filter_by(email = user_email).all()
+    else:
+        all_user_results = Monies.query.filter_by(email = user_email).filter(extract('year', Monies.date)==year).all()
     total = 0
     unique_days = []
     for elem in all_user_results:
@@ -56,8 +67,11 @@ def daily_average(user_email):
     #returns total divided by the difference between the  min date and today's date +1.  Need +1 b/c ex: 11/4-11/1 = 3 in timedelta, but it's actually 4 days
     return round(total / ((date.today()-min(unique_days)).days+1), 3)
 
-def most_freq_money_and_year(user_email):
-    all_user_results = Monies.query.filter_by(email = user_email).all()
+def most_freq_money_and_year(user_email, year):
+    if year == 'All':
+        all_user_results = Monies.query.filter_by(email = user_email).all()
+    else:
+        all_user_results = Monies.query.filter_by(email = user_email).filter(extract('year', Monies.date)==year).all()
 
     money_years = []
     money_type = []
@@ -82,8 +96,11 @@ def most_freq_money_and_year(user_email):
             'type_count': max(max_type_found)[0], 'money_type': max(max_type_found)[1]}
 #stats function that does all stats, to have fewer queries and returns dictionary of all stats, or one function per stat
 
-def most_freq_dow(user_email):
-    all_user_results = Monies.query.filter_by(email = user_email).all()
+def most_freq_dow(user_email,year):
+    if year == 'All':
+        all_user_results = Monies.query.filter_by(email = user_email).all()
+    else:
+        all_user_results = Monies.query.filter_by(email = user_email).filter(extract('year', Monies.date)==year).all()
 
     dates = []
     for item in all_user_results:
@@ -96,8 +113,11 @@ def most_freq_dow(user_email):
 
     return dow
     
-def json(user_email):
-    all_user_results = Monies.query.filter_by(email = user_email).all()
+def daily_coin_amounts(user_email, year):
+    if year == 'All':
+        all_user_results = Monies.query.filter_by(email = user_email).all()
+    else:
+        all_user_results = Monies.query.filter_by(email = user_email).filter(extract('year', Monies.date)==year).all()
     # 0=Monday, 6=Sunday
     totals_by_day = {0:{}, 1:{}, 2:{}, 3:{}, 4:{}, 5:{}, 6:{}}
  
@@ -120,12 +140,21 @@ def all_addresses(user_email):
 
 def coin_polar(user_email):
     all_user_coins = Monies.query.filter_by(email=user_email).all()
-    coin_list = [];
+    coin_list = []
     for item in all_user_coins:
         coin_list.append(item.money_type)
     coin_counts = Counter(coin_list)
 
     return coin_counts
+
+def years_list(user_email):
+    all_user_results = Monies.query.filter_by(email=user_email).all()
+    years_list = []
+    for result in all_user_results:
+        if result.date.year not in years_list:
+            years_list.append(result.date.year)
+    
+    return years_list
 
 
 if __name__ == "__main__":

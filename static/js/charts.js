@@ -54,23 +54,19 @@ $.get('/data_by_user.json', res => {
     const data_array = [];
     
     for (let j = 0; j<=6; j++){
-      console.log(res_data[j]);
 
-      if (Object.keys(res_data[j]).length === 0){
+      if ((Object.keys(res_data[j]).length === 0) || (!(i in res_data[j]))){
         data_array.push(0);
       }
-      else if (!(i in res_data[j])){
-        data_array.push(0);
-      }
+
       else{
         data_array.push(res_data[j][i])
       }
-      
     }
+
     data_dict['data'] = data_array;
     data_array_of_dicts.push(data_dict);
     data_dict = {'label':'','data':[], 'backgroundColor':''}
-
   }
 
   //Graph DATA

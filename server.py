@@ -19,6 +19,14 @@ def homepage():
 
     return render_template('login.html')
 
+@app.route('/log_out')
+def log_out():
+    """Removes the stored session info and returns user to log in page"""
+    session.pop('email', None)
+    session.pop('fname', None)
+    flash("You've successfully logged out.")
+    return redirect('/')
+
 @app.route('/create_account', methods=['POST'])
 def create_account():
     """Creates an account for the user after checking that one doesn't already exist
@@ -106,21 +114,47 @@ def coin_entry():
 
 @app.route('/dashboard')
 def dashboard():
-    total = crud.total_money(session['email'])
-    day_avg = crud.daily_average(session['email'])
-    money_deets = crud.most_freq_money_and_year(session['email'])
-    dow = crud.most_freq_dow(session['email'])
+    year = request.args.get('years')
+    if year == None:
+        year = 'All'
+
+    if year == 'All':
+        year = year
+    else:
+        year = int(year)
+
+    total = crud.total_money(session['email'], year)
+    day_avg = crud.daily_average(session['email'],year)
+    money_deets = crud.most_freq_money_and_year(session['email'],year)
+    dow = crud.most_freq_dow(session['email'],year)
+    years_list = crud.years_list(session['email'])
+
+    
     
 
     return render_template('dashboard.html', day_avg = day_avg, total_found = total['Total_Found'],
                                             total_missed = total['Total_Missed'], money_year = money_deets['money_year'],
                                             money_count = money_deets['year_count'], type_count = money_deets['type_count'],
-                                            money_type = money_deets['money_type'], dow = dow, API_KEY=API_KEY)
+                                            money_type = money_deets['money_type'], dow = dow, API_KEY=API_KEY,
+                                            years_list = years_list, year = year)
 
+# @app.route('/dashboard2')
+# def dashboard2():
+#     year = request.form.get('year')
 
 @app.route('/data_by_user.json')
 def data_by_user():
-    totals_by_day = crud.json(session['email'])
+    year = request.args.get('years')
+    print("************************")
+    print(year)
+    if year == None:
+        year = 'All'
+
+    if year == 'All':
+        year = year
+    else:
+        year = int(year)
+    totals_by_day = crud.daily_coin_amounts(session['email'], year)
 
     return jsonify({'data':totals_by_day})
 
