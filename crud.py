@@ -94,7 +94,7 @@ def most_freq_money_and_year(user_email, year):
 
     return {'year_count': max(max_year_found)[0], 'money_year':max(max_year_found)[1],
             'type_count': max(max_type_found)[0], 'money_type': max(max_type_found)[1]}
-#stats function that does all stats, to have fewer queries and returns dictionary of all stats, or one function per stat
+
 
 def most_freq_dow(user_email,year):
     if year == 'All':
@@ -113,20 +113,32 @@ def most_freq_dow(user_email,year):
 
     return dow
     
-def daily_coin_amounts(user_email, year):
-    if year == 'All':
-        all_user_results = Monies.query.filter_by(email = user_email).all()
-    else:
-        all_user_results = Monies.query.filter_by(email = user_email).filter(extract('year', Monies.date)==year).all()
+def daily_coin_amounts(user_email):
+  
+    all_user_results = Monies.query.filter_by(email = user_email).all()
+
+    dict_by_year_dow = {}
+    
+    
+    for result in all_user_results:
+        dict_by_year_dow[result.date.year] = dict_by_year_dow.get(result.date.year, 0)
+
     # 0=Monday, 6=Sunday
     totals_by_day = {0:{}, 1:{}, 2:{}, 3:{}, 4:{}, 5:{}, 6:{}}
+    for key in dict_by_year_dow.keys():
  
-    for item in all_user_results:
-        coins_found_on = totals_by_day[item.date.weekday()]
-        coins_found_on[item.money_type] = coins_found_on.get(item.money_type, 0) + float(item.amount)
+        for item in all_user_results:
+
+            if key == item.date.year:
+               
+                coins_found_on = totals_by_day[item.date.weekday()]
+                coins_found_on[item.money_type] = coins_found_on.get(item.money_type, 0) + float(item.amount)
+
+        dict_by_year_dow[key] = totals_by_day
+        totals_by_day = {0:{}, 1:{}, 2:{}, 3:{}, 4:{}, 5:{}, 6:{}}
 
 
-    return totals_by_day
+    return dict_by_year_dow
 
 def all_addresses(user_email):
     all_user_addresses = Monies.query.with_entities(Monies.locname, Monies.address, Monies.city, Monies.state, Monies.zip, Monies.id).filter_by(email=user_email).all()

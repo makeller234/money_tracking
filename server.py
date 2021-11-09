@@ -5,6 +5,10 @@ from model import connect_to_db
 from jinja2 import StrictUndefined
 import os
 import crud
+from bs4 import BeautifulSoup
+
+
+soup = BeautifulSoup('localhost:5000/dashboard.html', 'html.parser')
 
 app = Flask(__name__)
 app.secret_key = 'picklesaretastey'
@@ -138,23 +142,11 @@ def dashboard():
                                             money_type = money_deets['money_type'], dow = dow, API_KEY=API_KEY,
                                             years_list = years_list, year = year)
 
-# @app.route('/dashboard2')
-# def dashboard2():
-#     year = request.form.get('year')
 
 @app.route('/data_by_user.json')
 def data_by_user():
-    year = request.args.get('years')
-    print("************************")
-    print(year)
-    if year == None:
-        year = 'All'
 
-    if year == 'All':
-        year = year
-    else:
-        year = int(year)
-    totals_by_day = crud.daily_coin_amounts(session['email'], year)
+    totals_by_day = crud.daily_coin_amounts(session['email'])
 
     return jsonify({'data':totals_by_day})
 

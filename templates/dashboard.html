@@ -1,7 +1,7 @@
 {% extends 'base.html'%}
 {% block title %} Dashboard {% endblock %}
 {% block head %}
-    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.js'></script>
     <script src='../static/js/charts.js' type='text/javascript'></script>
     <script src='../static/js/map.js' type='text/javascript'></script>
@@ -17,15 +17,19 @@
         <div class='col-3'>
             <form action="/dashboard">
                 <label for='years'>Select a Year</label>
-                    <select name='years' id='year'>
-                        <option value="All">All Years</option>
+                    <select name='years' >
+                        <option value="All" class="year">All Years</option>
                         {% for year in years_list %}
-                            <option value={{year}}>{{year}}</option>
+                            <option value={{year}} class="year">{{year}}</option>
                         {%endfor%}
                     </select>
                     <input type="submit">
-             </form>
-        <h3>{{session['fname']}}'s {{year}} Info</h3>
+                        <!-- <input type="submit" value="All" name='years' class="year_selector">
+                    {% for year in years_list %}
+                        <input type="submit" value={{year}} name="years" class="year_selector">
+                    {%endfor%} -->
+                </form>
+        <h3>{{session['fname']}}'s <span id='year'>{{year}}</span> Info</h3>
         <br>
         Grand Total: {{ "$%.2f"|format(total_found + total_missed)}}
         <br>
