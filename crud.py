@@ -141,13 +141,14 @@ def daily_coin_amounts(user_email):
     return dict_by_year_dow
 
 def all_addresses(user_email):
-    all_user_addresses = Monies.query.with_entities(Monies.locname, Monies.address, Monies.city, Monies.state, Monies.zip, Monies.id).filter_by(email=user_email).all()
+    all_user_addresses = Monies.query.with_entities(Monies.locname, Monies.address, Monies.city, Monies.state, Monies.zip, Monies.id, Monies.date).filter_by(email=user_email).all()
     addresses = {}
     i = 0
     for address in all_user_addresses:
-        addresses[i] = {'loc':address[0],'addr':address[1], 'city':address[2], 'state':address[3], 'zip':address[4], 'id':address[5]}
+        year = address.date.year
+        addresses[i] = {'loc':address[0],'addr':address[1], 'city':address[2], 'state':address[3], 'zip':address[4], 'id':address[5], 'year':year}
         i+=1
-
+    print(addresses)
     return addresses
 
 def coin_polar(user_email):
