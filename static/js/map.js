@@ -46,12 +46,10 @@ function initMap() {
             
         }
     
-        
         for (const [key, value] of Object.entries(grouped_by_address)) {
             // console.log(grouped_by_address);
             // console.log(key);
             // console.log(value);
-
 
             //console.log(grouped_by_address[elem]);
             let amount = 0;
@@ -70,7 +68,6 @@ function initMap() {
                 // console.log(locName);
                 //console.log(amount);
                 
-            
                 //need to use the  "/ /g" to replace all the spaces with +, otherwise it just does the first space
                 addr = addr.replace(/ /g, '+');
                 city = city.replace(/ /g, '+');
