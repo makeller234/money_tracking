@@ -3,7 +3,7 @@ from model import db, User, Monies, connect_to_db
 from sqlalchemy import extract
 from collections import Counter #counter takes in a list and returns a dictionary where the key is the count of an item and the value is the item
 import calendar
-from datetime import date
+from datetime import date, datetime
 
 
 def create_user(email, fname, lname, password):
@@ -63,9 +63,13 @@ def daily_average(user_email, year):
 
         if elem.date not in unique_days:
             unique_days.append(elem.date)
+    if year == 'All':
+        days_for_avg = (date.today()-min(unique_days)).days+1
+    else:
+        days_for_avg = (datetime(year,12,31)-datetime(year,1,1)).days+1
 
     #returns total divided by the difference between the  min date and today's date +1.  Need +1 b/c ex: 11/4-11/1 = 3 in timedelta, but it's actually 4 days
-    return round(total / ((date.today()-min(unique_days)).days+1), 3)
+    return round((total / days_for_avg), 3)
 
 def most_freq_money_and_year(user_email, year):
     if year == 'All':
@@ -91,9 +95,14 @@ def most_freq_money_and_year(user_email, year):
     for item in max_type_found:
         if item[1] == None:
             max_type_found.remove(item)
+    
+    if year == 2017:
+        max_yr_count,  max_money_yr, max_type_cnt, max_money_type = 'N/A','N/A','N/A','N/A'
+    else:
+        max_yr_count,  max_money_yr, max_type_cnt, max_money_type = max(max_year_found)[0], max(max_year_found)[1], max(max_type_found)[0], max(max_type_found)[1]
 
-    return {'year_count': max(max_year_found)[0], 'money_year':max(max_year_found)[1],
-            'type_count': max(max_type_found)[0], 'money_type': max(max_type_found)[1]}
+    return {'year_count': max_yr_count, 'money_year': max_money_yr,
+            'type_count': max_type_cnt, 'money_type': max_money_type}
 
 
 def most_freq_dow(user_email,year):
@@ -141,14 +150,16 @@ def daily_coin_amounts(user_email):
     return dict_by_year_dow
 
 def all_addresses(user_email):
-    all_user_addresses = Monies.query.with_entities(Monies.locname, Monies.address, Monies.city, Monies.state, Monies.zip, Monies.id, Monies.date).filter_by(email=user_email).all()
+    #all_user_addresses = Monies.query.with_entities(Monies.locname, Monies.address, Monies.city, Monies.state, Monies.zip, Monies.id, Monies.date).filter_by(email=user_email).all()
+    all_user_results = Monies.query.filter_by(email=user_email).all()
     addresses = {}
     i = 0
-    for address in all_user_addresses:
-        year = address.date.year
-        addresses[i] = {'loc':address[0],'addr':address[1], 'city':address[2], 'state':address[3], 'zip':address[4], 'id':address[5], 'year':year}
+    for address in all_user_results:
+        addresses[i] = {'loc':address.locname,'addr':address.address, 'city':address.city,
+                        'state':address.state, 'zip':address.zip, 'id':address.id, 'year':address.date.year,
+                        'amount':address.amount}
         i+=1
-    print(addresses)
+    #print(addresses)
     return addresses
 
 def coin_polar(user_email):

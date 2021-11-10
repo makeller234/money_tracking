@@ -5,10 +5,6 @@ from model import connect_to_db
 from jinja2 import StrictUndefined
 import os
 import crud
-from bs4 import BeautifulSoup
-
-
-soup = BeautifulSoup('localhost:5000/dashboard.html', 'html.parser')
 
 app = Flask(__name__)
 app.secret_key = 'picklesaretastey'
