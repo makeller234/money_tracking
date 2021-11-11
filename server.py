@@ -121,6 +121,7 @@ def coin_entry():
 @app.route('/dashboard')
 def dashboard():
     year = request.args.get('years')
+    missed = request.args.get('missed')
     if year == None:
         year = 'All'
 
@@ -130,9 +131,9 @@ def dashboard():
         year = int(year)
 
     total = crud.total_money(session['email'], year)
-    day_avg = crud.daily_average(session['email'],year)
-    money_deets = crud.most_freq_money_and_year(session['email'],year)
-    dow = crud.most_freq_dow(session['email'],year)
+    day_avg = crud.daily_average(session['email'],year, missed)
+    money_deets = crud.most_freq_money_and_year(session['email'],year, missed)
+    dow = crud.most_freq_dow(session['email'],year, missed)
     years_list = crud.years_list(session['email'])
 
     
@@ -142,25 +143,54 @@ def dashboard():
                                             total_missed = total['Total_Missed'], money_year = money_deets['money_year'],
                                             money_count = money_deets['year_count'], type_count = money_deets['type_count'],
                                             money_type = money_deets['money_type'], dow = dow, API_KEY=API_KEY,
-                                            years_list = years_list, year = year)
+                                            years_list = years_list, year = year, missed = missed)
 
-@app.route('/places_api')
+@app.route('/places_api', methods =['POST'])
 def places_api():
 
-    place = request.args.get('places_api')
-    place_plus = place.replace(' ', '+')
+    place = request.form.get('places_api')
+    #place_plus = place.replace(' ', '+')
     place_percent = place.replace(' ', '%20')
   
-    places_url = f'https://maps.googleapis.com/maps/api/place/autocomplete/json?input={place_plus}&key={API_KEY}'
+    #places_url = f'https://maps.googleapis.com/maps/api/place/autocomplete/json?input={place_plus}&key={API_KEY}'
     query_url = f'https://maps.googleapis.com/maps/api/place/queryautocomplete/json?input={place_percent}&key={API_KEY}'
 
-    payload = {}
-    headers = {}
+    response = requests.request('GET', query_url, headers={}, data={})
+    res_json = json.loads(response.text)
+    #print(res_json['predictions'][0]['description'])
+    addr_split = res_json['predictions'][0]['description'].split(", ") #space is necessary to eliminate the spaces from the words
 
-    response = requests.request('GET', query_url, headers=headers, data=payload)
-    test = json.loads(response.text)
-    print(test)
-    #message = response.text['predictions']['description']
+    date = request.form.get('date')
+    #Check if date is empty and assign it today's date, format to YYYY-MM-DD
+    #If it isn't blank, format it to correct format
+    if date == '':
+        d1 = datetime.today() #maybe this line can be combined with the line right below it
+        date = d1.strftime('%Y-%m-%d')
+    else:
+        date = datetime.strptime(date,'%Y-%m-%d')
+
+
+    email = session['email']
+    amount = request.form.get('amount')
+    address = addr_split[0]
+    city = addr_split[1]
+    state = addr_split[2]
+    zip = None
+    locname = request.form.get('locname')
+    missed = request.form.get('missed')
+    if missed =='y':
+        missed = True
+    else:
+        missed = False
+
+    money_year = request.form.get('money_year')
+    money_type = request.form.get('money_type')
+
+    crud.create_money_entry(email, date, amount, address, city, state, zip, locname, missed, money_year, money_type)
+    flash("You've successfully added money, add some more?")
+
+
+
 
     return render_template('coin_entry.html', first_name = session['fname'], API_KEY=API_KEY)
 

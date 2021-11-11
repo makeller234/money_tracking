@@ -24,25 +24,92 @@ function initMap() {
         let res_data = res.data;
         let grouped_by_address = {}
         const year = $('#year').html();
-        const res_data_by_year = [];
 
-        if (year === 'All'){
+        const res_data_filtered = [];
+        const missed = $('#missed').html();
+
+
+        if (year === 'All' && missed === 'Missed and Found Money'){
             res_data = res_data
             grouped_by_address = _.groupBy(res_data, function(address){
                 return address.addr
             })
+ 
         }
-        else{
+        else if (year === 'All' && missed === 'Missed Money'){
             for (const elem in res_data){
-                if (res_data[elem].year==year){
-                    res_data_by_year.push(res_data[elem]);
+                if (res_data[elem].missed ==true){
+                    res_data_filtered.push(res_data[elem]);
                 }
             }
-            res_data = res_data_by_year
+            res_data = res_data_filtered
             grouped_by_address = _.groupBy(res_data, function(address){
                 return address.addr
-            })   
+            })  
+
+
         }
+        else if (year === 'All' && missed === 'Found Money'){
+            for (const elem in res_data){
+                if (res_data[elem].missed ==false){
+                    res_data_filtered.push(res_data[elem]);
+                }
+            }
+            res_data = res_data_filtered
+            grouped_by_address = _.groupBy(res_data, function(address){
+                return address.addr
+            })  
+
+        }
+
+        else if (year !== 'All' && missed === 'Missed and Found Money'){
+            for (const elem in res_data){
+                if (res_data[elem].year==year){
+                    res_data_filtered.push(res_data[elem]);
+                }
+            }
+            res_data = res_data_filtered
+            grouped_by_address = _.groupBy(res_data, function(address){
+                return address.addr
+            })  
+
+        }
+        else if (year !== 'All' && missed === 'Missed Money'){
+            for (const elem in res_data){
+                if (res_data[elem].year==year && res_data[elem].missed ==true){
+                    res_data_filtered.push(res_data[elem]);
+                }
+            }
+            res_data = res_data_filtered
+            grouped_by_address = _.groupBy(res_data, function(address){
+                return address.addr
+            })  
+
+        }
+        else if (year !== 'All' && missed === 'Found Money'){
+            for (const elem in res_data){
+                if (res_data[elem].year==year && res_data[elem].missed ==false){
+                    res_data_filtered.push(res_data[elem]);
+                }
+            }
+            res_data = res_data_filtered
+            grouped_by_address = _.groupBy(res_data, function(address){
+                return address.addr
+            })  
+
+        }
+
+        // else{
+        //     for (const elem in res_data){
+        //         if (res_data[elem].year==year){
+        //             res_data_filtered.push(res_data[elem]);
+        //         }
+        //     }
+        //     res_data = res_data_filtered
+        //     grouped_by_address = _.groupBy(res_data, function(address){
+        //         return address.addr
+        //     })   
+        // }
     
         for (const [key, value] of Object.entries(grouped_by_address)) {
 
@@ -136,9 +203,16 @@ function coinMap(){
                     },
                 },
             })
+            let missed = most_rec_entry['missed']
+            if (missed === true){
+                missed = 'Missed'
+            }
+            else if (missed === false){
+                missed = 'Found'
+            }
             const markerInfo = `<h6>Last Location</h6>
                                 <p>${marker.title}</p>
-                                <p>Amount : ${formatter.format(most_rec_entry['amount'])}</p>`;
+                                <p>${missed} : ${formatter.format(most_rec_entry['amount'])}</p>`;
 
             const infoWindow = new google.maps.InfoWindow({
             content:markerInfo,
@@ -151,8 +225,6 @@ function coinMap(){
             coinMap.setCenter(loc_res.results[0].geometry.location);
         })
     })
-    
-
 
 }
 //end of map for coin page

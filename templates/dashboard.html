@@ -17,12 +17,19 @@
     <div class='row'>
         <div class='col-3'>
             <form action="/dashboard">
-                <label for='years'>Select a Year</label>
+                <label for='years'>Filter the Dashboard</label>
+                <br>
                     <select name='years' >
                         <option value="All" class="year">All Years</option>
                         {% for year in years_list %}
                             <option value={{year}} class="year">{{year}}</option>
                         {%endfor%}
+                    </select>
+                    <select name='missed'>
+                        <option value="both" class="missed">Both Missed & Found</option>
+                        <option value='found' class="missed">Found</option>
+                        <option value='missed' class="missed">Missed</option>
+                      
                     </select>
                     <input type="submit">
                         <!-- <input type="submit" value="All" name='years' class="year_selector">
@@ -30,13 +37,31 @@
                         <input type="submit" value={{year}} name="years" class="year_selector">
                     {%endfor%} -->
                 </form>
-        <h3>{{session['fname']}}'s <span id='year'>{{year}}</span> Info</h3>
+
+        {% if missed == None %}
+
+            <h3>{{session['fname']}}'s <span id='year'>{{year}}</span> Years Info for <span id='missed'>Missed and Found Money</span></h3>
+
+        {% elif missed == 'both' %}
+
+            <h3>{{session['fname']}}'s <span id='year'>{{year}}</span> Years Info for <span id='missed'>Missed and Found Money</span></h3>
+
+        {% elif missed == 'found' %}
+            <h3>{{session['fname']}}'s <span id='year'>{{year}}</span> Info for <span id='missed'>Found Money</span></h3>
+        
+        {% elif missed == 'missed' %}
+            <h3>{{session['fname']}}'s <span id='year'>{{year}}</span> Info for <span id='missed'>Missed Money</span></h3>
+        {% endif %}
+
         <br>
         Grand Total: {{ "$%.2f"|format(total_found + total_missed)}}
         <br>
         You Found: {{ "$%.2f"|format(total_found) }} 
         <br>
         You Missed: {{ "$%.2f"|format(total_missed) }}
+
+        <!-- Grand total of  missed and found should be stand outy at the top of dashboard and then the below stuff will filter by missed/year -->
+        
         <br>
         A daily Average: {{ "$%.3f"|format(day_avg) }}
         <br>

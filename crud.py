@@ -51,11 +51,25 @@ def total_money(user_email, year):
 
     return {'Total_Found': total_found, "Total_Missed": total_missed}
 
-def daily_average(user_email, year):
-    if year == 'All':
+def daily_average(user_email, year, missed):
+    miss = True
+    if missed == 'found':
+        miss = False
+
+    if year == 'All' and missed == 'both':
         all_user_results = Monies.query.filter_by(email = user_email).all()
-    else:
+    elif year == 'All' and miss ==True:
+        all_user_results = Monies.query.filter_by(email = user_email, missed=True).all()
+    elif year == 'All' and miss == False:
+        all_user_results = Monies.query.filter_by(email = user_email, missed=False).all()
+    elif year !='All' and missed == 'both':  
         all_user_results = Monies.query.filter_by(email = user_email).filter(extract('year', Monies.date)==year).all()
+    elif year !='All' and miss==True:    
+        all_user_results = Monies.query.filter_by(email = user_email, missed=True).filter(extract('year', Monies.date)==year).all()
+    elif year != 'All' and miss ==False:
+        all_user_results = Monies.query.filter_by(email = user_email, missed=False).filter(extract('year', Monies.date)==year).all()
+
+
     total = 0
     unique_days = []
     for elem in all_user_results:
@@ -71,20 +85,33 @@ def daily_average(user_email, year):
     #returns total divided by the difference between the  min date and today's date +1.  Need +1 b/c ex: 11/4-11/1 = 3 in timedelta, but it's actually 4 days
     return round((total / days_for_avg), 3)
 
-def most_freq_money_and_year(user_email, year):
-    if year == 'All':
+def most_freq_money_and_year(user_email, year, missed):
+    miss = True
+    if missed == 'found':
+        miss = False
+
+    if year == 'All' and missed == 'both':
         all_user_results = Monies.query.filter_by(email = user_email).all()
-    else:
+    elif year == 'All' and miss ==True:
+        all_user_results = Monies.query.filter_by(email = user_email, missed=True).all()
+    elif year == 'All' and miss == False:
+        all_user_results = Monies.query.filter_by(email = user_email, missed=False).all()
+    elif year !='All' and missed == 'both':  
         all_user_results = Monies.query.filter_by(email = user_email).filter(extract('year', Monies.date)==year).all()
+    elif year !='All' and miss==True:    
+        all_user_results = Monies.query.filter_by(email = user_email, missed=True).filter(extract('year', Monies.date)==year).all()
+    elif year != 'All' and miss ==False:
+        all_user_results = Monies.query.filter_by(email = user_email, missed=False).filter(extract('year', Monies.date)==year).all()
 
     money_years = []
     money_type = []
     for elem in all_user_results:
         money_years.append(elem.money_year)
         money_type.append(elem.money_type)
-    #better to use this already made counter function, or build the dictionary myself to prove I know how...
+
     money_year_counter = Counter(money_years)
     money_type_counter = Counter(money_type)
+    
 
     max_year_found = [(v,k) for k,v in money_year_counter.items()]
     for item in max_year_found:
@@ -95,9 +122,21 @@ def most_freq_money_and_year(user_email, year):
     for item in max_type_found:
         if item[1] == None:
             max_type_found.remove(item)
-    
+
+    print(money_year_counter)
+    print(money_type_counter)
+
+    print(max_year_found)
+    print(max_type_found)
+
+
     if year == 2017:
-        max_yr_count,  max_money_yr, max_type_cnt, max_money_type = 'N/A','N/A','N/A','N/A'
+        max_yr_count,  max_money_yr, max_type_cnt, max_money_type ='N/A','N/A','N/A','N/A'
+
+    elif len(max_year_found) == 0:
+        max_yr_count,  max_money_yr = 'N/A','N/A'
+        max_type_cnt, max_money_type = max(max_type_found)[0], max(max_type_found)[1]
+
     else:
         max_yr_count,  max_money_yr, max_type_cnt, max_money_type = max(max_year_found)[0], max(max_year_found)[1], max(max_type_found)[0], max(max_type_found)[1]
 
@@ -105,11 +144,23 @@ def most_freq_money_and_year(user_email, year):
             'type_count': max_type_cnt, 'money_type': max_money_type}
 
 
-def most_freq_dow(user_email,year):
-    if year == 'All':
+def most_freq_dow(user_email,year, missed):
+    miss = True
+    if missed == 'found':
+        miss = False
+
+    if year == 'All' and missed == 'both':
         all_user_results = Monies.query.filter_by(email = user_email).all()
-    else:
+    elif year == 'All' and miss ==True:
+        all_user_results = Monies.query.filter_by(email = user_email, missed=True).all()
+    elif year == 'All' and miss == False:
+        all_user_results = Monies.query.filter_by(email = user_email, missed=False).all()
+    elif year !='All' and missed == 'both':  
         all_user_results = Monies.query.filter_by(email = user_email).filter(extract('year', Monies.date)==year).all()
+    elif year !='All' and miss==True:    
+        all_user_results = Monies.query.filter_by(email = user_email, missed=True).filter(extract('year', Monies.date)==year).all()
+    elif year != 'All' and miss ==False:
+        all_user_results = Monies.query.filter_by(email = user_email, missed=False).filter(extract('year', Monies.date)==year).all()
 
     dates = []
     for item in all_user_results:
@@ -157,7 +208,7 @@ def all_addresses(user_email):
     for address in all_user_results:
         addresses[i] = {'loc':address.locname,'addr':address.address, 'city':address.city,
                         'state':address.state, 'zip':address.zip, 'id':address.id, 'year':address.date.year,
-                        'amount':address.amount}
+                        'amount':address.amount, 'missed': address.missed}
         i+=1
     #print(addresses)
     return addresses
