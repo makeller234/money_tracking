@@ -31,7 +31,7 @@ def log_out():
 
 @app.route('/create_account', methods=['POST'])
 def create_account():
-    """Creates an account for the user after checking that one doesn't already exist
+    """Creates an account for the user, by adding them to the database, after checking that one doesn't already exist
     Then logs them in by saving their email to the session"""
 
     email = request.form.get('email').lower()
@@ -75,17 +75,13 @@ def login():
     else:
         session['email'] = email
         session['fname'] = user.fname
-        #flash(f'Welcome back, {user.fname} {user.lname}!')
 
         return render_template('coin_entry.html', first_name = session['fname'], API_KEY = API_KEY)
 
-@app.route('/return_coin_entry')
-def return_coin_entry():
-    return render_template('coin_entry.html', first_name = session['fname'], API_KEY = API_KEY)
-
 @app.route('/coin_entry', methods=['POST'])
 def coin_entry():
-    """Takes coin entry info and adds to db. Coverts the date to correct formatting"""
+    """Old way that does not use google places API, probably will delete this route"""
+    """Takes coin entry info and adds to database. Coverts the date to correct formatting"""
 
     date = request.form.get('date')
     #Check if date is empty and assign it today's date, format to YYYY-MM-DD
@@ -118,8 +114,10 @@ def coin_entry():
 
     return render_template('coin_entry.html', first_name = session['fname'], API_KEY = API_KEY)
 
+
 @app.route('/dashboard')
 def dashboard():
+    """Displays the user's information: basic stats, stacked bar graph, and a map of where the money was found"""
     year = request.args.get('years')
     missed = request.args.get('missed')
     if year == None:
@@ -135,8 +133,6 @@ def dashboard():
     money_deets = crud.most_freq_money_and_year(session['email'],year, missed)
     dow = crud.most_freq_dow(session['email'],year, missed)
     years_list = crud.years_list(session['email'])
-
-    
     
 
     return render_template('dashboard.html', day_avg = day_avg, total_found = total['Total_Found'],
@@ -147,6 +143,7 @@ def dashboard():
 
 @app.route('/places_api', methods =['POST'])
 def places_api():
+    """Allows the user to enter money information with an abreviated address and the places API will find the full address, minus zip code"""
 
     place = request.form.get('places_api')
     #place_plus = place.replace(' ', '+')
@@ -189,14 +186,18 @@ def places_api():
     crud.create_money_entry(email, date, amount, address, city, state, zip, locname, missed, money_year, money_type)
     flash("You've successfully added money, add some more?")
 
-
-
-
     return render_template('coin_entry.html', first_name = session['fname'], API_KEY=API_KEY)
+
+@app.route('/return_coin_entry')
+def return_coin_entry():
+    """A route that allows the user to get from the dashboard to the coin entry page"""
+
+    return render_template('coin_entry.html', first_name = session['fname'], API_KEY = API_KEY)
 
 
 @app.route('/data_by_user.json')
 def data_by_user():
+    """returns a json of the coint amounts by day by user"""
 
     totals_by_day = crud.daily_coin_amounts(session['email'])
 
@@ -204,12 +205,14 @@ def data_by_user():
 
 @app.route('/all_addreses.json')
 def all_user_addresses():
+    """Returns a json of coin information that is used for the map"""
     addresses = crud.all_addresses(session['email'])
 
     return jsonify({'data':addresses})
 
 @app.route('/coin_counts.json')
 def coin_counts():
+    """Returns a json that is only used in the Polar Graph"""
     coins = crud.coin_polar(session['email'])
 
     return jsonify({'data': coins})

@@ -23,6 +23,7 @@ def get_user_by_email(email):
     return User.query.get(email)
 
 def create_money_entry(email, date, amount, address, city, state, zip, locname, missed, money_year, money_type):
+    """Adds the money entry to the database for that user"""
 
     money = Monies(email=email, date=date, amount=amount, address=address, city=city, state=state, zip=zip,
                     locname=locname, missed=missed, money_year=money_year, money_type=money_type)
@@ -52,6 +53,8 @@ def total_money(user_email, year):
     return {'Total_Found': total_found, "Total_Missed": total_missed}
 
 def daily_average(user_email, year, missed):
+    """Takes in 3 parameters, email, year and if the money was missed, found or both.
+    Returns an average based on the year and missed status"""
     miss = True
     if missed == 'found':
         miss = False
@@ -86,6 +89,8 @@ def daily_average(user_email, year, missed):
     return round((total / days_for_avg), 3)
 
 def most_freq_money_and_year(user_email, year, missed):
+    """Takes in 3 parameters, email, year and if the money was missed, found or both.
+    Returns the most frequent occurance for money year and moeny type based on the year and missed status"""
     miss = True
     if missed == 'found':
         miss = False
@@ -145,6 +150,9 @@ def most_freq_money_and_year(user_email, year, missed):
 
 
 def most_freq_dow(user_email,year, missed):
+    """Takes in 3 parameters, email, year and if the money was missed, found or both.
+    Returns the most frequent day of the week based on the year and missed status"""
+
     miss = True
     if missed == 'found':
         miss = False
@@ -174,6 +182,7 @@ def most_freq_dow(user_email,year, missed):
     return dow
     
 def daily_coin_amounts(user_email):
+    """takes in the user email and returns a diction with the years as keys and the values as a dictionary which contains the money found on those specific days of the week"""
   
     all_user_results = Monies.query.filter_by(email = user_email).all()
 
@@ -201,7 +210,8 @@ def daily_coin_amounts(user_email):
     return dict_by_year_dow
 
 def all_addresses(user_email):
-    #all_user_addresses = Monies.query.with_entities(Monies.locname, Monies.address, Monies.city, Monies.state, Monies.zip, Monies.id, Monies.date).filter_by(email=user_email).all()
+    """Returns a dictionary with an arbitrary key and has the value of another dictionary with information needed to populate the maps graph"""
+
     all_user_results = Monies.query.filter_by(email=user_email).all()
     addresses = {}
     i = 0
@@ -214,6 +224,7 @@ def all_addresses(user_email):
     return addresses
 
 def coin_polar(user_email):
+    """Takes in a users email and returns a dictionary that has a count of the coin types"""
     all_user_coins = Monies.query.filter_by(email=user_email).all()
     coin_list = []
     for item in all_user_coins:
@@ -223,6 +234,7 @@ def coin_polar(user_email):
     return coin_counts
 
 def years_list(user_email):
+    """returns a unique list of all the years in the database, given a specific user"""
     all_user_results = Monies.query.filter_by(email=user_email).all()
     years_list = []
     for result in all_user_results:
