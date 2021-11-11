@@ -5,6 +5,8 @@ from model import connect_to_db
 from jinja2 import StrictUndefined
 import os
 import crud
+import requests, json
+
 
 app = Flask(__name__)
 app.secret_key = 'picklesaretastey'
@@ -53,7 +55,7 @@ def create_account():
         new_user = crud.create_user(email, first_name, last_name, password)
         session['email'] = email
         session['fname'] = new_user.fname
-        return render_template('coin_entry.html', first_name = session['fname'])
+        return render_template('coin_entry.html', first_name = session['fname'], API_KEY=API_KEY)
 
 @app.route('/user_login', methods=['POST'])
 def login():
@@ -75,7 +77,11 @@ def login():
         session['fname'] = user.fname
         #flash(f'Welcome back, {user.fname} {user.lname}!')
 
-        return render_template('coin_entry.html', first_name = session['fname'])
+        return render_template('coin_entry.html', first_name = session['fname'], API_KEY = API_KEY)
+
+@app.route('/return_coin_entry')
+def return_coin_entry():
+    return render_template('coin_entry.html', first_name = session['fname'], API_KEY = API_KEY)
 
 @app.route('/coin_entry', methods=['POST'])
 def coin_entry():
@@ -110,7 +116,7 @@ def coin_entry():
     crud.create_money_entry(email, date, amount, address, city, state, zip, locname, missed, money_year, money_type)
     flash("You've successfully added money, add some more?")
 
-    return render_template('coin_entry.html', first_name = session['fname'])
+    return render_template('coin_entry.html', first_name = session['fname'], API_KEY = API_KEY)
 
 @app.route('/dashboard')
 def dashboard():
@@ -138,6 +144,26 @@ def dashboard():
                                             money_type = money_deets['money_type'], dow = dow, API_KEY=API_KEY,
                                             years_list = years_list, year = year)
 
+@app.route('/places_api')
+def places_api():
+
+    place = request.args.get('places_api')
+    place_plus = place.replace(' ', '+')
+    place_percent = place.replace(' ', '%20')
+  
+    places_url = f'https://maps.googleapis.com/maps/api/place/autocomplete/json?input={place_plus}&key={API_KEY}'
+    query_url = f'https://maps.googleapis.com/maps/api/place/queryautocomplete/json?input={place_percent}&key={API_KEY}'
+
+    payload = {}
+    headers = {}
+
+    response = requests.request('GET', query_url, headers=headers, data=payload)
+    test = json.loads(response.text)
+    print(test)
+    #message = response.text['predictions']['description']
+
+    return render_template('coin_entry.html', first_name = session['fname'], API_KEY=API_KEY)
+
 
 @app.route('/data_by_user.json')
 def data_by_user():
@@ -157,6 +183,8 @@ def coin_counts():
     coins = crud.coin_polar(session['email'])
 
     return jsonify({'data': coins})
+
+
 
 if __name__ == "__main__":
     connect_to_db(app)
