@@ -122,9 +122,7 @@ function coinMap(){
             }
         }
         
-        console.log(most_rec_entry);
         $.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${most_rec_entry['addr']},${most_rec_entry['city']},${most_rec_entry['state']}&key=AIzaSyCUeZby2DFNDpmdijQONTq4yfhsDknpD3I`, loc_res =>{
-            console.log(loc_res.results[0].geometry.location);
 
             const marker = new google.maps.Marker({
                 position: loc_res.results[0].geometry.location,
@@ -138,7 +136,9 @@ function coinMap(){
                     },
                 },
             })
-            const markerInfo = `<h6>${marker.title}</h6>`;
+            const markerInfo = `<h6>Last Location</h6>
+                                <p>${marker.title}</p>
+                                <p>Amount : ${formatter.format(most_rec_entry['amount'])}</p>`;
 
             const infoWindow = new google.maps.InfoWindow({
             content:markerInfo,
@@ -148,6 +148,7 @@ function coinMap(){
             infoWindow.open(coinMap, marker);
             });
 
+            coinMap.setCenter(loc_res.results[0].geometry.location);
         })
     })
     
