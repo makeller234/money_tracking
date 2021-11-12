@@ -5,8 +5,6 @@ from collections import Counter #counter takes in a list and returns a dictionar
 import calendar
 from datetime import date, datetime
 
-from server import all_user_addresses
-
 
 def create_user(email, fname, lname, password):
     """Creates and returns a new user"""
@@ -193,7 +191,7 @@ def most_freq_dow(user_email,year, missed):
     #     all_user_results = Monies.query.filter_by(email = user_email, missed=True).filter(extract('year', Monies.date)==year).all()
     # elif year != 'All' and miss ==False:
     #     all_user_results = Monies.query.filter_by(email = user_email, missed=False).filter(extract('year', Monies.date)==year).all()
-    
+
     all_user_results = user_query_filters(user_email, year, missed)
 
     dates = []
@@ -211,27 +209,76 @@ def daily_coin_amounts(user_email):
     """takes in the user email and returns a diction with the years as keys and the values as a dictionary which contains the money found on those specific days of the week"""
   
     #all_user_results = Monies.query.filter_by(email = user_email).all()
+    # all_user_results = user_query(user_email)
+
+    # dict_by_year_dow = {}
+    
+    # for result in all_user_results:
+    #     dict_by_year_dow[result.date.year] = dict_by_year_dow.get(result.date.year, 0)
+
+    # # 0=Monday, 6=Sunday
+    # totals_by_day = {0:{}, 1:{}, 2:{}, 3:{}, 4:{}, 5:{}, 6:{}}
+    # for key in dict_by_year_dow.keys():
+ 
+    #     for item in all_user_results:
+
+    #         if key == item.date.year:
+               
+    #             coins_found_on = totals_by_day[item.date.weekday()]
+    #             coins_found_on[item.money_type] = coins_found_on.get(item.money_type, 0) + float(item.amount)
+
+    #     dict_by_year_dow[key] = totals_by_day
+    #     totals_by_day = {0:{}, 1:{}, 2:{}, 3:{}, 4:{}, 5:{}, 6:{}}
+
+
+    # return dict_by_year_dow
+
     all_user_results = user_query(user_email)
+    print(all_user_results)
 
     dict_by_year_dow = {}
     
-    
     for result in all_user_results:
         dict_by_year_dow[result.date.year] = dict_by_year_dow.get(result.date.year, 0)
-
+    
+    missed = {'missed':{}, 'found':{}}
     # 0=Monday, 6=Sunday
-    totals_by_day = {0:{}, 1:{}, 2:{}, 3:{}, 4:{}, 5:{}, 6:{}}
+    totals_by_day = {0:missed, 1:missed, 2:missed, 3:missed, 4:missed, 5:missed, 6:missed}
+
+    #print(totals_by_day[0]['found'])
+    # missed = {'missed':{}, 'found':{}}
+    # totals_by_day = {0:{}, 1:{}, 2:{}, 3:{}, 4:{}, 5:{}, 6:{}}
     for key in dict_by_year_dow.keys():
- 
+        # print('KEY')
+        # print(key)
         for item in all_user_results:
-
-            if key == item.date.year:
+            # print('ITEM')
+            # print(item, item.date.year)
+            if key == item.date.year and item.missed == True:
+                missed['missed'] = totals_by_day[item.date.weekday()] #maybe this line and line 261 need to be combined somehow....
+                print('********* totals_by_day[item.date.weekday()]["missed"] *******')
+                print(totals_by_day[item.date.weekday()]['missed'])
+                missed['missed'][item.money_type] = missed['missed'].get(item.money_type, 0) + float(item.amount)
+                #print(missed)
+                # coins_found_on = totals_by_day[item.date.weekday()]
+                # print(coins_found_on)
+                # coins_found_on[item.money_type] = coins_found_on.get(item.money_type, 0) + float(item.amount)
+            elif key == item.date.year and item.missed == False:
+                
+                print(totals_by_day[item.date.weekday()])
+                missed['found'] = totals_by_day[item.date.weekday()]
+                missed['found'][item.money_type] = missed['found'].get(item.money_type, 0) + float(item.amount)
+                # print('MISSED found money type')
+                # print(missed['found'][item.money_type])
                
-                coins_found_on = totals_by_day[item.date.weekday()]
-                coins_found_on[item.money_type] = coins_found_on.get(item.money_type, 0) + float(item.amount)
 
+        #dict_by_year_dow[key] = totals_by_day
+        totals_by_day[item.date.weekday()] = missed
+        # print('TOTALS BY DAY')
+        # print(totals_by_day)
         dict_by_year_dow[key] = totals_by_day
         totals_by_day = {0:{}, 1:{}, 2:{}, 3:{}, 4:{}, 5:{}, 6:{}}
+        missed = {'missed':{}, 'found':{}}
 
 
     return dict_by_year_dow
