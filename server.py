@@ -3,7 +3,7 @@ from datetime import datetime
 from flask import Flask, render_template, request, flash, session, redirect, jsonify
 from model import connect_to_db
 from jinja2 import StrictUndefined
-import os
+import os, re
 import crud
 import requests, json
 
@@ -37,18 +37,23 @@ def create_account():
     email = request.form.get('email').lower()
     first_name = request.form.get('fname')
     last_name = request.form.get('lname')
-
-    #logic here to have user create "strong" password
-    # if symbol not in passowrd: message
-    #elif capital not in password: message
-    #elif lower not in password: message
-    #elis number not in password: message
     password = request.form.get('password')
 
+    pass_criteria = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,18}$"
+    pass_crit_compiled = re.compile(pass_criteria)
+    pass_crit_bool = re.search(pass_crit_compiled, password)
+    #pass_crit_bool will be True is valid password and False if not
+
+
+    
     user = crud.get_user_by_email(email)
 
     if user:
         flash(f'{email} is already associated with an account. Please log in')
+        return redirect('/')
+
+    elif not pass_crit_bool:
+        flash('Not a valid password, please try again')
         return redirect('/')
         
     else:

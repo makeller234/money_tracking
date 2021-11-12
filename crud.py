@@ -128,13 +128,6 @@ def most_freq_money_and_year(user_email, year, missed):
         if item[1] == None:
             max_type_found.remove(item)
 
-    print(money_year_counter)
-    print(money_type_counter)
-
-    print(max_year_found)
-    print(max_type_found)
-
-
     if year == 2017:
         max_yr_count,  max_money_yr, max_type_cnt, max_money_type ='N/A','N/A','N/A','N/A'
 
