@@ -5,6 +5,8 @@ from collections import Counter #counter takes in a list and returns a dictionar
 import calendar
 from datetime import date, datetime
 
+from server import all_user_addresses
+
 
 def create_user(email, fname, lname, password):
     """Creates and returns a new user"""
@@ -33,7 +35,32 @@ def create_money_entry(email, date, amount, address, city, state, zip, locname, 
 
     return money
 
-#def total_money(user_email):
+def user_query(user_email):
+    """Queries the Monies table to get all the information from the user assocaited with user_email"""
+
+    return Monies.query.filter_by(email=user_email).all()
+    
+def user_query_filters(user_email, year, missed):
+    """Queries the Monies table to get all the information from the user associated with user_email and filters on year and missed status"""
+    miss = True
+    if missed == 'found':
+        miss = False
+
+    if year == 'All' and missed == 'both':
+        all_user_results = Monies.query.filter_by(email = user_email).all()
+    elif year == 'All' and miss ==True:
+        all_user_results = Monies.query.filter_by(email = user_email, missed=True).all()
+    elif year == 'All' and miss == False:
+        all_user_results = Monies.query.filter_by(email = user_email, missed=False).all()
+    elif year !='All' and missed == 'both':  
+        all_user_results = Monies.query.filter_by(email = user_email).filter(extract('year', Monies.date)==year).all()
+    elif year !='All' and miss==True:    
+        all_user_results = Monies.query.filter_by(email = user_email, missed=True).filter(extract('year', Monies.date)==year).all()
+    elif year != 'All' and miss ==False:
+        all_user_results = Monies.query.filter_by(email = user_email, missed=False).filter(extract('year', Monies.date)==year).all()
+
+    return all_user_results
+
 def total_money(user_email, year): 
     """takes in 2 parameters, email and year, and returns the total money found and missed for that user in that year"""
 
@@ -55,22 +82,24 @@ def total_money(user_email, year):
 def daily_average(user_email, year, missed):
     """Takes in 3 parameters, email, year and if the money was missed, found or both.
     Returns an average based on the year and missed status"""
-    miss = True
-    if missed == 'found':
-        miss = False
+    # miss = True
+    # if missed == 'found':
+    #     miss = False
 
-    if year == 'All' and missed == 'both':
-        all_user_results = Monies.query.filter_by(email = user_email).all()
-    elif year == 'All' and miss ==True:
-        all_user_results = Monies.query.filter_by(email = user_email, missed=True).all()
-    elif year == 'All' and miss == False:
-        all_user_results = Monies.query.filter_by(email = user_email, missed=False).all()
-    elif year !='All' and missed == 'both':  
-        all_user_results = Monies.query.filter_by(email = user_email).filter(extract('year', Monies.date)==year).all()
-    elif year !='All' and miss==True:    
-        all_user_results = Monies.query.filter_by(email = user_email, missed=True).filter(extract('year', Monies.date)==year).all()
-    elif year != 'All' and miss ==False:
-        all_user_results = Monies.query.filter_by(email = user_email, missed=False).filter(extract('year', Monies.date)==year).all()
+    # if year == 'All' and missed == 'both':
+    #     all_user_results = Monies.query.filter_by(email = user_email).all()
+    # elif year == 'All' and miss ==True:
+    #     all_user_results = Monies.query.filter_by(email = user_email, missed=True).all()
+    # elif year == 'All' and miss == False:
+    #     all_user_results = Monies.query.filter_by(email = user_email, missed=False).all()
+    # elif year !='All' and missed == 'both':  
+    #     all_user_results = Monies.query.filter_by(email = user_email).filter(extract('year', Monies.date)==year).all()
+    # elif year !='All' and miss==True:    
+    #     all_user_results = Monies.query.filter_by(email = user_email, missed=True).filter(extract('year', Monies.date)==year).all()
+    # elif year != 'All' and miss ==False:
+    #     all_user_results = Monies.query.filter_by(email = user_email, missed=False).filter(extract('year', Monies.date)==year).all()
+
+    all_user_results = user_query_filters(user_email, year, missed)
 
 
     total = 0
@@ -91,22 +120,24 @@ def daily_average(user_email, year, missed):
 def most_freq_money_and_year(user_email, year, missed):
     """Takes in 3 parameters, email, year and if the money was missed, found or both.
     Returns the most frequent occurance for money year and moeny type based on the year and missed status"""
-    miss = True
-    if missed == 'found':
-        miss = False
+    # miss = True
+    # if missed == 'found':
+    #     miss = False
 
-    if year == 'All' and missed == 'both':
-        all_user_results = Monies.query.filter_by(email = user_email).all()
-    elif year == 'All' and miss ==True:
-        all_user_results = Monies.query.filter_by(email = user_email, missed=True).all()
-    elif year == 'All' and miss == False:
-        all_user_results = Monies.query.filter_by(email = user_email, missed=False).all()
-    elif year !='All' and missed == 'both':  
-        all_user_results = Monies.query.filter_by(email = user_email).filter(extract('year', Monies.date)==year).all()
-    elif year !='All' and miss==True:    
-        all_user_results = Monies.query.filter_by(email = user_email, missed=True).filter(extract('year', Monies.date)==year).all()
-    elif year != 'All' and miss ==False:
-        all_user_results = Monies.query.filter_by(email = user_email, missed=False).filter(extract('year', Monies.date)==year).all()
+    # if year == 'All' and missed == 'both':
+    #     all_user_results = Monies.query.filter_by(email = user_email).all()
+    # elif year == 'All' and miss ==True:
+    #     all_user_results = Monies.query.filter_by(email = user_email, missed=True).all()
+    # elif year == 'All' and miss == False:
+    #     all_user_results = Monies.query.filter_by(email = user_email, missed=False).all()
+    # elif year !='All' and missed == 'both':  
+    #     all_user_results = Monies.query.filter_by(email = user_email).filter(extract('year', Monies.date)==year).all()
+    # elif year !='All' and miss==True:    
+    #     all_user_results = Monies.query.filter_by(email = user_email, missed=True).filter(extract('year', Monies.date)==year).all()
+    # elif year != 'All' and miss ==False:
+    #     all_user_results = Monies.query.filter_by(email = user_email, missed=False).filter(extract('year', Monies.date)==year).all()
+
+    all_user_results = user_query_filters(user_email, year, missed)
 
     money_years = []
     money_type = []
@@ -146,22 +177,24 @@ def most_freq_dow(user_email,year, missed):
     """Takes in 3 parameters, email, year and if the money was missed, found or both.
     Returns the most frequent day of the week based on the year and missed status"""
 
-    miss = True
-    if missed == 'found':
-        miss = False
+    # miss = True
+    # if missed == 'found':
+    #     miss = False
 
-    if year == 'All' and missed == 'both':
-        all_user_results = Monies.query.filter_by(email = user_email).all()
-    elif year == 'All' and miss ==True:
-        all_user_results = Monies.query.filter_by(email = user_email, missed=True).all()
-    elif year == 'All' and miss == False:
-        all_user_results = Monies.query.filter_by(email = user_email, missed=False).all()
-    elif year !='All' and missed == 'both':  
-        all_user_results = Monies.query.filter_by(email = user_email).filter(extract('year', Monies.date)==year).all()
-    elif year !='All' and miss==True:    
-        all_user_results = Monies.query.filter_by(email = user_email, missed=True).filter(extract('year', Monies.date)==year).all()
-    elif year != 'All' and miss ==False:
-        all_user_results = Monies.query.filter_by(email = user_email, missed=False).filter(extract('year', Monies.date)==year).all()
+    # if year == 'All' and missed == 'both':
+    #     all_user_results = Monies.query.filter_by(email = user_email).all()
+    # elif year == 'All' and miss ==True:
+    #     all_user_results = Monies.query.filter_by(email = user_email, missed=True).all()
+    # elif year == 'All' and miss == False:
+    #     all_user_results = Monies.query.filter_by(email = user_email, missed=False).all()
+    # elif year !='All' and missed == 'both':  
+    #     all_user_results = Monies.query.filter_by(email = user_email).filter(extract('year', Monies.date)==year).all()
+    # elif year !='All' and miss==True:    
+    #     all_user_results = Monies.query.filter_by(email = user_email, missed=True).filter(extract('year', Monies.date)==year).all()
+    # elif year != 'All' and miss ==False:
+    #     all_user_results = Monies.query.filter_by(email = user_email, missed=False).filter(extract('year', Monies.date)==year).all()
+    
+    all_user_results = user_query_filters(user_email, year, missed)
 
     dates = []
     for item in all_user_results:
@@ -177,7 +210,8 @@ def most_freq_dow(user_email,year, missed):
 def daily_coin_amounts(user_email):
     """takes in the user email and returns a diction with the years as keys and the values as a dictionary which contains the money found on those specific days of the week"""
   
-    all_user_results = Monies.query.filter_by(email = user_email).all()
+    #all_user_results = Monies.query.filter_by(email = user_email).all()
+    all_user_results = user_query(user_email)
 
     dict_by_year_dow = {}
     
@@ -205,7 +239,9 @@ def daily_coin_amounts(user_email):
 def all_addresses(user_email):
     """Returns a dictionary with an arbitrary key and has the value of another dictionary with information needed to populate the maps graph"""
 
-    all_user_results = Monies.query.filter_by(email=user_email).all()
+    #all_user_results = Monies.query.filter_by(email=user_email).all()
+    all_user_results = user_query(user_email)
+    
     addresses = {}
     i = 0
     for address in all_user_results:
@@ -218,7 +254,9 @@ def all_addresses(user_email):
 
 def coin_polar(user_email):
     """Takes in a users email and returns a dictionary that has a count of the coin types"""
-    all_user_coins = Monies.query.filter_by(email=user_email).all()
+    #all_user_coins = Monies.query.filter_by(email=user_email).all()
+    all_user_coins = user_query(user_email)
+
     coin_list = []
     for item in all_user_coins:
         coin_list.append(item.money_type)
@@ -228,7 +266,9 @@ def coin_polar(user_email):
 
 def years_list(user_email):
     """returns a unique list of all the years in the database, given a specific user"""
-    all_user_results = Monies.query.filter_by(email=user_email).all()
+    # all_user_results = Monies.query.filter_by(email=user_email).all()
+    all_user_results = user_query(user_email)
+
     years_list = []
     for result in all_user_results:
         if result.date.year not in years_list:

@@ -39,13 +39,12 @@ def create_account():
     last_name = request.form.get('lname')
     password = request.form.get('password')
 
-    pass_criteria = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,18}$"
+    #Sets up regex search for any lower case character, upper case character, any digit and any symbol that's in the final list of the pass_criteria.
+    pass_criteria = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])"
     pass_crit_compiled = re.compile(pass_criteria)
     pass_crit_bool = re.search(pass_crit_compiled, password)
     #pass_crit_bool will be True is valid password and False if not
 
-
-    
     user = crud.get_user_by_email(email)
 
     if user:
@@ -55,7 +54,7 @@ def create_account():
     elif not pass_crit_bool:
         flash('Not a valid password, please try again')
         return redirect('/')
-        
+
     else:
         new_user = crud.create_user(email, first_name, last_name, password)
         session['email'] = email

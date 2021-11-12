@@ -98,24 +98,9 @@ function initMap() {
             })  
 
         }
-
-        // else{
-        //     for (const elem in res_data){
-        //         if (res_data[elem].year==year){
-        //             res_data_filtered.push(res_data[elem]);
-        //         }
-        //     }
-        //     res_data = res_data_filtered
-        //     grouped_by_address = _.groupBy(res_data, function(address){
-        //         return address.addr
-        //     })   
-        // }
     
         for (const [key, value] of Object.entries(grouped_by_address)) {
 
-           // console.log(grouped_by_address);
-            // console.log(key);
-            // console.log(value);
             
              let amount = 0;
             if (key !== 'null'){
@@ -129,8 +114,7 @@ function initMap() {
                     amount += parseFloat(item['amount']);
                     locName = item['loc'];
                 }
-                // console.log(locName);
-                //console.log(amount);
+
                 
                 //need to use the  "/ /g" to replace all the spaces with +, otherwise it just does the first space
                 addr = addr.replace(/ /g, '+');
@@ -152,7 +136,7 @@ function initMap() {
                         })
                     
                         const markerInfo = `<h6>${marker.title}</h6>
-                                               <p>Total found at this location: ${formatter.format(amount)}</p>`;
+                                               <p>Total ${missed} at this location: ${formatter.format(amount)}</p>`;
 
                         const infoWindow = new google.maps.InfoWindow({
                             content:markerInfo,
