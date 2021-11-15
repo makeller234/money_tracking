@@ -32,7 +32,8 @@ def log_out():
 @app.route('/create_account', methods=['POST'])
 def create_account():
     """Creates an account for the user, by adding them to the database, after checking that one doesn't already exist
-    Then logs them in by saving their email to the session"""
+    Then logs them in by saving their email to the session. Also checks if the password contains an upper and lower case letter, number and symbol.
+    If log in is successful, the user is routed to the coin entry page."""
 
     email = request.form.get('email').lower()
     first_name = request.form.get('fname')
@@ -64,7 +65,7 @@ def create_account():
 @app.route('/user_login', methods=['POST'])
 def login():
     """Uses the user's email and password to log them in.
-    Gives message if info is incorrect and stores email as session if logged in successfully"""
+    Gives message if info is incorrect and stores email as session if logged in successfully. Then routes the ser to the coin entry page"""
 
     email = request.form.get('email').lower()
     password = request.form.get('password')
@@ -82,46 +83,46 @@ def login():
 
         return render_template('coin_entry.html', first_name = session['fname'], API_KEY = API_KEY)
 
-@app.route('/coin_entry', methods=['POST'])
-def coin_entry():
-    """Old way that does not use google places API, probably will delete this route"""
-    """Takes coin entry info and adds to database. Coverts the date to correct formatting"""
+# @app.route('/coin_entry', methods=['POST'])
+# def coin_entry():
+#     """Old way that does not use google places API, probably will delete this route"""
+#     """Takes coin entry info and adds to database. Coverts the date to correct formatting"""
 
-    date = request.form.get('date')
-    #Check if date is empty and assign it today's date, format to YYYY-MM-DD
-    #If it isn't blank, format it to correct format
-    if date == '':
-        d1 = datetime.today() #maybe this line can be combined with the line right below it
-        date = d1.strftime('%Y-%m-%d')
-    else:
-        date = datetime.strptime(date,'%Y-%m-%d')
+#     date = request.form.get('date')
+#     #Check if date is empty and assign it today's date, format to YYYY-MM-DD
+#     #If it isn't blank, format it to correct format
+#     if date == '':
+#         d1 = datetime.today() #maybe this line can be combined with the line right below it
+#         date = d1.strftime('%Y-%m-%d')
+#     else:
+#         date = datetime.strptime(date,'%Y-%m-%d')
 
 
-    email = session['email']
-    amount = request.form.get('amount')
-    address = request.form.get('address')
-    city = request.form.get('city')
-    state = request.form.get('state')
-    zip = request.form.get('zip')
-    locname = request.form.get('locname')
-    missed = request.form.get('missed')
-    if missed =='y':
-        missed = True
-    else:
-        missed = False
+#     email = session['email']
+#     amount = request.form.get('amount')
+#     address = request.form.get('address')
+#     city = request.form.get('city')
+#     state = request.form.get('state')
+#     zip = request.form.get('zip')
+#     locname = request.form.get('locname')
+#     missed = request.form.get('missed')
+#     if missed =='y':
+#         missed = True
+#     else:
+#         missed = False
 
-    money_year = request.form.get('money_year')
-    money_type = request.form.get('money_type')
+#     money_year = request.form.get('money_year')
+#     money_type = request.form.get('money_type')
 
-    crud.create_money_entry(email, date, amount, address, city, state, zip, locname, missed, money_year, money_type)
-    flash("You've successfully added money, add some more?")
+#     crud.create_money_entry(email, date, amount, address, city, state, zip, locname, missed, money_year, money_type)
+#     flash("You've successfully added money, add some more?")
 
-    return render_template('coin_entry.html', first_name = session['fname'], API_KEY = API_KEY)
+#     return render_template('coin_entry.html', first_name = session['fname'], API_KEY = API_KEY)
 
 
 @app.route('/dashboard')
 def dashboard():
-    """Displays the user's information: basic stats, stacked bar graph, and a map of where the money was found"""
+    """Displays the user's information: basic stats, stacked bar graph, and a map of where the money was found."""
     year = request.args.get('years')
     missed = request.args.get('missed')
     if year == None:
@@ -147,7 +148,8 @@ def dashboard():
 
 @app.route('/places_api', methods =['POST'])
 def places_api():
-    """Allows the user to enter money information with an abreviated address and the places API will find the full address, minus zip code"""
+    """Allows the user to enter money information with an abreviated address and the places API will find the full address, minus zip code.
+    The entry is then saved in the database."""
 
     place = request.form.get('places_api')
     #place_plus = place.replace(' ', '+')
@@ -201,7 +203,7 @@ def return_coin_entry():
 
 @app.route('/data_by_user.json')
 def data_by_user():
-    """returns a json of the coint amounts by day by user"""
+    """returns a json of the coin amounts by day by user"""
 
     totals_by_day = crud.daily_coin_amounts(session['email'])
 
