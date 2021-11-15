@@ -47,8 +47,8 @@ $.get('/data_by_user.json', res => {
   let data_dict_labels = [];
   const data_dict_labels_missed = [];
   const data_dict_labels_found = [];
-
-  
+  let data_dict = {'label':'','data':[], 'backgroundColor':''};
+  console.log(data_array_of_dicts);
 
   if(user_year !== 'All'){
     for (const json_year in res_data){
@@ -80,8 +80,7 @@ $.get('/data_by_user.json', res => {
       }
     }
 
-   
-  let data_dict = {'label':'','data':[], 'backgroundColor':''};
+  
   if (money_status === 'Missed and Found Money'){
     let money_status_combined = new Set(data_dict_labels_missed.concat(data_dict_labels_found));
     data_dict_labels = Array.from(money_status_combined);
@@ -98,11 +97,10 @@ $.get('/data_by_user.json', res => {
           data_array[j] += 0;
         }
   
-  
         else{
           for (const status in res_data[user_year][j]){
-            console.log('hello, else statment!?!?!')
-            console.log(res_data[user_year][j][status][money_type])
+            // console.log('hello, else statment!?!?!')
+            // console.log(res_data[user_year][j][status][money_type])
             if (res_data[user_year][j][status][money_type] === undefined){
               data_array[j] += 0;
             }
@@ -113,13 +111,12 @@ $.get('/data_by_user.json', res => {
           }
         }
       }
-      //console.log(data_array);
       data_dict['data'] = data_array;
       data_array_of_dicts.push(data_dict);
       data_dict = {'label':'','data':[], 'backgroundColor':''}
     }
-
    }
+
   else if (money_status === 'Found Money'){
     data_dict_labels = data_dict_labels_found;
     for (const money_type of data_dict_labels){
@@ -133,11 +130,8 @@ $.get('/data_by_user.json', res => {
           data_array[j] += 0;
         }
   
-  
         else{
-          
           data_array[j] += res_data[user_year][j]['found'][money_type]
-
         }
       }
 
@@ -146,6 +140,7 @@ $.get('/data_by_user.json', res => {
       data_dict = {'label':'','data':[], 'backgroundColor':''}
     }
   }
+
   else if (money_status === 'Missed Money'){
     data_dict_labels = data_dict_labels_missed;
     for (const money_type of data_dict_labels){
@@ -158,12 +153,9 @@ $.get('/data_by_user.json', res => {
         if ((Object.keys(res_data[user_year][j]['missed']).length === 0) || (!(money_type in res_data[user_year][j]['missed']))){
           data_array[j] += 0;
         }
-  
-  
         else{
-          console.log(res_data[user_year][j]['missed'][money_type])
+          
           data_array[j] += res_data[user_year][j]['missed'][money_type]
-
         }
       }
 
@@ -172,78 +164,143 @@ $.get('/data_by_user.json', res => {
       data_dict = {'label':'','data':[], 'backgroundColor':''}
     }
   }
-  console.log(data_dict_labels);
-
-  
-
-
-   
-
-  console.log(data_array_of_dicts);
-
-   //ORIGINAL PART
-    //data_dict set up this way because of structe of how data is needed for the graph
-    // let data_dict = {'label':'','data':[], 'backgroundColor':''}
-
-    // for (const i of data_dict_labels){
-    //   data_dict['label'] = i;
-    //   data_dict['backgroundColor'] = `rgb(${Math.random()*256},${Math.random()*256},${Math.random()*256})`;
-    //   const data_array = [];
-      
-    //   for (let j = 0; j<=6; j++){
-    //     console.log(res_data[user_year]);
-    //     if ((Object.keys(res_data[user_year][j]).length === 0) || (!(i in res_data[user_year][j]))){
-    //       data_array.push(0);
-    //     }
-
-    //     else{
-    //       data_array.push(res_data[user_year][j][i])
-    //     }
-    //   }
-
-    //   data_dict['data'] = data_array;
-    //   data_array_of_dicts.push(data_dict);
-    //   data_dict = {'label':'','data':[], 'backgroundColor':''}
-    // }
+  const data_array_of_dicts = [];
   }
+  //END of IF for specific year
   
-  else {  //potentially gonna need to be turned into more specific if else statment
-    for (const elem in res_data){
-          for (const el in res_data[elem]){
-            for (const e in res_data[elem][el]){
-              if (data_dict_labels.indexOf(e)=== -1){
-                data_dict_labels.push(e)
+  else if (user_year ==='All'){
+    for (const json_year in res_data){
+      for (const day_status_counts in res_data[json_year]){
+        for (const day_status in res_data[json_year][day_status_counts]){
+          if (day_status === 'missed'){
+            for (const item in res_data[json_year][day_status_counts][day_status]){
+              if (data_dict_labels_missed.indexOf(item)=== -1){
+                data_dict_labels_missed.push(item);
+              }
+            }
+          }
+          else if (day_status ==='found'){
+            for (const item in res_data[json_year][day_status_counts][day_status]){
+          
+              if (data_dict_labels_found.indexOf(item)=== -1){
+                data_dict_labels_found.push(item);
               }
             }
           }
         }
-        let data_dict = {'label':'','data':[], 'backgroundColor':''}
+      }
       
-        for (const i of data_dict_labels){
-          data_dict['label'] = i;
-          data_dict['backgroundColor'] = `rgb(${Math.random()*256},${Math.random()*256},${Math.random()*256})`;
-          let data_array = [0,0,0,0,0,0,0];
-          
-          for (const elem in res_data){
-            for (let j = 0; j<=6; j++){
-              if ((Object.keys(res_data[elem][j]).length === 0) || (!(i in res_data[elem][j]))){
+    }
+    // console.log(data_dict_labels_found);
+    // console.log(data_dict_labels_missed);
+    if (money_status ==='Missed and Found Money') { 
+      let money_status_combined = new Set(data_dict_labels_missed.concat(data_dict_labels_found));
+      data_dict_labels = Array.from(money_status_combined);
 
-                data_array[j] =data_array[j] + 0;
-              }
+      // let data_dict = {'label':'','data':[], 'backgroundColor':''}
         
-              else{
-                data_array[j] = data_array[j] + res_data[elem][j][i];
+      for (const money_type of data_dict_labels){
+
+        data_dict['label'] = money_type;
+        data_dict['backgroundColor'] = `rgb(${Math.random()*256},${Math.random()*256},${Math.random()*256})`;
+        let data_array = [0,0,0,0,0,0,0];
+        
+        for (const data_year in res_data){
+
+          for (let j = 0; j<=6; j++){
+            if (((Object.keys(res_data[data_year][j]['missed']).length === 0) && (Object.keys(res_data[data_year][j]['found']).length === 0))
+                && ((!(money_type in res_data[data_year][j]['missed'])) && (!(money_type in res_data[data_year][j]['found'])))){
+              data_array[j] += 0;
+            }
+            
+            else{
+              for (const status in res_data[data_year][j]){
+                
+                if (res_data[data_year][j][status][money_type] === undefined){
+                  data_array[j] += 0;
+        
+                }
+                else{
+                  data_array[j] += res_data[data_year][j][status][money_type];
+
+                }
               }
             }
           }
-      
+        }
+    
+        data_dict['data'] = data_array;
+        data_array_of_dicts.push(data_dict);
+        data_dict = {'label':'','data':[], 'backgroundColor':''}
+      }
+    }
+      // start if else for found here
+      else if(money_status === 'Found Money'){
+        data_dict_labels = data_dict_labels_found;
+
+        for (const money_type of data_dict_labels){
+          // console.log(money_type);
+          data_dict['label'] = money_type;
+          console.log(data_dict);
+          data_dict['backgroundColor'] = `rgb(${Math.random()*256},${Math.random()*256},${Math.random()*256})`;
+          let data_array = [0,0,0,0,0,0,0];
+
+          for (const data_year in res_data){
+            // console.log(data_year);
+            for (let j = 0; j<=6; j++){
+              // console.log(res_data[data_year][j]);
+              if ((Object.keys(res_data[data_year][j]['found']).length === 0) || (!(money_type in res_data[data_year][j]['found']))){
+                // console.log(res_data[data_year][j]['found']);
+                data_array[j] += 0;
+                // console.log(data_array);
+              }
+        
+              else{
+                
+                data_array[j] += res_data[data_year][j]['found'][money_type]
+                // console.log(data_array);
+              }
+            }
+            
+            
+          }
+          data_dict['data'] = data_array;
+          data_array_of_dicts.push(data_dict);
+          console.log(data_array_of_dicts);
+          data_dict = {'label':'','data':[], 'backgroundColor':''}
+        }
+
+      }
+      else if(money_status === 'Missed Money'){
+        data_dict_labels = data_dict_labels_found;
+
+        for (const money_type of data_dict_labels){
+          data_dict['label'] = money_type;
+          data_dict['backgroundColor'] = `rgb(${Math.random()*256},${Math.random()*256},${Math.random()*256})`;
+          let data_array = [0,0,0,0,0,0,0];
+
+          for (const data_year in res_data){
+            for (let j = 0; j<=6; j++){
+               
+              if ((Object.keys(res_data[data_year][j]['missed']).length === 0) || (!(money_type in res_data[data_year][j]['missed']))){
+                data_array[j] += 0;
+              }
+        
+              else{
+                data_array[j] += res_data[data_year][j]['missed'][money_type]
+              }
+            }
+
+          }
           data_dict['data'] = data_array;
           data_array_of_dicts.push(data_dict);
           data_dict = {'label':'','data':[], 'backgroundColor':''}
         }
+
+      }
+
   }
-
-
+  // console.log(data_array_of_dicts);
   //Graph DATA
     const data = {
         labels:labels,

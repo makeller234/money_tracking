@@ -261,12 +261,10 @@ def daily_coin_amounts(user_email):
     for key in dict_by_year_dow.keys():
 
         for item in all_user_results:
-
                     
             if key == item.date.year and item.missed == True:
 
                 totals_by_day[item.date.weekday()]['missed'][item.money_type] = totals_by_day[item.date.weekday()]['missed'].get(item.money_type, 0) + float(item.amount)
-
   
             elif key == item.date.year and item.missed == False:
                 
