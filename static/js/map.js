@@ -5,10 +5,7 @@ const markers = [];
 const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
-  
-    // These options are needed to round to whole numbers if that's what you want.
-    //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-    //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+
   });
 
 // map for dashboard
@@ -26,17 +23,17 @@ function initMap() {
         const year = $('#year').html();
 
         const res_data_filtered = [];
-        const missed = $('#missed').html();
+        const money_status = $('#missed').html();
 
 
-        if (year === 'All' && missed === 'Missed and Found Money'){
+        if (year === 'All' && money_status === 'Missed and Found Money'){
             res_data = res_data
             grouped_by_address = _.groupBy(res_data, function(address){
                 return address.addr
             })
  
         }
-        else if (year === 'All' && missed === 'Missed Money'){
+        else if (year === 'All' && money_status === 'Missed Money'){
             for (const elem in res_data){
                 if (res_data[elem].missed ==true){
                     res_data_filtered.push(res_data[elem]);
@@ -49,7 +46,7 @@ function initMap() {
 
 
         }
-        else if (year === 'All' && missed === 'Found Money'){
+        else if (year === 'All' && money_status === 'Found Money'){
             for (const elem in res_data){
                 if (res_data[elem].missed ==false){
                     res_data_filtered.push(res_data[elem]);
@@ -62,7 +59,7 @@ function initMap() {
 
         }
 
-        else if (year !== 'All' && missed === 'Missed and Found Money'){
+        else if (year !== 'All' && money_status === 'Missed and Found Money'){
             for (const elem in res_data){
                 if (res_data[elem].year==year){
                     res_data_filtered.push(res_data[elem]);
@@ -74,7 +71,7 @@ function initMap() {
             })  
 
         }
-        else if (year !== 'All' && missed === 'Missed Money'){
+        else if (year !== 'All' && money_status === 'Missed Money'){
             for (const elem in res_data){
                 if (res_data[elem].year==year && res_data[elem].missed ==true){
                     res_data_filtered.push(res_data[elem]);
@@ -86,7 +83,7 @@ function initMap() {
             })  
 
         }
-        else if (year !== 'All' && missed === 'Found Money'){
+        else if (year !== 'All' && money_status === 'Found Money'){
             for (const elem in res_data){
                 if (res_data[elem].year==year && res_data[elem].missed ==false){
                     res_data_filtered.push(res_data[elem]);
@@ -136,7 +133,7 @@ function initMap() {
                         })
                     
                         const markerInfo = `<h6>${marker.title}</h6>
-                                               <p>Total ${missed} at this location: ${formatter.format(amount)}</p>`;
+                                               <p>Total ${money_status} at this location: ${formatter.format(amount)}</p>`;
 
                         const infoWindow = new google.maps.InfoWindow({
                             content:markerInfo,
