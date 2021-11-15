@@ -157,15 +157,24 @@ def most_freq_money_and_year(user_email, year, missed):
         if item[1] == None:
             max_type_found.remove(item)
 
-    if year == 2017:
-        max_yr_count,  max_money_yr, max_type_cnt, max_money_type ='N/A','N/A','N/A','N/A'
+    # if year == 2017:
+    #     max_yr_count,  max_money_yr, max_type_cnt, max_money_type ='N/A','N/A','N/A','N/A'
 
-    elif len(max_year_found) == 0:
+    # elif len(max_year_found) == 0:
+    #     max_yr_count,  max_money_yr = 'N/A','N/A'
+    #     max_type_cnt, max_money_type = max(max_type_found)[0], max(max_type_found)[1]
+
+    # else:
+    #     max_yr_count,  max_money_yr, max_type_cnt, max_money_type = max(max_year_found)[0], max(max_year_found)[1], max(max_type_found)[0], max(max_type_found)[1]
+
+    if len(max_year_found) == 0:
         max_yr_count,  max_money_yr = 'N/A','N/A'
+    if len(max_type_found) == 0:
+        max_type_cnt, max_money_type = 'N/A','N/A'
+    if len(max_year_found) != 0:
+        max_yr_count,  max_money_yr  = max(max_year_found)[0], max(max_year_found)[1]
+    if len(max_type_found) !=0:
         max_type_cnt, max_money_type = max(max_type_found)[0], max(max_type_found)[1]
-
-    else:
-        max_yr_count,  max_money_yr, max_type_cnt, max_money_type = max(max_year_found)[0], max(max_year_found)[1], max(max_type_found)[0], max(max_type_found)[1]
 
     return {'year_count': max_yr_count, 'money_year': max_money_yr,
             'type_count': max_type_cnt, 'money_type': max_money_type}
@@ -199,11 +208,14 @@ def most_freq_dow(user_email,year, missed):
         dates.append(item.date.weekday())
     dow_counter = Counter(dates)
     max_dow = [(v,k) for k,v in dow_counter.items()]
-    for idx, val in enumerate(list(calendar.day_name)):
-        if idx == max(max_dow)[1]:
-            dow = val
+    if len(max_dow) == 0:
+        return 'N/A'
+    else:
+        for idx, val in enumerate(list(calendar.day_name)):
+            if idx == max(max_dow)[1]:
+                dow = val
 
-    return dow
+        return dow
     
 def daily_coin_amounts(user_email):
     """takes in the user email and returns a diction with the years as keys and the values as a dictionary which contains the money found on those specific days of the week"""
