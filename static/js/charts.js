@@ -99,15 +99,12 @@ $.get('/data_by_user.json', res => {
   
         else{
           for (const status in res_data[user_year][j]){
-            // console.log('hello, else statment!?!?!')
-            // console.log(res_data[user_year][j][status][money_type])
             if (res_data[user_year][j][status][money_type] === undefined){
               data_array[j] += 0;
             }
             else{
               data_array[j] += res_data[user_year][j][status][money_type];
             }
-            
           }
         }
       }
