@@ -260,7 +260,7 @@ def data_by_user():
 
 @app.route('/all_addreses.json')
 def all_user_addresses():
-    """Returns a json of coin information that is used for the map"""
+    """Returns a json of coin information that is used for the map and the update entry page"""
     addresses = crud.all_addresses(session['email'])
 
     return jsonify({'data':addresses})
