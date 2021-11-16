@@ -219,20 +219,87 @@ def daily_coin_amounts(user_email):
         totals_by_day = {0:{'missed':{}, 'found':{}}, 1:{'missed':{}, 'found':{}}, 2:{'missed':{}, 'found':{}}, 
                         3:{'missed':{}, 'found':{}}, 4:{'missed':{}, 'found':{}}, 5:{'missed':{}, 'found':{}}, 6:{'missed':{}, 'found':{}}}
         
-
     return dict_by_year_dow
+
+def update_date(entry_id, new_date):
+    """Takes in the ID from the Monies table and a date. Updates that entry in the table to have the new date."""
+
+    money_entry = Monies.query.get(entry_id)
+    money_entry.date = new_date
+    db.session.commit()
+
+    return money_entry
+
+def update_amount(entry_id, new_amount):
+    """Takes in the ID from the Monies table and an amount. Updates that entry in the table to have the new amount."""
+    money_entry = Monies.query.get(entry_id)
+    money_entry.amount = new_amount
+    db.session.commit()
+
+    return money_entry
+
+def update_address(entry_id, new_address):
+    money_entry = Monies.query.get(entry_id)
+    money_entry.address = new_address
+    db.session.commit()
+
+    return money_entry
+
+def update_city(entry_id, new_city):
+    money_entry = Monies.query.get(entry_id)
+    money_entry.city = new_city
+    db.session.commit()
+
+    return money_entry
+
+def update_state(entry_id, new_state):
+    money_entry = Monies.query.get(entry_id)
+    money_entry.state = new_state
+    db.session.commit()
+
+    return money_entry
+
+def update_locname(entry_id, new_locname):
+    money_entry = Monies.query.get(entry_id)
+    money_entry.locname = new_locname
+    db.session.commit()
+
+    return money_entry
+
+def update_missed(entry_id, new_missed):
+    money_entry = Monies.query.get(entry_id)
+    money_entry.missed = new_missed
+    db.session.commit()
+
+    return money_entry
+
+def update_money_year(entry_id, new_money_year):
+    money_entry = Monies.query.get(entry_id)
+    money_entry.money_year = new_money_year
+    db.session.commit()
+
+    return money_entry
+
+def update_money_type(entry_id, new_money_type):
+    money_entry = Monies.query.get(entry_id)
+    money_entry.money_type = new_money_type
+    db.session.commit()
+
+    return money_entry
 
 def all_addresses(user_email):
     """Returns a dictionary with an arbitrary key and has the value of another dictionary with information needed to populate the maps graph"""
 
     all_user_results = user_query(user_email)
-    
+    print(all_user_results[0].date)
+
     addresses = {}
     i = 0
     for address in all_user_results:
         addresses[i] = {'loc':address.locname,'addr':address.address, 'city':address.city,
                         'state':address.state, 'zip':address.zip, 'id':address.id, 'year':address.date.year,
-                        'amount':address.amount, 'missed': address.missed}
+                        'amount':address.amount, 'missed': address.missed, 'date':address.date,
+                        'money_year': address.money_year, 'money_type': address.money_type}
         i+=1
 
     return addresses
