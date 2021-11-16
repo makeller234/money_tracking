@@ -160,7 +160,7 @@ def places_api():
 
     response = requests.request('GET', query_url, headers={}, data={})
     res_json = json.loads(response.text)
-    #print(res_json['predictions'][0]['description'])
+
     addr_split = res_json['predictions'][0]['description'].split(", ") #space is necessary to eliminate the spaces from the words
 
     date = request.form.get('date')
@@ -193,6 +193,55 @@ def places_api():
     flash("You've successfully added money, add some more?")
 
     return render_template('coin_entry.html', first_name = session['fname'], API_KEY=API_KEY)
+
+@app.route('/return_update_entry')
+def return_update_entry():
+    data  = crud.all_addresses(session['email'])
+
+    return render_template('update_entry.html', data = data)
+
+
+@app.route('/update_entry', methods=['POST'])
+def update_monies_entry():
+    
+    if request.form.get('date') != '':
+        date = datetime.strptime(request.form.get('date'), '%Y-%m-%d')
+        crud.update_date(request.form.get('entry_id'), date)
+    
+    if request.form.get('amount') != '':
+        crud.update_amount(request.form.get('entry_id'), request.form.get('amount'))
+
+    if request.form.get('address') != '':
+        crud.update_address(request.form.get('entry_id'), request.form.get('address'))
+
+    if request.form.get('city') != '':
+        crud.update_city(request.form.get('entry_id'), request.form.get('city'))
+    
+    if request.form.get('state') != '':
+        crud.update_state(request.form.get('entry_id'), request.form.get('state'))
+    
+    if request.form.get('zipcode') != '':
+        crud.update_zipcode(request.form.get('entry_id'), request.form.get('zipcode'))
+
+    if request.form.get('locname') != '':
+        crud.update_locname(request.form.get('entry_id'), request.form.get('locname'))
+
+    if request.form.get('missed') != '':
+        missed = request.form.get('missed')
+        if missed =='y':
+         missed = True
+        else:
+            missed = False
+        crud.update_missed(request.form.get('entry_id'), missed)
+
+    if request.form.get('money_year') != '':
+        crud.update_money_year(request.form.get('entry_id'), request.form.get('money_year'))
+
+    if request.form.get('money_type') != '':
+        crud.update_money_type(request.form.get('entry_id'), request.form.get('money_type'))
+
+    data  = crud.all_addresses(session['email'])
+    return render_template('update_entry.html', data = data)
 
 @app.route('/return_coin_entry')
 def return_coin_entry():

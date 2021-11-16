@@ -1,69 +1,69 @@
-{% extends 'base.html'%}
+{% extends "base.html"%}
 {%block title%} Coin Entry {%endblock%}
 
 {% block head %}
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.1/underscore-umd-min.js'></script>
-    <script src='../static/js/map.js' type='text/javascript'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.1/underscore-umd-min.js"></script>
+    <script src="../static/js/map.js" type="text/javascript"></script>
     
     <script async defer src="https://maps.googleapis.com/maps/api/js?key={{API_KEY}}&callback=coinMap"></script>
     <!-- <script src="https://maps.googleapis.com/maps/api/js?key={{API_KEY}}&libraries=places"></script> -->
 {%endblock%}
 {% block body %}
-    <div class='container-fluid'>
-        <div class='row'>
-            <div class = 'col-12'>
+    <div class="container-fluid">
+        <div class="row">
+            <div class = "col-12">
                 <p>Hello, {{ first_name }}. Interested in logging some money today?</p>
             </div>
         </div>
-        <!-- <div class='row'>
-            <div class='col-12'>
+        <!-- <div class="row">
+            <div class="col-12">
                 <h1>Original Form</h1>
-                <form action ='/coin_entry' method='POST'>
-                    Date (Leave blank if today): <input type='date' name='date'></input>
-                    Amount: <input type='number' name='amount' step='0.001' min='0'></input>
-                    Address: <input type='text' name='address'></input>
-                    City: <input type='text' name='city'></input>
-                    State (2 digit abreviation): <input type='text' name='state'></input>
-                    Zip Code: <input type='number' name='zip'></input>
-                    Location Name: <input type='text' name='locname'></input>
-                    Missed: <input type='radio' name='missed' value='y'><label>Yes</label></input>
-                    <input type='radio' name='missed' value='n'><lable>No</lable></input>
-                    Money Year: <input type='number' name='money_year'></input>
-                    Money Type: <input type='text' name='money_type'></input>
+                <form action ="/coin_entry" method="POST">
+                    Date (Leave blank if today): <input type="date" name="date"></input>
+                    Amount: <input type="number" name="amount" step="0.001" min="0"></input>
+                    Address: <input type="text" name="address"></input>
+                    City: <input type="text" name="city"></input>
+                    State (2 digit abreviation): <input type="text" name="state"></input>
+                    Zip Code: <input type="number" name="zip"></input>
+                    Location Name: <input type="text" name="locname"></input>
+                    Missed: <input type="radio" name="missed" value="y"><label>Yes</label></input>
+                    <input type="radio" name="missed" value="n"><lable>No</lable></input>
+                    Money Year: <input type="number" name="money_year"></input>
+                    Money Type: <input type="text" name="money_type"></input>
                     <input type="submit">
                 </form>
             </div>
         </div> -->
-        <div class='row'>
-            <div class='col-12'>
-                <form action='places_api' method='POST'>
+        <div class="row">
+            <div class="col-12">
+                <form action="places_api" method="POST">
                     <h3>Testing Out Places API</h3>
-                    Date (Leave blank if today): <input type='date' name='date'></input>
-                    Amount: <input type='number' name='amount' step='0.001' min='0'></input>
-                    Address: <input type='text' name='places_api' id='places_api'></input>
-                    Location Name: <input type='text' name='locname'></input>
-                    Missed: <input type='radio' name='missed' value='y'><label>Yes</label></input>
-                    <input type='radio' name='missed' value='n'><lable>No</lable></input>
-                    Money Year: <input type='number' name='money_year'></input>
-                    Money Type: <input type='text' name='money_type'></input>
+                    Date (Leave blank if today): <input type="date" name="date">
+                    Amount: <input type="number" name="amount" step="0.001" min="0">
+                    Address: <input type="text" name="places_api" id="places_api">
+                    Location Name: <input type="text" name="locname">
+                    Missed: <input type="radio" name="missed" value="y"><label>Yes</label>
+                    <input type="radio" name="missed" value="n"><label>No</label>
+                    Money Year: <input type="number" name="money_year">
+                    Money Type: <input type="text" name="money_type">
                     <input type="submit">
                 </form>
             </div>
         </div>
                
-        <div class='row'>
-            <div class='col-12'>
-                <div id='coinMap'>
+        <div class="row">
+            <div class="col-12">
+                <div id="coinMap">
 
                 </div>
             </div>
 
         </div>
             <br>
-            <a href='/dashboard'>LOOK, a wild dashboard</a>
+            <a href="/dashboard">LOOK, a wild dashboard</a>
             <br>
-            <a href='/log_out'>Done having fun? Click to log out</a>
+            <a href="/log_out">Done having fun? Click to log out</a>
     </div>
 {% endblock %}

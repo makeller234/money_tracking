@@ -1,0 +1,45 @@
+{% extends "base.html"%}
+{%block title%} Update Entry {%endblock%}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <form action="update_entry" METHOD="POST">
+                {% for k,v in data.items() %}
+                    {% if v.missed == False %}
+                        {% set status = "Found" %}
+                    {% elif v.missed == True %}
+                        {% set status = "Missed" %}
+                        {% endif %}
+                    <input type="radio" name="entry_id" value="{{v.id}}">
+                        <label>Location: {{v.loc}}
+                            Address: {{v.addr}} {{v.city}}, {{v.state}} {{v.zip}} 
+                            Date: {{v.date}}
+                            Amount: {{v.amount}} 
+                            Money Type: {{v.money_type}}
+                            Money Year: {{v.money_year}}
+                            Status: {{status}}
+                            entry_id: {{v.id}}
+                        </label>
+                {% endfor %}
+                <h3>What needs to be updated?</h3>
+                    Date: <input type="date" name="date">
+                    Amount: <input type="number" name="amount" step="0.001" min="0">
+                    Address: <input type="text" name="address" id="address">
+                    City: <input type="text" name="city" id="city">
+                    State: <input type="text" name="state" id="state">
+                    Zipcode: <input type="text" name="zipcode" id="zipcode">
+                    Location Name: <input type="text" name="locname">
+                    Missed: <input type="radio" name="missed" value="y"><label>Yes</label>
+                    <input type="radio" name="missed" value="n"><label>No</label>
+                    Money Year: <input type="number" name="money_year">
+                    Money Type: <input type="text" name="money_type">
+                    <input type="submit">
+
+            </form>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

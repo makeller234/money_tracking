@@ -187,7 +187,6 @@ def daily_coin_amounts(user_email):
 
     all_user_results = user_query(user_email)
     
-
     dict_by_year_dow = {}
     #create the first dictionary with the year as the key and the value as 0 as a placeholder.
     for result in all_user_results:
@@ -201,15 +200,11 @@ def daily_coin_amounts(user_email):
     #loop through each key/year, and then all the query results.  If the item from the query result matches the key and the missed boolean, the moeny type from that item is added
     # to the totals_by_day dict and the amount is incremented
     for key in dict_by_year_dow.keys():
-
         for item in all_user_results:
-                    
             if key == item.date.year and item.missed == True:
-
                 totals_by_day[item.date.weekday()]['missed'][item.money_type] = totals_by_day[item.date.weekday()]['missed'].get(item.money_type, 0) + float(item.amount)
   
             elif key == item.date.year and item.missed == False:
-                
                 totals_by_day[item.date.weekday()]['found'][item.money_type] = totals_by_day[item.date.weekday()]['found'].get(item.money_type, 0) + float(item.amount)
 
         # the totals_by_day dict is set as the value to the correspinding year key of the dict_by_year
@@ -248,6 +243,13 @@ def update_address(entry_id, new_address):
 def update_city(entry_id, new_city):
     money_entry = Monies.query.get(entry_id)
     money_entry.city = new_city
+    db.session.commit()
+
+    return money_entry
+
+def update_zipcode(entry_id, new_zipcode):
+    money_entry = Monies.query.get(entry_id)
+    money_entry.zip = new_zipcode
     db.session.commit()
 
     return money_entry
