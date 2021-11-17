@@ -12,24 +12,8 @@
         <div class="col-12">
             <form action="update_entry" METHOD="POST">
 
-                <!-- {% for k,v in data.items() %}
-                    {% if v.missed == False %}
-                        {% set status = "Found" %}
-                    {% elif v.missed == True %}
-                        {% set status = "Missed" %}
-                        {% endif %}
-                    <input type="radio" name="entry_id" value="{{v.id}}">
-                        <label>Location: {{v.loc}}
-                            Address: {{v.addr}} {{v.city}}, {{v.state}} {{v.zip}} 
-                            Date: {{v.date}}
-                            Amount: {{v.amount}} 
-                            Money Type: {{v.money_type}}
-                            Money Year: {{v.money_year}}
-                            Status: {{status}}
-                            entry_id: {{v.id}}
-                        </label>
-                {% endfor %} -->
-                <!-- <button id="entry_info"></button> -->
+                <!-- div to hold the radio buttons that are created in js -->
+
                 <div id="entry_info"></div>
                 <h3>What needs to be updated?</h3>
                     Date: <input type="date" name="date">
@@ -43,6 +27,7 @@
                     <input type="radio" name="missed" value="n"><label>No</label>
                     Money Year: <input type="number" name="money_year">
                     Money Type: <input type="text" name="money_type">
+                    Delete Entry: <input type="radio" name="del_entry" value="y"><label>Yes</label>
                     <input type="submit">
 
             </form>

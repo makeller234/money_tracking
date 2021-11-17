@@ -234,6 +234,8 @@ def update_amount(entry_id, new_amount):
     return money_entry
 
 def update_address(entry_id, new_address):
+    """Takes in an id from the Monies table and a new address.
+    Updates the entry with the new address"""
     money_entry = Monies.query.get(entry_id)
     money_entry.address = new_address
     db.session.commit()
@@ -241,6 +243,8 @@ def update_address(entry_id, new_address):
     return money_entry
 
 def update_city(entry_id, new_city):
+    """Takes in an id from the Monies table and a new city.
+    Updates the entry with the new city"""
     money_entry = Monies.query.get(entry_id)
     money_entry.city = new_city
     db.session.commit()
@@ -248,6 +252,8 @@ def update_city(entry_id, new_city):
     return money_entry
 
 def update_zipcode(entry_id, new_zipcode):
+    """Takes in an id from the Monies table and a new zipcode.
+    Updates the entry with the new zipcode"""
     money_entry = Monies.query.get(entry_id)
     money_entry.zip = new_zipcode
     db.session.commit()
@@ -255,6 +261,8 @@ def update_zipcode(entry_id, new_zipcode):
     return money_entry
 
 def update_state(entry_id, new_state):
+    """Takes in an id from the Monies table and a new state.
+    Updates the entry with the new state"""
     money_entry = Monies.query.get(entry_id)
     money_entry.state = new_state
     db.session.commit()
@@ -262,6 +270,8 @@ def update_state(entry_id, new_state):
     return money_entry
 
 def update_locname(entry_id, new_locname):
+    """Takes in an id from the Monies table and a new location name.
+    Updates the entry with the new location name"""
     money_entry = Monies.query.get(entry_id)
     money_entry.locname = new_locname
     db.session.commit()
@@ -269,6 +279,8 @@ def update_locname(entry_id, new_locname):
     return money_entry
 
 def update_missed(entry_id, new_missed):
+    """Takes in an id from the Monies table and a new missed/found status.
+    Updates the entry with the new missed/found status"""
     money_entry = Monies.query.get(entry_id)
     money_entry.missed = new_missed
     db.session.commit()
@@ -276,6 +288,8 @@ def update_missed(entry_id, new_missed):
     return money_entry
 
 def update_money_year(entry_id, new_money_year):
+    """Takes in an id from the Monies table and a new money year.
+    Updates the entry with the new money year"""
     money_entry = Monies.query.get(entry_id)
     money_entry.money_year = new_money_year
     db.session.commit()
@@ -283,11 +297,18 @@ def update_money_year(entry_id, new_money_year):
     return money_entry
 
 def update_money_type(entry_id, new_money_type):
+    """Takes in an id from the Monies table and a new money type.
+    Updates the entry with the new money type"""
     money_entry = Monies.query.get(entry_id)
     money_entry.money_type = new_money_type
     db.session.commit()
 
     return money_entry
+
+def delete_entry(entry_id):
+    """Deletes an entry from the monies table"""
+    Monies.query.filter_by(id=entry_id).delete()
+    db.session.commit()
 
 def all_addresses(user_email):
     """Returns a dictionary with an arbitrary key and has the value of another dictionary with information needed to populate the maps graph"""

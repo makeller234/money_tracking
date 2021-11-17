@@ -229,7 +229,7 @@ def update_monies_entry():
     if request.form.get('missed') != '':
         missed = request.form.get('missed')
         if missed =='y':
-         missed = True
+            missed = True
         else:
             missed = False
         crud.update_missed(request.form.get('entry_id'), missed)
@@ -240,8 +240,12 @@ def update_monies_entry():
     if request.form.get('money_type') != '':
         crud.update_money_type(request.form.get('entry_id'), request.form.get('money_type'))
 
-    data  = crud.all_addresses(session['email'])
-    return render_template('update_entry.html', data = data)
+    if request.form.get('del_entry') == 'y':
+        crud.delete_entry(request.form.get('entry_id'))
+
+
+    #data  = crud.all_addresses(session['email'])
+    return render_template('update_entry.html')
 
 @app.route('/return_coin_entry')
 def return_coin_entry():
