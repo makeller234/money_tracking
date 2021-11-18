@@ -14,33 +14,34 @@ function displayResults(data,start,end){
 		Money Year: ${data[start].money_year}
 		Status: ${data[start].missed}
 		entry_id: ${data[start].id}
-		</label>`)
+		</label> <br>`)
 	radioButton.appendTo('#entry_info')
 	}
 }
 
-function inBoundsEnd(dataLength, end){
 
+function startBound(start){
+	if (start < 0){
+		start = 0;
+	}
+	return start;
+}
+
+function endBound(dataLength, start){
+	let end = start + 9;
 	if (end > dataLength){
-		end = dataLength;
+		end = dataLength
 	}
 	else if (end < 9){
-		end = 9;
+		end = 9
 	}
 	return end;
 }
+$.get('/all_addresses.json', res =>{
 
-function startLess9(num){
-	if ((num-9) < 0){
-		return 0;
-	}
-	return num-9;
-}
 
-$.get('/all_addreses.json', res =>{
-	
-	let end = 9;
-	let start = startLess9(end);
+	let start = 0
+	let end = endBound(Object.keys(res.data).length, start)
 	
 	displayResults(res.data, start, end);
 	console.log(`start ${start}. end ${end}`);
@@ -50,29 +51,13 @@ $.get('/all_addreses.json', res =>{
 		evt.preventDefault();
 		$('#entry_info').empty();
 
-		end += 10;
-		end = inBoundsEnd(Object.keys(res.data).length, end);
-		start = startLess9(end);
+
+		start += 10;
+		end = endBound(Object.keys(res.data).length, start)
 		
 		console.log(`start ${start}. end ${end}`);
 		displayResults(res.data, start, end);
 
-		$(function(){
-			if (start === 0){
-				$('#prev_entries').addClass('disabled');
-			}
-			else{
-				$('#prev_entries').removeClass('disabled');
-			}
-		});
-
-
-			if (end === Object.keys(res.data).length){
-				$('#next_entries').addClass('disabled');
-			}
-			else{
-				$('#next_entries').removeClass('disabled');
-			}
 	})
 
 	$('#prev_entries').click((evt) =>{
@@ -80,32 +65,12 @@ $.get('/all_addreses.json', res =>{
 		evt.preventDefault();
 		$('#entry_info').empty();
 	
-		end -= 10
-
-		end = inBoundsEnd(Object.keys(res.data).length, end);
-		start = startLess9(end);
+		start -= 10;
+		end = endBound(Object.keys(res.data).length, start)
 		
 		console.log(`start ${start}. end ${end}`);
 		displayResults(res.data, start, end);
 		
 	})
-
-
-	// //original code
-	// for (const entry in res.data){
-	// 		let date = new Date(res.data[entry].date)
-			
-	// 		let radioButton = $(`<input type="radio" name="entry_id" value="${res.data[entry].id}">
-	// 			<label>Location: ${res.data[entry].loc}
-	// 			Address: ${res.data[entry].addr} ${res.data[entry].city}, ${res.data[entry].state} ${res.data[entry].zip}
-	// 			Date: ${date.toLocaleDateString()}
-	// 			Amount: ${res.data[entry].amount}
-	// 			Money Type: ${res.data[entry].money_type}
-	// 			Money Year: ${res.data[entry].money_year}
-	// 			Status: ${res.data[entry].missed}
-	// 			entry_id: ${res.data[entry].id}
-	// 			</label>`)
-	// 		radioButton.appendTo('#entry_info')
-	// };
 
 })

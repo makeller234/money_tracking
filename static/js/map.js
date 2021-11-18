@@ -16,7 +16,7 @@ function initMap() {
         zoom: 6,
     });
 
-	$.get('/all_addreses.json', res =>{
+	$.get('/all_addresses.json', res =>{
 			
 		//Gets the data from the all_addresses json route 
 		//Create empty object to hold the data for when the same addresses are grouped together.
@@ -174,7 +174,7 @@ function coinMap(){
 			zoom: 6,
 	});
 
-	$.get('/all_addreses.json', res =>{
+	$.get('/all_addresses.json', res =>{
 
 		//gets the address from the all_addresses route and assigns the first one as the value of max_id
 		// this will be used to loop through the list of addresses to find the one with the max id as this is the last entry

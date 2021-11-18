@@ -262,9 +262,9 @@ def data_by_user():
 
     return jsonify({'data':totals_by_day})
 
-@app.route('/all_addreses.json')
+@app.route('/all_addresses.json')
 def all_user_addresses():
-    """Returns a json of coin information that is used for the map and the update entry page"""
+    """Returns a json of the money information that is used for the map and the update entry page"""
     addresses = crud.all_addresses(session['email'])
 
     return jsonify({'data':addresses})
