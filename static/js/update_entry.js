@@ -19,21 +19,8 @@ function displayResults(data,start,end){
 	}
 }
 
-function inBoundsStart(start){
-	if ((start -10) < 0){
-		start = 0;
-	}
-
-	return start;
-}
-
 function inBoundsEnd(dataLength, end){
-	// if (((end+10) > dataLength) && ((end-start) > 10)) {
-	// 	end = start + 9;
-	// }
-	// else if (((end+10) > dataLength) && ((end-start) < 10)){
-	// 	end = dataLength;
-	// }
+
 	if (end > dataLength){
 		end = dataLength;
 	}
@@ -47,10 +34,8 @@ function startLess9(num){
 	if ((num-9) < 0){
 		return 0;
 	}
-	
 	return num-9;
 }
-
 
 $.get('/all_addreses.json', res =>{
 	
@@ -64,18 +49,30 @@ $.get('/all_addreses.json', res =>{
 		
 		evt.preventDefault();
 		$('#entry_info').empty();
-		
 
 		end += 10;
-		// start = inBoundsStart(start);
-		// console.log(start);
-		// console.log(end);
 		end = inBoundsEnd(Object.keys(res.data).length, end);
 		start = startLess9(end);
 		
 		console.log(`start ${start}. end ${end}`);
 		displayResults(res.data, start, end);
-		
+
+		$(function(){
+			if (start === 0){
+				$('#prev_entries').addClass('disabled');
+			}
+			else{
+				$('#prev_entries').removeClass('disabled');
+			}
+		});
+
+
+			if (end === Object.keys(res.data).length){
+				$('#next_entries').addClass('disabled');
+			}
+			else{
+				$('#next_entries').removeClass('disabled');
+			}
 	})
 
 	$('#prev_entries').click((evt) =>{
@@ -85,7 +82,6 @@ $.get('/all_addreses.json', res =>{
 	
 		end -= 10
 
-		// start = inBoundsStart(start);
 		end = inBoundsEnd(Object.keys(res.data).length, end);
 		start = startLess9(end);
 		
@@ -93,72 +89,7 @@ $.get('/all_addreses.json', res =>{
 		displayResults(res.data, start, end);
 		
 	})
-	// for(start; start <= end; start++){
-	
-	// 	let date = new Date(res.data[start].date)
-		
-	// 	let radioButton = $(`<input type="radio" name="entry_id" value="${res.data[start].id}">
-	// 		<label>Location: ${res.data[start].loc}
-	// 		Address: ${res.data[start].addr} ${res.data[start].city}, ${res.data[start].state} ${res.data[start].zip}
-	// 		Date: ${date.toLocaleDateString()}
-	// 		Amount: ${res.data[start].amount}
-	// 		Money Type: ${res.data[start].money_type}
-	// 		Money Year: ${res.data[start].money_year}
-	// 		Status: ${res.data[start].missed}
-	// 		entry_id: ${res.data[start].id}
-	// 		</label>`)
-	// 	radioButton.appendTo('#entry_info')
-	// }
 
-	// // next entries button
-	// $('#next_entries').click((evt) => {
-	// 	evt.preventDefault();
-	// 	$('#entry_info').empty();
-	// 	end+=10;
-
-	// 	for(start; start <= end; start++){
-	
-	// 	let date = new Date(res.data[start].date)
-	// 	'<div id="entry_info"></div>'
-	// 	let radioButton = $(`<input type="radio" name="entry_id" value="${res.data[start].id}">
-	// 		<label>Location: ${res.data[start].loc}
-	// 		Address: ${res.data[start].addr} ${res.data[start].city}, ${res.data[start].state} ${res.data[start].zip}
-	// 		Date: ${date.toLocaleDateString()}
-	// 		Amount: ${res.data[start].amount}
-	// 		Money Type: ${res.data[start].money_type}
-	// 		Money Year: ${res.data[start].money_year}
-	// 		Status: ${res.data[start].missed}
-	// 		entry_id: ${res.data[start].id}
-	// 		</label>`)
-	// 	radioButton.appendTo('#entry_info')
-	// }
-	// })
-
-	// // prev entries button
-	// $('#prev_entries').click((evt) => {
-	// 	evt.preventDefault();
-	// 	$('#entry_info').empty();
-	// 	start-=10;
-	// 	end-=10;
-	// 	'<div id="entry_info"></div>'
-	// 	for(start; start <= end; start++){
-	
-	// 		let date = new Date(res.data[start].date)
-			
-	// 		let radioButton = $(`<input type="radio" name="entry_id" value="${res.data[start].id}">
-	// 			<label>Location: ${res.data[start].loc}
-	// 			Address: ${res.data[start].addr} ${res.data[start].city}, ${res.data[start].state} ${res.data[start].zip}
-	// 			Date: ${date.toLocaleDateString()}
-	// 			Amount: ${res.data[start].amount}
-	// 			Money Type: ${res.data[start].money_type}
-	// 			Money Year: ${res.data[start].money_year}
-	// 			Status: ${res.data[start].missed}
-	// 			entry_id: ${res.data[start].id}
-	// 			</label>`)
-	// 		radioButton.appendTo('#entry_info')
-	// 	}
-
-	// })
 
 	// //original code
 	// for (const entry in res.data){
