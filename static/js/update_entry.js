@@ -39,7 +39,6 @@ function endBound(dataLength, start){
 }
 $.get('/all_addresses.json', res =>{
 
-
 	let start = 0
 	let end = endBound(Object.keys(res.data).length, start)
 	

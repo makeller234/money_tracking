@@ -1,0 +1,17 @@
+{% extends "base.html"%}
+{%block title%} Update User {%endblock%}
+
+{% block body %}
+<h1>Update Your Account</h1>
+Current info: {{user.fname}} {{user.lname}} 
+<form action = '/update_account' method = 'POST'>
+   
+    Update First Name:<input type=text, name='fname'>
+    Update Last Name:<input type=text, name='lname'>
+
+    Update Password:
+    Current Password: <input type=password name='cur_pass'>
+    New Password: <input type=password name='new_pass'>
+    <input type="submit">
+</form>
+{% endblock %}

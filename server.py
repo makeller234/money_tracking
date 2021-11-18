@@ -247,6 +247,31 @@ def update_monies_entry():
     #data  = crud.all_addresses(session['email'])
     return render_template('update_entry.html')
 
+@app.route('/update_account', methods = ['POST'])
+def update_user():
+
+    if request.form.get('fname') != '':
+        crud.update_user_fname(session['email'], request.form.get('fname'))
+    if request.form.get('lname') != '':
+        crud.update_user_lname(session['email'], request.form.get('lname'))
+
+    pass_criteria = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])"
+    pass_crit_compiled = re.compile(pass_criteria)
+    pass_crit_bool = re.search(pass_crit_compiled, request.form.get('new_pass'))
+    
+    if request.form.get('cur_pass') == crud.get_user_password(session['email']) and \
+        request.form.get('new_pass') != '':
+        if pass_crit_bool:
+            crud.update_user_password(session['email'], request.form.get('new_pass'))
+        else:
+            flash('Not a valid password, please try again.')
+
+    return render_template('/update_user.html', user = crud.get_user_by_email(session['email']))
+
+@app.route('/user_update')
+def user_update():
+    return render_template('/update_user.html', user = crud.get_user_by_email(session['email']))
+
 @app.route('/return_coin_entry')
 def return_coin_entry():
     """A route that allows the user to get from the dashboard to the coin entry page"""

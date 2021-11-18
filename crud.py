@@ -22,6 +22,11 @@ def get_user_by_email(email):
 
     return User.query.get(email)
 
+def get_user_password(user_email):
+    """Takes in user email and gets the password"""
+
+    return User.query.get(user_email).password
+
 def create_money_entry(email, date, amount, address, city, state, zip, locname, missed, money_year, money_type):
     """Adds the money entry to the database for that user"""
 
@@ -309,6 +314,30 @@ def delete_entry(entry_id):
     """Deletes an entry from the monies table"""
     Monies.query.filter_by(id=entry_id).delete()
     db.session.commit()
+
+def update_user_fname(user_email, new_fname):
+    """Takes in an Id (user_email) and new first name and updates the users table"""
+    user_entry = User.query.get(user_email)
+    user_entry.fname = new_fname
+    db.session.commit()
+
+    return user_entry
+
+def update_user_lname(user_email, new_lname):
+    """Take in an ID (user_email) and new last name and updates the users table"""
+    user_entry = User.query.get(user_email)
+    user_entry.lname = new_lname
+    db.session.commit()
+
+    return user_entry
+
+def update_user_password(user_email, new_password):
+    """Takes in an ID (user_email) and new password and updates the users table"""
+    user_entry = User.query.get(user_email)
+    user_entry.password = new_password
+    db.session.commit()
+
+    return user_entry
 
 def all_addresses(user_email):
     """Returns a dictionary with an arbitrary key and has the value of another dictionary with information needed to populate the maps graph"""
