@@ -53,6 +53,19 @@ $.get('/all_addresses.json', res =>{
 
 		start += 10;
 		end = endBound(Object.keys(res.data).length, start)
+
+		if (end !== Object.keys(res.data).length){
+			$('#next_entries').removeAttr('disabled');
+		}
+		if (end === Object.keys(res.data).length){
+			$('#next_entries').attr('disabled', 'disabled');
+		}
+		if (start !==0){
+			$('#prev_entries').removeAttr('disabled');
+		}
+		if (start === 0){
+			$('#prev_entries').attr('disabled', 'disabled');
+		}
 		
 		console.log(`start ${start}. end ${end}`);
 		displayResults(res.data, start, end);
@@ -66,10 +79,27 @@ $.get('/all_addresses.json', res =>{
 	
 		start -= 10;
 		end = endBound(Object.keys(res.data).length, start)
-		
+
+		if (end !== Object.keys(res.data).length){
+			$('#next_entries').removeAttr('disabled');
+		}
+		if (end === Object.keys(res.data).length){
+			$('#next_entries').attr('disabled', 'disabled');
+		}
+		if (start !==0){
+			$('#prev_entries').removeAttr('disabled');
+		}
+		if (start === 0){
+			$('#prev_entries').attr('disabled', 'disabled');
+		}
+	
 		console.log(`start ${start}. end ${end}`);
 		displayResults(res.data, start, end);
 		
 	})
+
+
+
+
 
 })
