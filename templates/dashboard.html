@@ -10,9 +10,6 @@
 {% endblock %}
 {% block body %}
 <h1>Dashboard Page</h1>
-<a href="/log_out">Done having fun? Click to log out</a>
-<a href="/return_coin_entry">Enter Another Coin?</a>
-<a href="/return_update_entry">Care to update an entry?</a>
 <div class="container-fluid">
 
     <div class="row">
@@ -33,58 +30,49 @@
                       
                     </select>
                     <input type="submit">
-                        <!-- <input type="submit" value="All" name="years" class="year_selector">
-                    {% for year in years_list %}
-                        <input type="submit" value={{year}} name="years" class="year_selector">
-                    {%endfor%} -->
                 </form>
 
-        {% if missed == None %}
+            <br>
+            Grand Total: {{ "$%.2f"|format(total_found + total_missed)}}
+            <br>
+            You Found: {{ "$%.2f"|format(total_found) }} 
+            <br>
+            You Missed: {{ "$%.2f"|format(total_missed) }} 
 
-            <h3>{{session["fname"]}}'s <span id="year">{{year}}</span> Years Info for <span id="missed">Missed and Found Money</span></h3>
+            {% if missed == None %}
 
-        {% elif missed == "both" %}
+                <h3><span id="year">{{year}}</span> Years Info for <span id="missed">Missed and Found Money</span></h3>
 
-            <h3>{{session["fname"]}}'s <span id="year">{{year}}</span> Info for <span id="missed">Missed and Found Money</span></h3>
+            {% elif missed == "both" %}
 
-        {% elif missed == "found" %}
-            <h3>{{session["fname"]}}"s <span id="year">{{year}}</span> Info for <span id="missed">Found Money</span></h3>
-        
-        {% elif missed == "missed" %}
-            <h3>{{session["fname"]}}'s <span id="year">{{year}}</span> Info for <span id="missed">Missed Money</span></h3>
-        {% endif %}
+                <h3><span id="year">{{year}}</span> Info for <span id="missed">Missed and Found Money</span></h3>
 
-        <br>
-        Grand Total: {{ "$%.2f"|format(total_found + total_missed)}}
-        <br>
-        You Found: {{ "$%.2f"|format(total_found) }} 
-        <br>
-        You Missed: {{ "$%.2f"|format(total_missed) }}
+            {% elif missed == "found" %}
+                <h3><span id="year">{{year}}</span> Info for <span id="missed">Found Money</span></h3>
+            
+            {% elif missed == "missed" %}
+                <h3><span id="year">{{year}}</span> Info for <span id="missed">Missed Money</span></h3>
+            {% endif %}
 
-        <!-- Grand total of  missed and found should be stand outy at the top of dashboard and then the below stuff will filter by missed/year -->
-        
-        <br>
-        A daily Average: {{ "$%.3f"|format(day_avg) }}
-        <br>
-        The most frequent year of a coin/bill is {{ money_year }} and it was found {{ money_count }} times!
-        <br>
-        The most frequent coin/bill is {{ money_type }} and it has been found {{ type_count }} times!
-        <br>
-        The Most Freq day of the week is: {{ dow }}
+
+            A daily Average: {{ "$%.3f"|format(day_avg) }}
+            <br>
+            The most frequent year of a coin/bill is {{ money_year }} and it was found {{ money_count }} times!
+            <br>
+            The most frequent coin/bill is {{ money_type }} and it has been found {{ type_count }} times!
+            <br>
+            The Most Freq day of the week is: {{ dow }}
 
         </div>
         <div class="col-9">
             <canvas id="stackedbar"></canvas>
         </div>
     </div>
-    <!-- <div class="row">
-        <div class ="col-12">
-            <canvas id ="polar"></canvas>
-        </div>
-    </div> -->
+
     <div class="row">
-        <div id="map">
-          
+        <div class="col-12">
+            <div id="map">
+            </div>
         </div>
     </div>
 </div>

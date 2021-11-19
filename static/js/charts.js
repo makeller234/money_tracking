@@ -156,7 +156,7 @@ function createDataObjBoth(resData, dataObjLabels, year){
     for (const moneyType of dataObjLabels){
       dataObj['label'] = moneyType;
       dataObj['backgroundColor'] = `rgb(${Math.random()*256},${Math.random()*256},${Math.random()*256})`;
-      
+
       let dataArray = [0,0,0,0,0,0,0];
       
       //loops over each year in the data
@@ -282,6 +282,7 @@ $.get('/data_by_user.json', res => {
         options: {
           plugins: {
             title: {
+              
               display: true,
               text: 'Money Type Found Per Day'
             },

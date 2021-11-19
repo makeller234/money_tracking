@@ -81,44 +81,7 @@ def login():
         session['email'] = email
         session['fname'] = user.fname
 
-        return render_template('coin_entry.html', first_name = session['fname'], API_KEY = API_KEY)
-
-# @app.route('/coin_entry', methods=['POST'])
-# def coin_entry():
-#     """Old way that does not use google places API, probably will delete this route"""
-#     """Takes coin entry info and adds to database. Coverts the date to correct formatting"""
-
-#     date = request.form.get('date')
-#     #Check if date is empty and assign it today's date, format to YYYY-MM-DD
-#     #If it isn't blank, format it to correct format
-#     if date == '':
-#         d1 = datetime.today() #maybe this line can be combined with the line right below it
-#         date = d1.strftime('%Y-%m-%d')
-#     else:
-#         date = datetime.strptime(date,'%Y-%m-%d')
-
-
-#     email = session['email']
-#     amount = request.form.get('amount')
-#     address = request.form.get('address')
-#     city = request.form.get('city')
-#     state = request.form.get('state')
-#     zip = request.form.get('zip')
-#     locname = request.form.get('locname')
-#     missed = request.form.get('missed')
-#     if missed =='y':
-#         missed = True
-#     else:
-#         missed = False
-
-#     money_year = request.form.get('money_year')
-#     money_type = request.form.get('money_type')
-
-#     crud.create_money_entry(email, date, amount, address, city, state, zip, locname, missed, money_year, money_type)
-#     flash("You've successfully added money, add some more?")
-
-#     return render_template('coin_entry.html', first_name = session['fname'], API_KEY = API_KEY)
-
+        return render_template('coin_entry.html',  API_KEY = API_KEY)
 
 @app.route('/dashboard')
 def dashboard():
@@ -146,16 +109,15 @@ def dashboard():
                                             money_type = money_deets['money_type'], dow = dow, API_KEY=API_KEY,
                                             years_list = years_list, year = year, missed = missed)
 
-@app.route('/places_api', methods =['POST'])
+@app.route('/coin_entry', methods =['POST'])
 def places_api():
-    """Allows the user to enter money information with an abreviated address and the places API will find the full address, minus zip code.
+    """Allows the user to enter money information with an abbreviated address and the places API will find the full address, minus zip code.
     The entry is then saved in the database."""
 
     place = request.form.get('places_api')
-    #place_plus = place.replace(' ', '+')
     place_percent = place.replace(' ', '%20')
   
-    #places_url = f'https://maps.googleapis.com/maps/api/place/autocomplete/json?input={place_plus}&key={API_KEY}'
+
     query_url = f'https://maps.googleapis.com/maps/api/place/queryautocomplete/json?input={place_percent}&key={API_KEY}'
 
     response = requests.request('GET', query_url, headers={}, data={})
@@ -167,7 +129,7 @@ def places_api():
     #Check if date is empty and assign it today's date, format to YYYY-MM-DD
     #If it isn't blank, format it to correct format
     if date == '':
-        d1 = datetime.today() #maybe this line can be combined with the line right below it
+        d1 = datetime.today() 
         date = d1.strftime('%Y-%m-%d')
     else:
         date = datetime.strptime(date,'%Y-%m-%d')
@@ -258,7 +220,7 @@ def update_user():
     pass_criteria = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])"
     pass_crit_compiled = re.compile(pass_criteria)
     pass_crit_bool = re.search(pass_crit_compiled, request.form.get('new_pass'))
-    
+
     if request.form.get('cur_pass') == crud.get_user_password(session['email']) and \
         request.form.get('new_pass') != '':
         if pass_crit_bool:
