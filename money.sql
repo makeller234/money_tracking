@@ -90,12 +90,10 @@ ALTER TABLE ONLY public.monies ALTER COLUMN id SET DEFAULT nextval('public.monie
 --
 
 COPY public.monies (id, email, date, amount, address, city, state, zip, locname, missed, money_year, money_type) FROM stdin;
-676	t3@email.com	2021-11-04	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	f	1234	test penny
 37	melissa.keller23@gmail.com	2021-04-12	0.010	16396 Wagner Way	Eden Prairie	MN	55344	Tavern 4&5	t	\N	penny
 42	melissa.keller23@gmail.com	2020-06-27	0.100	60684 MN-23	Finlayson	MN	55735	Cenex	t	\N	dime
 56	melissa.keller23@gmail.com	2021-07-24	1.000	Cedar Street	Houston	MN	55943	Hoedown	t	\N	$1
 57	melissa.keller23@gmail.com	2021-07-24	5.000	Cedar Street	Houston	MN	55943	Hoedown	t	\N	$5
-677	t3@email.com	2021-11-04	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	f	1234	test pen
 75	melissa.keller23@gmail.com	2019-04-13	5.000	2501 Marshall St NE	Minneapolis	MN	55418	Betty Dangers	t	\N	$5
 76	melissa.keller23@gmail.com	2019-04-13	5.000	2501 Marshall St NE	Minneapolis	MN	55418	Betty Dangers	t	\N	$5
 77	melissa.keller23@gmail.com	2019-06-07	20.000	1504 7th St S	Minneapolis	MN	55454	House of Balls	t	\N	$20
@@ -114,12 +112,9 @@ COPY public.monies (id, email, date, amount, address, city, state, zip, locname,
 100	melissa.keller23@gmail.com	2021-10-28	0.010	\N	Minneapolis	MN	55406	Target	t	\N	penny
 102	melissa.keller23@gmail.com	2021-02-12	0.250	3223 E Lake St	Minneapolis	MN	55406	Habanero Tacos Grill	t	\N	quarter
 105	melissa.keller23@gmail.com	2019-07-21	0.010	\N	Minneapolis	MN	\N	Lake and River Road	t	\N	penny
-678	t3@email.com	2021-11-04	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	f	1234	penny test
 163	melissa.keller23@gmail.com	2019-10-05	0.100	1625 4th St SE	Minneapolis 	MN	55455	4th Street ramp	t	\N	dime
-679	t3@email.com	2021-11-04	0.010	350 Canal Park Dr	Duluth	MN	55802	Inn On Lake Superior	f	1234	test penny
 191	melissa.keller23@gmail.com	2020-03-03	0.010	1625 4th St SE	Minneapolis 	MN	55455	4th Street ramp	t	\N	penny
 190	melissa.keller23@gmail.com	2021-04-05	0.050	824 E Lake St	Minneapolis 	MN	55407	Chicago lake liquors	t	\N	nickel
-680	t3@email.com	2021-11-04	0.010	350 Canal Park Dr	Duluth	MN	55802	Inn On Lake Superior	f	1234	penny test
 434	melissa.keller23@gmail.com	2020-01-22	0.250	1335 6th Ave	New York	NY	10019	NY Hilton Midtown	f	1972	quarter
 192	melissa.keller23@gmail.com	2020-08-08	0.010	4320 E Lake St	Minneapolis 	MN	55406	Speedway	f	1988	penny
 161	melissa.keller23@gmail.com	2018-05-22	0.100	\N	Minneapolis 	MN	\N	\N	f	\N	dime
@@ -133,14 +128,11 @@ COPY public.monies (id, email, date, amount, address, city, state, zip, locname,
 393	melissa.keller23@gmail.com	2020-04-18	0.010	4135 Hiawatha Ave	Minneapolis 	MN	55406	Elevated Beer Wine & Spirits	t	\N	penny
 394	melissa.keller23@gmail.com	2020-07-11	0.010	4135 Hiawatha Ave	Minneapolis 	MN	55406	Elevated Beer Wine & Spirits	t	\N	penny
 395	melissa.keller23@gmail.com	2021-03-02	0.010	2513 Central Ave NE	Minneapolis 	MN	55418	HolyLand	t	\N	penny
-681	t3@email.com	2021-11-06	0.010	4320 E Lake St	Minneapolis	MN	55406	Speedway	f	1235	test pen
 439	melissa.keller23@gmail.com	2020-12-28	0.100	1830 E 66th St 	Richfield	MN	55423	Chipotle	t	\N	dime
 440	melissa.keller23@gmail.com	2020-12-28	0.100	1830 E 66th St 	Richfield	MN	55423	Chipotle	t	\N	dime
 442	melissa.keller23@gmail.com	2020-12-28	0.010	1830 E 66th St 	Richfield	MN	55423	Chipotle	t	\N	penny
 452	melissa.keller23@gmail.com	2020-08-02	0.010	2100 E Snelling Dr	Roseville	MN	55113	Marshalls	t	\N	penny
-682	t3@email.com	2021-11-06	0.010	4320 E Lake St	Minneapolis	MN	55406	Speedway	f	2345	test pen
 484	melissa.keller23@gmail.com	2019-01-08	0.050	1440 University Ave W	Saint Paul	MN	55104	Cub Foods	t	\N	nickel
-683	t3@email.com	2021-11-06	0.010	4320 E Lake St	Minneapolis	MN	55406	Speedway	f	3445	test pen
 557	melissa.keller23@gmail.com	2018-12-17	0.010	1300 University Ave W	Saint Paul	MN	55104	Target	t	\N	penny
 558	melissa.keller23@gmail.com	2019-01-02	0.010	1440 University Ave W	Saint Paul	MN	55104	Cub foods	t	\N	penny
 559	melissa.keller23@gmail.com	2019-01-07	0.010	1440 University Ave W	Saint Paul	MN	55104	Cub Foods	t	\N	penny
@@ -149,21 +141,15 @@ COPY public.monies (id, email, date, amount, address, city, state, zip, locname,
 562	melissa.keller23@gmail.com	2019-02-18	0.010	1300 University Ave W	Saint Paul	MN	55104	Target	t	\N	penny
 563	melissa.keller23@gmail.com	2021-08-27	0.010	858 Payne Ave	Saint Paul	MN	55130	East Side Bar	t	\N	penny
 572	melissa.keller23@gmail.com	2019-08-11	0.100	\N	saint paul	MN	\N	Marshall and hamline	t	\N	dime
+676	t3@email.com	2021-11-04	0.250	2929 36th Ave S	Minneapolis	MN	55406	My House	f	1234	quarter
 586	melissa.keller23@gmail.com	2019-07-21	0.010	\N	saint Paul	MN	\N	Marshall and snelling	t	\N	penny
 587	melissa.keller23@gmail.com	2019-08-11	0.010	\N	saint paul	MN	\N	Marshall and snelling	t	\N	penny
 590	melissa.keller23@gmail.com	2020-06-06	0.250	\N	Saint paul	MN	55102	Marshall Ave and Dale Ave	t	\N	quarter
-684	t3@email.com	2021-11-06	0.010	4320 E Lake St	Minneapolis	MN	55406	Speedway	f	1234	test pen
 598	melissa.keller23@gmail.com	2019-10-07	0.100	199 W Kellogg Blvd	Saint Paul 	MN	55102	Xcel Energy Center	t	\N	dime
 620	melissa.keller23@gmail.com	2018-11-13	0.010	734 Grand Ave	Saint Paul 	MN	55105	Walgreens	t	\N	penny
 621	melissa.keller23@gmail.com	2019-01-02	0.010	734 Grand Ave	Saint Paul 	MN	55105	Walgreens	t	\N	penny
 622	melissa.keller23@gmail.com	2021-08-12	0.010	734 Grand Ave	Saint Paul 	MN	55105	Walgreens	t	\N	penny
-671	t3@email.com	2021-11-02	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	t	1234	test pen
-672	t3@email.com	2021-11-02	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	t	123	test pen
-675	t3@email.com	2021-11-02	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	t	123	penny test
-685	t3@email.com	2021-11-06	0.010	4320 E Lake St	Minneapolis	MN	55406	Speedway	f	234456	test pen
 663	melissa.keller23@gmail.com	2019-05-24	0.010	100 Jefferson Dr 	Zumbrota	MN	55992	Kwik Trip	t	\N	penny
-669	t3@email.com	2021-11-02	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	t	1234	test penny
-670	t3@email.com	2021-11-01	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	t	1234	test penny
 673	melissa.keller23@gmail.com	2021-10-30	0.250	2199 MN 36 E	North Saint Paul	MN	55109	Target	f	2018	quarter
 674	melissa.keller23@gmail.com	2021-10-30	0.050	2199 MN 36 E	North Saint Paul	MN	55109	Target	f	2021	nickel
 1	melissa.keller23@gmail.com	2020-10-03	0.010	105 N Star Rd	Alden	MN	56009	Cenex	f	1978	penny
@@ -775,6 +761,22 @@ COPY public.monies (id, email, date, amount, address, city, state, zip, locname,
 666	melissa.keller23@gmail.com	2019-08-22	0.010	\N	\N	MN	\N	\N	f	1982	penny
 667	melissa.keller23@gmail.com	2018-07-22	0.250	\N	\N	MN	\N	\N	f	2008	quarter
 668	melissa.keller23@gmail.com	2018-07-30	0.250	\N	\N	MN	\N	Found by Louisa 	f	\N	quarter
+677	t3@email.com	2021-11-04	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	f	1234	penny
+678	t3@email.com	2021-11-04	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	f	1234	penny
+680	t3@email.com	2021-11-04	0.010	350 Canal Park Dr	Duluth	MN	55802	Inn On Lake Superior	f	1234	penny
+681	t3@email.com	2021-11-06	0.010	4320 E Lake St	Minneapolis	MN	55406	Speedway	f	1235	penny
+682	t3@email.com	2021-11-06	0.010	4320 E Lake St	Minneapolis	MN	55406	Speedway	f	2345	penny
+671	t3@email.com	2021-11-02	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	t	1234	penny
+675	t3@email.com	2021-11-02	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	t	123	penny
+669	t3@email.com	2021-11-02	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	t	1234	penny
+670	t3@email.com	2021-11-01	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	t	1234	penny
+679	t3@email.com	2021-11-04	0.050	350 Canal Park Dr	Duluth	MN	55802	Inn On Lake Superior	f	1234	nickle
+683	t3@email.com	2021-11-06	0.050	4320 E Lake St	Minneapolis	MN	55406	Speedway	f	3445	nickle
+685	t3@email.com	2021-11-06	0.050	4320 E Lake St	Minneapolis	MN	55406	Speedway	f	234456	nickle
+684	t3@email.com	2021-11-06	0.250	4320 E Lake St	Minneapolis	MN	55406	Speedway	f	1234	quarter
+672	t3@email.com	2021-11-02	0.250	2929 36th Ave S	Minneapolis	MN	55406	My House	t	123	quarter
+686	t3@email.com	1988-10-06	0.100	84 Church Street Southeast	Minneapolis	MN	\N	Northrop	f	1988	dime
+687	t3@email.com	1923-04-05	0.100	199 W Kellogg Blvd	Saint Paul	MN	\N	Xcel Energy Center	f	1923	dime
 \.
 
 
@@ -785,7 +787,7 @@ COPY public.monies (id, email, date, amount, address, city, state, zip, locname,
 COPY public.users (email, fname, lname, password) FROM stdin;
 melissa.keller23@gmail.com	Melissa	Keller	testing
 test@email.com	Meliss2.0	ShesBetter	testing
-t3@email.com	Melissa3.0	ShesCooler	testing
+t3@email.com	Melissa3.0	ShesCooler	Pygme1!
 \.
 
 
@@ -793,7 +795,7 @@ t3@email.com	Melissa3.0	ShesCooler	testing
 -- Name: monies_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mak
 --
 
-SELECT pg_catalog.setval('public.monies_id_seq', 685, true);
+SELECT pg_catalog.setval('public.monies_id_seq', 687, true);
 
 
 --
