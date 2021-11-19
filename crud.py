@@ -39,7 +39,7 @@ def create_money_entry(email, date, amount, address, city, state, zip, locname, 
     return money
 
 def user_query(user_email):
-    """Queries the Monies table to get all the information from the user assocaited with user_email"""
+    """Queries the Monies table to get all the information from the user associated with user_email"""
 
     return Monies.query.filter_by(email=user_email).all()
     
@@ -343,7 +343,6 @@ def all_addresses(user_email):
     """Returns a dictionary with an arbitrary key and has the value of another dictionary with information needed to populate the maps graph"""
 
     all_user_results = user_query(user_email)
-    print(all_user_results[0].date)
 
     addresses = {}
     i = 0

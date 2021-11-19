@@ -125,8 +125,6 @@ function initMap() {
 							locName = item['loc'];
 					}
 
-					
-
 					//use google maps API to get the lat/lng information for each address so that it can be used to put a marker on the map
 					$.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${addr},${city},${state}&key=AIzaSyCUeZby2DFNDpmdijQONTq4yfhsDknpD3I`, loc_res =>{
 							

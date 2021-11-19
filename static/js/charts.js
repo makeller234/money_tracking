@@ -104,7 +104,7 @@ $.get('/data_by_user.json', res => {
       
       //For Loop which will help assign the amount to the correct spot in the data_array
       for (let j = 0; j<=6; j++){
-        //Looks for the condiiton of if the obj is empty or the money type isn't in the object at the missed or found spot. This means that nothing matches this day of the week
+        //Looks for the condition of if the obj is empty or the money type isn't in the object at the missed or found spot. This means that nothing matches this day of the week
         // and the data_array should not be incremented in that spot
         if (((Object.keys(res_data[user_year][j]['missed']).length === 0) && (Object.keys(res_data[user_year][j]['found']).length === 0))
           && ((!(money_type in res_data[user_year][j]['missed'])) && (!(money_type in res_data[user_year][j]['found'])))){
@@ -131,7 +131,7 @@ $.get('/data_by_user.json', res => {
       data_dict = {'label':'','data':[], 'backgroundColor':''}
     }
    }
-  //Same process as above, but for found money. Simplier than when looking for both, because only the conditions where the status === 'found' need to be checked
+  //Same process as above, but for found money. Simpler than when looking for both, because only the conditions where the status === 'found' need to be checked
   else if (money_status === 'Found Money'){
     data_dict_labels = data_dict_labels_found;
     for (const money_type of data_dict_labels){
@@ -215,7 +215,7 @@ $.get('/data_by_user.json', res => {
       let money_status_combined = new Set(data_dict_labels_missed.concat(data_dict_labels_found));
       data_dict_labels = Array.from(money_status_combined);
 
-      //loops thorugh each money type from the array and sets it as the value for the label key of the data_dicts obj.
+      //loops through each money type from the array and sets it as the value for the label key of the data_dicts obj.
       //Sets up a random color for the color on the graph
       //Sets up data array to keep track of the totals per day of the week
       for (const money_type of data_dict_labels){
@@ -227,7 +227,7 @@ $.get('/data_by_user.json', res => {
         //loops over each year in the response data
         for (const data_year in res_data){
 
-          //Looks for the condiiton of if the obj is empty or the money type isn't in the object at the missed or found spot. This means that nothing matches this day of the week
+          //Looks for the condition of if the obj is empty or the money type isn't in the object at the missed or found spot. This means that nothing matches this day of the week
           // and the data_array should not be incremented in that spot
           for (let j = 0; j<=6; j++){
             if (((Object.keys(res_data[data_year][j]['missed']).length === 0) && (Object.keys(res_data[data_year][j]['found']).length === 0))
@@ -284,7 +284,7 @@ $.get('/data_by_user.json', res => {
       }
 
     }
-    //Same process as the else if above, but for missed money. Simplier than when looking for both, because only the conditions where the status === 'missed' need to be checked
+    //Same process as the else if above, but for missed money. Simpler than when looking for both, because only the conditions where the status === 'missed' need to be checked
     else if(money_status === 'Missed Money'){
       data_dict_labels = data_dict_labels_found;
 

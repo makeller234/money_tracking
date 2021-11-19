@@ -43,7 +43,6 @@ $.get('/all_addresses.json', res =>{
 	let end = endBound(Object.keys(res.data).length, start)
 	
 	displayResults(res.data, start, end);
-	console.log(`start ${start}. end ${end}`);
 
 	$('#next_entries').click((evt) => {
 		
@@ -67,7 +66,7 @@ $.get('/all_addresses.json', res =>{
 			$('#prev_entries').attr('disabled', 'disabled');
 		}
 		
-		console.log(`start ${start}. end ${end}`);
+	
 		displayResults(res.data, start, end);
 
 	})
@@ -93,7 +92,6 @@ $.get('/all_addresses.json', res =>{
 			$('#prev_entries').attr('disabled', 'disabled');
 		}
 	
-		console.log(`start ${start}. end ${end}`);
 		displayResults(res.data, start, end);
 		
 	})
