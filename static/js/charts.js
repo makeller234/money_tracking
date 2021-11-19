@@ -35,7 +35,8 @@ const labels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturda
 // })
 // //end polar area graph.
 
-function graphLabels(resData, year, status){
+function createGraphLabels(resData, year, status){
+  //returns an array of the labels (unique money types).  Array is filtered based on the year and status.
   let dataObjLabelsBoth = [];
   let dataObjLabelsMissed = [];
   let dataObjLabelsFound = [];
@@ -99,32 +100,199 @@ function graphLabels(resData, year, status){
     return dataObjLabelsFound;
   }
 }
+// end createGraphLabels function
+
+function createDataObjBoth(resData, dataObjLabels, year){
+  //NO STATUS because this is for both missed and found
+
+  //data_dict is the obj that will be pushed to data_array_of_dicts. This is the format needed for the stacked bar graph from chart.js
+  let dataObj = {'label':'','data':[], 'backgroundColor':''};
+  let dataArrayOfObjs = [];
+
+  if (year !== 'All'){
+
+        //Loop over each item in the labels array and assign the item to the label key from the data_dict object.
+      //Set up color as random color
+    for (const moneyType of dataObjLabels){
+      dataObj['label'] = moneyType;
+      dataObj['backgroundColor'] = `rgb(${Math.random()*256},${Math.random()*256},${Math.random()*256})`;
+
+      //Create empty array that will hold the amount of money on that specific day, array has a length of 7 one spot for each day of the week.
+      const dataArray = [0,0,0,0,0,0,0];
+      
+      //For Loop which will help assign the amount to the correct spot in the dataArray
+      for (let j = 0; j<=6; j++){
+        //Looks for the condition of if the obj is empty or the money type isn't in the object at the missed or found spot. This means that nothing matches this day of the week
+        // and the dataArray should not be incremented in that spot
+        if (((Object.keys(resData[year][j]['missed']).length === 0) && (Object.keys(resData[year][j]['found']).length === 0))
+          && ((!(moneyType in resData[year][j]['missed'])) && (!(moneyType in resData[year][j]['found'])))){
+            dataArray[j] += 0;
+        }
+
+        else{
+          //Condition that looks for both the status options, if the money type doesn't exist at that option, the dataArray at that spot doesn't get incremented.
+          for (const status in resData[year][j]){
+            if (resData[year][j][status][moneyType] === undefined){
+              dataArray[j] += 0; 
+            }
+            else{
+              //if the money_type is there, then that amount gets added to the amount at that spot in the data array
+              dataArray[j] += resData[year][j][status][moneyType];
+            }
+          }
+        }
+      }
+      //after getting all the information on that money type, the dataArray is added to the data spot in the data_dict
+      //this completes the dataObj, so it's pushed to dataArrayOfObjs and then data_dict is reset in preparation for the next money type.
+      dataObj['data'] = dataArray;
+      dataArrayOfObjs.push(dataObj);
+      dataObj = {'label':'','data':[], 'backgroundColor':''};
+    }
+  }
+  else if (year === 'All'){
+    for (const moneyType of dataObjLabels){
+
+      dataObj['label'] = moneyType;
+      dataObj['backgroundColor'] = `rgb(${Math.random()*256},${Math.random()*256},${Math.random()*256})`;
+      let dataArray = [0,0,0,0,0,0,0];
+      
+      //loops over each year in the response data
+      for (const dataYear in resData){
+
+        //Looks for the condition of if the obj is empty or the money type isn't in the object at the missed or found spot. This means that nothing matches this day of the week
+        // and the data_array should not be incremented in that spot
+        for (let j = 0; j<=6; j++){
+          if (((Object.keys(resData[dataYear][j]['missed']).length === 0) && (Object.keys(resData[dataYear][j]['found']).length === 0))
+              && ((!(moneyType in resData[dataYear][j]['missed'])) && (!(moneyType in resData[dataYear][j]['found'])))){
+                dataArray[j] += 0;
+          }
+          
+          else{
+            //Loops over the missed/found status and if it's undefined at that spot, the count for that day doesn't get incremented, otherwise the data_array gets incremented at that index.
+            for (const status in resData[dataYear][j]){
+              if (resData[dataYear][j][status][moneyType] === undefined){
+                dataArray[j] += 0;
+              }
+              else{
+                dataArray[j] += resData[dataYear][j][status][moneyType];
+              }
+            }
+          }
+        }
+      }
+      //after getting all the information on that money type, the data_array is added to the data spot in the data_dict
+      //this completes the data_dict, so it's pushed to data_array_of_dicts and then data_dict is reset in preparation for the next money type.
+      dataObj['data'] = dataArray;
+      dataArrayOfObjs.push(dataObj);
+      dataObj = {'label':'','data':[], 'backgroundColor':''};
+    }
+  }
+
+
+  return dataArrayOfObjs;
+}
+
+function createDataObjSpecific(resData, dataObjLabels, year, status){
+  if (status === 'Missed Money'){
+    status = 'missed';
+  }
+  else if (status === 'Found Money'){
+    status = 'found';
+  }
+
+  let dataObj = {'label':'','data':[], 'backgroundColor':''};
+  let dataArrayOfObjs = [];
+
+  if (year !=='All'){
+    for (const moneyType of dataObjLabels){
+      dataObj['label'] = moneyType;
+      dataObj['backgroundColor'] = `rgb(${Math.random()*256},${Math.random()*256},${Math.random()*256})`;
+      const dataArray = [0,0,0,0,0,0,0];
+      
+      for (let j = 0; j<=6; j++){
+  
+        if ((Object.keys(resData[year][j][status]).length === 0) || (!(moneyType in resData[year][j][status]))){
+          dataArray[j] += 0;
+        }
+  
+        else{
+          dataArray[j] += resData[year][j][status][moneyType]
+        }
+      }
+
+      dataObj['data'] = dataArray;
+      dataArrayOfObjs.push(dataObj);
+      dataObj = {'label':'','data':[], 'backgroundColor':''}
+    }
+
+  }
+  else if (year === 'All'){
+    for (const moneyType of dataObjLabels){
+
+      dataObj['label'] = moneyType;
+      
+      dataObj['backgroundColor'] = `rgb(${Math.random()*256},${Math.random()*256},${Math.random()*256})`;
+      let dataArray = [0,0,0,0,0,0,0];
+
+      for (const dataYear in resData){
+        for (let j = 0; j<=6; j++){
+          if ((Object.keys(resData[dataYear][j][status]).length === 0) || (!(moneyType in resData[dataYear][j][status]))){
+            dataArray[j] += 0;
+          }
+    
+          else{
+            dataArray[j] += resData[dataYear][j][status][moneyType]
+          }
+        }
+      }
+      dataObj['data'] = dataArray;
+      dataArrayOfObjs.push(dataObj);
+      dataObj = {'label':'','data':[], 'backgroundColor':''}
+    }
+
+  }
+  return dataArrayOfObjs;
+}
 
 
 
 
 //Stacked bar graph which filters on year and status
 $.get('/data_by_user.json', res => {
-  console.log(graphLabels(res.data, 'All', 'Missed Money'));
 
-  // //reads in the user's data from the data_by_user json route
-  // //grabs the user selection of year and status
-  // const res_data = res.data;
-  // const user_year = $('#year').html();
-  // const money_status = $('#missed').html();
+
+  //reads in the user's data from the data_by_user json route
+  //grabs the user selection of year and status
+  //const resData = res.data;
+  const userYear = $('#year').html();
+  const moneyStatus = $('#missed').html();
+
+  let finalDataArrayOfObjs = [];
+
+  const moneyLabels = createGraphLabels(res.data, userYear, moneyStatus);
+
+  if (moneyStatus === 'Missed and Found Money'){
+    finalDataArrayOfObjs = createDataObjBoth(res.data, moneyLabels, userYear);
+  }
+  else{
+    finalDataArrayOfObjs = createDataObjSpecific(res.data, moneyLabels, userYear, moneyStatus);
+  }
+
+
+
 
   // //array that holds the objects needed for the graph
-  // const data_array_of_dicts = [];
+  // // const data_array_of_dicts = [];
 
-  // //array that holds the label information for the data_dict for both missed and found, labels are the money types
-  // let data_dict_labels = [];
+  // // //array that holds the label information for the data_dict for both missed and found, labels are the money types
+  // // let data_dict_labels = [];
 
-  // //array that holds the label information for the data_dict for missed and found, respectively.
-  // const data_dict_labels_missed = [];
-  // const data_dict_labels_found = [];
+  // // //array that holds the label information for the data_dict for missed and found, respectively.
+  // // const data_dict_labels_missed = [];
+  // // const data_dict_labels_found = [];
 
-  // //data_dict is the obj that will be pushed to data_array_of_dicts. This is the format needed for the stacked bar graph from chart.js
-  // let data_dict = {'label':'','data':[], 'backgroundColor':''};
+  // // //data_dict is the obj that will be pushed to data_array_of_dicts. This is the format needed for the stacked bar graph from chart.js
+  // // let data_dict = {'label':'','data':[], 'backgroundColor':''};
   
   // // Condition to get the labels (money types) for if the user selects a specific year
   // if(user_year !== 'All'){
@@ -223,7 +391,7 @@ $.get('/data_by_user.json', res => {
   //     data_dict = {'label':'','data':[], 'backgroundColor':''}
   //   }
   // }
-  // //Same process as above, but for missed money. Simplier than when looking for both, because only the conditions where the status === 'missed' need to be checked
+  // //Same process as above, but for missed money. Simpler than when looking for both, because only the conditions where the status === 'missed' need to be checked
   // else if (money_status === 'Missed Money'){
   //   data_dict_labels = data_dict_labels_missed;
   //   for (const money_type of data_dict_labels){
@@ -324,7 +492,7 @@ $.get('/data_by_user.json', res => {
   //     }
   //   }
 
-  //   //Same process as the else if above, but for found money. Simplier than when looking for both, because only the conditions where the status === 'found' need to be checked
+  //   //Same process as the else if above, but for found money. Simpler than when looking for both, because only the conditions where the status === 'found' need to be checked
   //   else if(money_status === 'Found Money'){
   //     data_dict_labels = data_dict_labels_found;
 
@@ -383,147 +551,32 @@ $.get('/data_by_user.json', res => {
 
   // }
 
-  // //Graph DATA
-  //   const data = {
-  //       labels:labels,
-  //       datasets : data_array_of_dicts
-  //   };
+  //Graph DATA
+    const data = {
+        labels:labels,
+        datasets : finalDataArrayOfObjs
+    };
 
-  //   new Chart($('#stackedbar'), {
-  //       type: 'bar',
-  //       data: data,
-  //       options: {
-  //         plugins: {
-  //           title: {
-  //             display: true,
-  //             text: 'Money Type Found Per Day'
-  //           },
-  //         },
-  //         responsive: true,
-  //         scales: {
-  //           x: {
-  //             stacked: true
-  //           },
-  //           y: {
-  //             stacked: true
-  //           }
-  //         }
-  //       }
-  //     });
+    new Chart($('#stackedbar'), {
+        type: 'bar',
+        data: data,
+        options: {
+          plugins: {
+            title: {
+              display: true,
+              text: 'Money Type Found Per Day'
+            },
+          },
+          responsive: true,
+          scales: {
+            x: {
+              stacked: true
+            },
+            y: {
+              stacked: true
+            }
+          }
+        }
+      });
 }); 
 // End stacked bar with filters
-
-
-// //working stacked bar for just filtering by year
-// $.get('/data_by_user.json', res => {
-
-//   const res_data = res.data;
-//   const year = $('#year').html();
-
-//   const data_array_of_dicts = [];
-//   const data_dict_labels = [];
-
-//   if(year !== 'All'){
-//     for (const elem in res_data){
-//       if (elem === year){
-//         for (const el in res_data[elem]){
-//           for (const e in res_data[elem][el]){
-//             if (data_dict_labels.indexOf(e)=== -1){
-//               data_dict_labels.push(e)
-//             }
-//           }
-//         }
-//       }
-//     }
-
-//     //data_dict set up this way because of structe of how data is needed for the graph
-//     let data_dict = {'label':'','data':[], 'backgroundColor':''}
-
-//     for (const i of data_dict_labels){
-//       data_dict['label'] = i;
-//       data_dict['backgroundColor'] = `rgb(${Math.random()*256},${Math.random()*256},${Math.random()*256})`;
-//       const data_array = [];
-      
-//       for (let j = 0; j<=6; j++){
-//         // console.log(res_data);
-//         if ((Object.keys(res_data[year][j]).length === 0) || (!(i in res_data[year][j]))){
-//           data_array.push(0);
-//         }
-
-//         else{
-//           data_array.push(res_data[year][j][i])
-//         }
-//       }
-
-//       data_dict['data'] = data_array;
-//       data_array_of_dicts.push(data_dict);
-//       data_dict = {'label':'','data':[], 'backgroundColor':''}
-//     }
-//   }
-  
-//   else {
-//     for (const elem in res_data){
-//           for (const el in res_data[elem]){
-//             for (const e in res_data[elem][el]){
-//               if (data_dict_labels.indexOf(e)=== -1){
-//                 data_dict_labels.push(e)
-//               }
-//             }
-//           }
-//         }
-//         let data_dict = {'label':'','data':[], 'backgroundColor':''}
-      
-//         for (const i of data_dict_labels){
-//           data_dict['label'] = i;
-//           data_dict['backgroundColor'] = `rgb(${Math.random()*256},${Math.random()*256},${Math.random()*256})`;
-//           let data_array = [0,0,0,0,0,0,0];
-          
-//           for (const elem in res_data){
-//             for (let j = 0; j<=6; j++){
-//               if ((Object.keys(res_data[elem][j]).length === 0) || (!(i in res_data[elem][j]))){
-
-//                 data_array[j] =data_array[j] + 0;
-//               }
-        
-//               else{
-//                 data_array[j] = data_array[j] + res_data[elem][j][i];
-//               }
-//             }
-//           }
-      
-//           data_dict['data'] = data_array;
-//           data_array_of_dicts.push(data_dict);
-//           data_dict = {'label':'','data':[], 'backgroundColor':''}
-//         }
-//   }
-
-
-//   //Graph DATA
-//     const data = {
-//         labels:labels,
-//         datasets : data_array_of_dicts
-//     };
-
-//     new Chart($('#stackedbar'), {
-//         type: 'bar',
-//         data: data,
-//         options: {
-//           plugins: {
-//             title: {
-//               display: true,
-//               text: 'Money Type Found Per Day'
-//             },
-//           },
-//           responsive: true,
-//           scales: {
-//             x: {
-//               stacked: true
-//             },
-//             y: {
-//               stacked: true
-//             }
-//           }
-//         }
-//       });
-// }); 
-// //end stacked bar
