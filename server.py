@@ -145,10 +145,12 @@ def places_api():
     missed = request.form.get('missed')
     if missed =='y':
         missed = True
+        money_year = None
     else:
         missed = False
+        money_year = request.form.get('money_year')
 
-    money_year = request.form.get('money_year')
+    
     money_type = request.form.get('money_type')
 
     crud.create_money_entry(email, date, amount, address, city, state, zip, locname, missed, money_year, money_type)
