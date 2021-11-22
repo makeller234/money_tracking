@@ -1,6 +1,3 @@
-
-# from datetime import date, datetime
-# from types import CoroutineType
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -9,7 +6,7 @@ class User(db.Model):
     """Model for a User"""
     __tablename__ = 'users'
 
-    email = db.Column(db.String(30), primary_key=True)
+    email = db.Column(db.String(30), primary_key = True)
     fname = db.Column(db.String(30), nullable = False)
     lname = db.Column(db.String(30), nullable = False)
     password = db.Column(db.String(30), nullable = False)
