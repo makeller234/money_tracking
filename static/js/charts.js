@@ -7,7 +7,6 @@ const labels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturda
 // $.get('/coin_counts.json', res=>{
 //   // const year = $('#year').html();
 
-//   // console.log(res.data);
   
 
 //   const data_array = [];

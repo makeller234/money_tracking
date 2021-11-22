@@ -104,8 +104,7 @@ def daily_average(user_email, year, missed):
                 unique_days.append(elem.date)
 
         # calculates how many days. Need +1 b/c ex: 11/4-11/1 = 3 in timedelta, but it's actually 4 days
-        # print(unique_days)
-        # print(min(unique_days))
+
         if year == 'All':
             days_for_avg = (date.today()-min(unique_days)).days+1
         else:
