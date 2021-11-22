@@ -9,7 +9,7 @@
     <script async defer src="https://maps.googleapis.com/maps/api/js?key={{API_KEY}}&callback=initMap"></script>
 {% endblock %}
 {% block body %}
-<h1>Dashboard Page</h1>
+<h1>A Tale of Two Cents</h1>
 <div class="container-fluid">
 
     <div class="row">
@@ -54,8 +54,11 @@
                 <h3><span id="year">{{year}}</span> Info for <span id="missed">Missed Money</span></h3>
             {% endif %}
 
-
-            A daily Average: {{ "$%.3f"|format(day_avg) }}
+            {% if day_avg == 'N/A' %}
+                A Daily Average: {{day_avg}}
+            {% else %}
+                A daily Average: {{ "$%.3f"|format(day_avg) }}
+            {% endif %}
             <br>
             The most frequent year of a coin/bill is {{ money_year }} and it was found {{ money_count }} times!
             <br>

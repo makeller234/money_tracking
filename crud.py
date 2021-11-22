@@ -88,28 +88,31 @@ def daily_average(user_email, year, missed):
 
     all_user_results = user_query_filters(user_email, year, missed)
     # all_user_results is a list of query objects
-    print(all_user_results)
-    total = 0
-    unique_days = []
-    #loops over the user results and totals the amounts
-    for elem in all_user_results:
-        total += elem.amount
+    if len(all_user_results) ==0:
+        return 'N/A'
 
-        # adds the date to the unique_days list (if it's not already in it) so that it can be used to calculate
-        # total days to compute the average
-        if elem.date not in unique_days:
-            unique_days.append(elem.date)
-
-    # calculates how many days. Need +1 b/c ex: 11/4-11/1 = 3 in timedelta, but it's actually 4 days
-    print(unique_days)
-    print(min(unique_days))
-    if year == 'All':
-        days_for_avg = (date.today()-min(unique_days)).days+1
     else:
-        days_for_avg = (datetime(year,12,31)-datetime(year,1,1)).days+1
+        total = 0
+        unique_days = []
+        #loops over the user results and totals the amounts
+        for elem in all_user_results:
+            total += elem.amount
+
+            # adds the date to the unique_days list (if it's not already in it) so that it can be used to calculate
+            # total days to compute the average
+            if elem.date not in unique_days:
+                unique_days.append(elem.date)
+
+        # calculates how many days. Need +1 b/c ex: 11/4-11/1 = 3 in timedelta, but it's actually 4 days
+        # print(unique_days)
+        # print(min(unique_days))
+        if year == 'All':
+            days_for_avg = (date.today()-min(unique_days)).days+1
+        else:
+            days_for_avg = (datetime(year,12,31)-datetime(year,1,1)).days+1
 
 
-    return round((total / days_for_avg), 3)
+        return round((total / days_for_avg), 3)
 
 def most_freq_money_and_year(user_email, year, missed):
     """Takes in 3 parameters, email, year and if the money was missed, found or both.

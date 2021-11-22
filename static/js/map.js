@@ -169,7 +169,8 @@ function initMap() {
 function coinMap(){
 	//creates a new google map for the coin page
 	let coinMap = new google.maps.Map(document.querySelector("#coinMap"), {
-			zoom: 6,
+			zoom: 4,
+			center: {'lat': 37.0902, 'lng': -95.7129}
 	});
 
 	$.get('/all_addresses.json', res =>{
@@ -226,6 +227,7 @@ function coinMap(){
 
 			//center the map on the location of the most recent entry
 			coinMap.setCenter(loc_res.results[0].geometry.location);
+			coinMap.setZoom(6);
 		})
 	})
 

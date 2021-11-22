@@ -88,8 +88,9 @@ def dashboard():
     """Displays the user's information: basic stats, stacked bar graph, and a map of where the money was found."""
     year = request.args.get('years')
     missed = request.args.get('missed')
-    if year == None:
+    if year == None and missed == None:
         year = 'All'
+        missed = 'both'
 
     if year == 'All':
         year = year
