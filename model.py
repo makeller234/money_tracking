@@ -47,7 +47,7 @@ def connect_to_db(app):
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
-    print("Connected to db!")
+    # print("Connected to db!")
 
 
 if __name__ == "__main__":

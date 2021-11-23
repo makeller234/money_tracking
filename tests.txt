@@ -1,4 +1,0 @@
-    >>> import crud
-
-    >>> crud.years_list('t3@email.com')
-    ['All Years', 2021, 2020]
