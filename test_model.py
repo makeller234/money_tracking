@@ -2,6 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 test_db = SQLAlchemy()
 
+
 class User(test_db.Model):
     """Model for a User"""
     __tablename__ = 'users'
@@ -75,7 +76,7 @@ def connect_to_test_db(app, db_uri='postgresql:///test_monies'):
     test_db.init_app(app)
 
 if __name__ == '__main__':
-    from test_server import app
+    from server import app
     connect_to_test_db(app)
     print('Connected to db')
 

@@ -283,7 +283,7 @@ $.get('/data_by_user.json', res => {
             title: {
               
               display: true,
-              text: 'Money Type Found Per Day'
+              text: `${userYear} ${moneyStatus} by Day`
             },
           },
           responsive: true,

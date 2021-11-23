@@ -1,15 +1,17 @@
 
 from datetime import datetime
 from flask import Flask, render_template, request, flash, session, redirect, jsonify
-from test_model import connect_to_test_db
+from test_model import connect_to_test_db, User, Monies
 from jinja2 import StrictUndefined
 import os, re
 import crud
 import requests, json
 
+from server import app
 
-app = Flask(__name__)
-app.secret_key = 'picklesaretastey'
+
+#app = Flask(__name__)
+# app.secret_key = 'picklesaretastey'
 app.jinja_env.undefined = StrictUndefined
 
 API_KEY = os.environ['API_KEY']
@@ -269,6 +271,6 @@ def coin_counts():
 
 
 if __name__ == "__main__":
-
+    app.debug = True
     connect_to_test_db(app)
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host="0.0.0.0")
