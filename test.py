@@ -44,11 +44,10 @@ class FlaskTestDatabase(unittest.TestCase):
     def test_dashboard(self):
         """Test User Dashboard"""
         result = self.client.get('/dashboard')
-        #print(result.data)
-
-        self.assertIn(b'Coin/Bill Year: 2015', result.data)
+        # print(result.data)
+       
         self.assertIn(b'You Found: $0.01', result.data)
-        
+
 
 
     def test_login(self):

@@ -93,6 +93,10 @@ def dashboard():
     if 'email' not in session:
         flash('Please log in to view the dashboard.')
         return redirect('/')
+    
+    if len(crud.user_query(session['email'])) == 0:
+        flash('Log some money to view the dashboard')
+        return redirect('/return_coin_entry')
 
     year = request.args.get('years')
     missed = request.args.get('missed')

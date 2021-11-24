@@ -131,33 +131,36 @@ def most_freq_money_and_year(user_email, year, missed):
     money_year_counter = Counter(money_years)
     money_type_counter = Counter(money_type)
     
-    #creates a list of tuples, where each tuple consists of the key and value from the money_year_counter dictionary
-    max_year_found = [(v,k) for k,v in money_year_counter.items()]
+    #arrange the data in a dict where the key is the count and matching values are added to the values list
+    max_type_dict = {}
+    for v_type in money_type_counter.values():
+        max_type_dict[v_type] = []
+    for k,v in money_type_counter.items():
+        max_type_dict[v].append(k)
+    #print(max_type_dict)
 
-    #loops through the list and removes the tuple if the 2nd value in the tuple is None.
-    for item in max_year_found:
-        if item[1] == None:
-            max_year_found.remove(item)
+    max_year_dict = {}
+    for v_year in money_year_counter.values():
+        max_year_dict[v_year] = []
+    for k,v in money_year_counter.items():
+        max_year_dict[v].append(k)
+    #print(max_year_dict)
 
-    #does same as above by for the money_type_counter dictionary
-    max_type_found = [(v,k) for k,v in money_type_counter.items()]
-    for item in max_type_found:
-        if item[1] == None:
-            max_type_found.remove(item)
+    #find the max key in the dictionary, and check to make sure it's not none
+    max_year = max(max_year_dict, key=int)
+    max_type = max(max_type_dict, key=int)
 
-    # because there are some places where this information is missing
-    # these conditions make the value 'N/A' if it doesn't exist, otherwise, it finds the max 
-    if len(max_year_found) == 0:
-        max_yr_count,  max_money_yr = 'N/A','N/A'
-    if len(max_type_found) == 0:
-        max_type_cnt, max_money_type = 'N/A','N/A'
-    if len(max_year_found) != 0:
-        max_yr_count,  max_money_yr  = max(max_year_found)[0], max(max_year_found)[1]
-    if len(max_type_found) !=0:
-        max_type_cnt, max_money_type = max(max_type_found)[0], max(max_type_found)[1]
+    if max_year_dict[max_year] == [None]:
+        del max_year_dict[max_year]
+        max_year = max(max_year_dict, key=int)
+    
+    if max_type_dict[max_type] == [None]:
+        del max_type_dict[max_type]
+        max_type = max(max_type_dict, key=int)
 
-    return {'year_count': max_yr_count, 'money_year': max_money_yr,
-            'type_count': max_type_cnt, 'money_type': max_money_type}
+
+    return {'year_count': max_year, 'money_year': max_year_dict[max_year],
+            'type_count': max_type, 'money_type': max_type_dict[max_type]}
 
 
 def most_freq_dow(user_email,year, missed):
@@ -174,21 +177,25 @@ def most_freq_dow(user_email,year, missed):
     #turn the dates list into a dictionary where the key is the count frequency and the value is the day of the week
     dow_counter = Counter(dates)
 
-    #create a list of tuples that hold the count and the day of the week
-    max_dow = [(v,k) for k,v in dow_counter.items()]
+    #create a dict that has the keys as the counts and the values as a list and groups if they're the same
+    dow_dict = {}
+    for v in dow_counter.values():
+        dow_dict[v] = []
+    for k,v in dow_counter.items():
+        dow_dict[v].append(k)
+    
+    #find the max key and add the values to a list
+    max_dow = max(dow_dict, key=int)
+    dow_list_nums = [dow for dow in dow_dict[max_dow]]
+  
+    #make a list and loop over the calendar names and add them to the list if they match the number from the down_list_nums
+    dow_list_days = []
+    for idx, val in enumerate(list(calendar.day_name)):
+        if idx in dow_list_nums:
+            dow_list_days.append(val)
+            
+    return dow_list_days
 
-    #this condition needed for if there's a time when there are no days that meet the criteria and the length would be 0.
-    if len(max_dow) == 0:
-        return 'N/A'
-    else:
-        # loops through a list of the calendar day names and if the index of the day name is the same as the max from the tuples list
-        # that value is returned
-        for idx, val in enumerate(list(calendar.day_name)):
-            if idx == max(max_dow)[1]:
-                return val
-        #         dow = val
-
-        # return dow
     
 def daily_coin_amounts(user_email):
     """takes in the user email and returns a dictionary with the years as keys and the values as a dictionary which 
