@@ -21,6 +21,14 @@ def example_data():
                         city = 'Minneapolis', state = 'MN', zip = 55406, locname ='Merlins', missed = False,
                         money_year = 2015, money_type = 'penny')
 
+    tu1_money3 = Monies(email = test_user_1.email, date = '2021-10-21', amount = 0.1, address = '4320 E Lake Street',
+                        city = 'Minneapolis', state = 'MN', zip = 55406, locname ='Speedway', missed = True,
+                        money_year = 2015, money_type = 'dime')
+
+    tu1_money2 = Monies(email = test_user_1.email, date = '2021-10-22', amount = 0.01, address = '3601 E Lake Street',
+                        city = 'Minneapolis', state = 'MN', zip = 55406, locname ='Merlins', missed = False,
+                        money_year = 2015, money_type = 'penny')
+
     tu2_money1 = Monies(email = test_user_2.email, date = '2015-05-04', amount = .05, address = '4320 E Lake Street',
                         city = 'Minneapolis', state = 'MN', zip =55406, locname = 'Speedway', missed = True,
                         money_year = 2012, money_type = 'nickel')
@@ -30,5 +38,5 @@ def example_data():
                         money_year = 2012, money_type = 'dollar')
 
 
-    db.session.add_all([test_user_1, test_user_2, test_user_3, tu1_money1, tu1_money2, tu2_money1, tu2_money2])
+    db.session.add_all([test_user_1, test_user_2, test_user_3, tu1_money1, tu1_money2, tu1_money3, tu2_money1, tu2_money2])
     db.session.commit()

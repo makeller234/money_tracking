@@ -32,6 +32,8 @@ class FlaskTestDatabase(unittest.TestCase):
         with self.client as c:
             with c.session_transaction() as sess:
                 sess['email'] = 'tester1@email.com'
+                sess['fname'] = 'Test1'
+                sess['lname'] = 'McTest1'
     
     def tearDown(self):
         """Do at end of every test."""
@@ -43,7 +45,7 @@ class FlaskTestDatabase(unittest.TestCase):
         """Test User Dashboard"""
         result = self.client.get('/dashboard')
 
-        self.assertIn(b'The most frequent coin/bill is penny and it has been found 1 times!', result.data)
+        self.assertIn(b'The most frequent year of a coin/bill is 2015 and it was found 2 times!', result.data)
 
 
     def test_login(self):
@@ -56,6 +58,11 @@ class FlaskTestDatabase(unittest.TestCase):
         """Test that the user can get to the money entries page to update their entries"""
         result = self.client.get('/return_update_entry')
         self.assertIn(b'What needs to be updated?', result.data)
+
+    def test_user_update(self):
+        """Testing update user info page"""
+        result = self.client.get('/user_update')
+        self.assertIn(b'Current info: Test1 McTest1', result.data)
 
 
 if __name__ == "__main__":
