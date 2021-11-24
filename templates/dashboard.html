@@ -64,14 +64,23 @@
                 A daily Average: {{ "$%.3f"|format(day_avg) }}
             {% endif %}
             <br>
+            <h3>Most Frequents</h3>
+            Coin/Bill: {{money_type}} <br>
+            Coin/Bill Count: {{type_count}} <br>
             <!-- Set up condition to only show this if missed is NOT selected, as this information is not available for missed money -->
-            {% if missed != 'missed' %}
+            {% if missed != "missed" %}
+            Coin/Bill Year: {{money_year}} <br>
+            Coin/Bill Year Count: {{money_count}}<br>
+            {%endif%}
+            Day of the Week: {{dow}}
+            <!-- Set up condition to only show this if missed is NOT selected, as this information is not available for missed money -->
+            <!-- {% if missed != 'missed' %}
             <span>The most frequent year of a coin/bill is {{ money_year }} and it was found {{ money_count }} times!</span>
             {% endif %}
             <br>
             The most frequent coin/bill is {{ money_type }} and it has been found {{ type_count }} times!
             <br>
-            The Most Freq day of the week is: {{ dow }}
+            The Most Freq day of the week is: {{ dow }} -->
 
         </div>
         <div class="col-9">
