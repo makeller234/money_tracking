@@ -24,6 +24,9 @@ def homepage():
 @app.route('/log_out')
 def log_out():
     """Removes the stored session info and returns user to log in page"""
+    if 'email' not in session:
+        flash("But...you weren't even logged in.")
+        return redirect('/')
     session.pop('email', None)
     session.pop('fname', None)
     flash("You've successfully logged out.")
@@ -86,6 +89,11 @@ def login():
 @app.route('/dashboard')
 def dashboard():
     """Displays the user's information: basic stats, stacked bar graph, and a map of where the money was found."""
+
+    if 'email' not in session:
+        flash('Please log in to view the dashboard.')
+        return redirect('/')
+
     year = request.args.get('years')
     missed = request.args.get('missed')
     if year == None and missed == None:
@@ -161,6 +169,10 @@ def places_api():
 
 @app.route('/return_update_entry')
 def return_update_entry():
+    if 'email' not in session:
+        flash('Please log in to update an entry.')
+        return redirect('/')
+
     data  = crud.all_addresses(session['email'])
 
     return render_template('update_entry.html', data = data)
@@ -235,11 +247,18 @@ def update_user():
 
 @app.route('/user_update')
 def user_update():
+    if 'email' not in session:
+        flash('Please Log in to update the account.')
+        return redirect('/')
     return render_template('/update_user.html', user = crud.get_user_by_email(session['email']))
 
 @app.route('/return_coin_entry')
 def return_coin_entry():
     """A route that allows the user to get from the dashboard to the coin entry page"""
+
+    if 'email' not in session:
+        flash('Please Log in enter a coin.')
+        return redirect('/')
 
     return render_template('coin_entry.html', first_name = session['fname'], API_KEY = API_KEY)
 
