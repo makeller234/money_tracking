@@ -1,5 +1,5 @@
 """CRUD Operations"""
-from model import db, User, Monies, connect_to_db
+from model import db, User, Monies, connect_to_db, uri
 from sqlalchemy import extract
 from collections import Counter #counter takes in a list and returns a dictionary where the key is the count of an item and the value is the item
 import calendar
@@ -115,7 +115,7 @@ def daily_average(user_email, year, missed):
 
 def most_freq_money_and_year(user_email, year, missed):
     """Takes in 3 parameters, email, year and if the money was missed, found or both.
-    Returns a dictionary of the most frequent occurance for money year and money type based on the year and missed status"""
+    Returns a dictionary of the most frequent occurrence for money year and money type based on the year and missed status"""
 
     all_user_results = user_query_filters(user_email, year, missed)
 
@@ -380,9 +380,9 @@ def years_list(user_email):
         if result.date.year not in years_list:
             years_list.append(result.date.year)
     
-    return years_list
+    return sorted(years_list)
 
 
 if __name__ == "__main__":
     from server import app
-    connect_to_db(app)
+    connect_to_db(app, uri)

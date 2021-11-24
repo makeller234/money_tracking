@@ -9,9 +9,28 @@
     <script async defer src="https://maps.googleapis.com/maps/api/js?key={{API_KEY}}&callback=initMap"></script>
 {% endblock %}
 {% block body %}
-<h1>A Tale of Two Cents</h1>
-<div class="container-fluid">
 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1>A Tale of Two Cents</h1>
+
+            {% if missed == None %}
+
+                <h3><span id="year">{{year}}</span> Years Info for <span id="missed">Missed and Found Money</span></h3>
+
+            {% elif missed == "both" %}
+
+                <h3><span id="year">{{year}}</span> Info for <span id="missed">Missed and Found Money</span></h3>
+
+            {% elif missed == "found" %}
+                <h3><span id="year">{{year}}</span> Info for <span id="missed">Found Money</span></h3>
+        
+            {% elif missed == "missed" %}
+                <h3><span id="year">{{year}}</span> Info for <span id="missed">Missed Money</span></h3>
+            {% endif %}
+        </div>
+    </div>
     <div class="row">
         <div class="col-3">
             <form action="/dashboard">
@@ -38,29 +57,17 @@
             You Found: {{ "$%.2f"|format(total_found) }} 
             <br>
             You Missed: {{ "$%.2f"|format(total_missed) }} 
-
-            {% if missed == None %}
-
-                <h3><span id="year">{{year}}</span> Years Info for <span id="missed">Missed and Found Money</span></h3>
-
-            {% elif missed == "both" %}
-
-                <h3><span id="year">{{year}}</span> Info for <span id="missed">Missed and Found Money</span></h3>
-
-            {% elif missed == "found" %}
-                <h3><span id="year">{{year}}</span> Info for <span id="missed">Found Money</span></h3>
-            
-            {% elif missed == "missed" %}
-                <h3><span id="year">{{year}}</span> Info for <span id="missed">Missed Money</span></h3>
-            {% endif %}
-
+                <br>
             {% if day_avg == 'N/A' %}
                 A Daily Average: {{day_avg}}
             {% else %}
                 A daily Average: {{ "$%.3f"|format(day_avg) }}
             {% endif %}
             <br>
-            The most frequent year of a coin/bill is {{ money_year }} and it was found {{ money_count }} times!
+            <!-- Set up condition to only show this if missed is NOT selected, as this information is not available for missed money -->
+            {% if missed != 'missed' %}
+            <span>The most frequent year of a coin/bill is {{ money_year }} and it was found {{ money_count }} times!</span>
+            {% endif %}
             <br>
             The most frequent coin/bill is {{ money_type }} and it has been found {{ type_count }} times!
             <br>
