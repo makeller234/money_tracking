@@ -17,7 +17,7 @@ class FlaskTestBasic(unittest.TestCase):
 
     def test_log_out(self):
         result = self.client.get('log_out', follow_redirects = True)
-        self.assertIn(b'logged out', result.data)
+        self.assertIn(b"even logged in", result.data)
 
 class FlaskTestDatabase(unittest.TestCase):
     def setUp(self):
@@ -44,8 +44,11 @@ class FlaskTestDatabase(unittest.TestCase):
     def test_dashboard(self):
         """Test User Dashboard"""
         result = self.client.get('/dashboard')
+        #print(result.data)
 
-        self.assertIn(b'The most frequent year of a coin/bill is 2015 and it was found 2 times!', result.data)
+        self.assertIn(b'Coin/Bill Year: 2015', result.data)
+        self.assertIn(b'You Found: $0.01', result.data)
+        
 
 
     def test_login(self):
