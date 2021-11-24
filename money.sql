@@ -93,7 +93,6 @@ COPY public.monies (id, email, date, amount, address, city, state, zip, locname,
 51	tdurden@email.com	2019-01-12	1.000	99-500 Salt Lake Blvd	Honolulu	HI	96818	Aloha Stadium	f	2013	$1
 165	tdurden@email.com	2021-09-24	1.000	501 30th Ave SE	Minneapolis 	MN	55414	The Market at Malcolm yards	f	2009	$1
 431	tdurden@email.com	2021-06-19	1.000	15277 Barton Ave NW	Monticello	MN	55362	15277 Barton Ave NW	f	2013	$1
-676	t3@email.com	2021-11-04	0.250	2929 36th Ave S	Minneapolis	MN	55406	My House	f	1234	quarter
 37	tdurden@email.com	2021-04-12	0.010	16396 Wagner Way	Eden Prairie	MN	55344	Tavern 4&5	t	\N	penny
 42	tdurden@email.com	2020-06-27	0.100	60684 MN-23	Finlayson	MN	55735	Cenex	t	\N	dime
 56	tdurden@email.com	2021-07-24	1.000	Cedar Street	Houston	MN	55943	Hoedown	t	\N	$1
@@ -118,20 +117,6 @@ COPY public.monies (id, email, date, amount, address, city, state, zip, locname,
 696	hisnameis@email.com	2018-03-04	0.050	3800 42nd Ave S	Minneapolis	MN	\N	Riverview Theatre	f	2018	nickel
 257	tdurden@email.com	2019-06-25	0.010	2500 E Lake St	Minneapolis 	MN	55406	Target	f	1990	penny
 582	tdurden@email.com	2018-06-03	0.010	\N	Saint Paul	MN	\N	Grand Ole Day	f	\N	penny
-677	t3@email.com	2021-11-04	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	f	1234	penny
-678	t3@email.com	2021-11-04	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	f	1234	penny
-680	t3@email.com	2021-11-04	0.010	350 Canal Park Dr	Duluth	MN	55802	Inn On Lake Superior	f	1234	penny
-681	t3@email.com	2021-11-06	0.010	4320 E Lake St	Minneapolis	MN	55406	Speedway	f	1235	penny
-682	t3@email.com	2021-11-06	0.010	4320 E Lake St	Minneapolis	MN	55406	Speedway	f	2345	penny
-671	t3@email.com	2021-11-02	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	t	1234	penny
-675	t3@email.com	2021-11-02	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	t	123	penny
-669	t3@email.com	2021-11-02	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	t	1234	penny
-670	t3@email.com	2021-11-01	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	t	1234	penny
-679	t3@email.com	2021-11-04	0.050	350 Canal Park Dr	Duluth	MN	55802	Inn On Lake Superior	f	1234	nickle
-683	t3@email.com	2021-11-06	0.050	4320 E Lake St	Minneapolis	MN	55406	Speedway	f	3445	nickle
-685	t3@email.com	2021-11-06	0.050	4320 E Lake St	Minneapolis	MN	55406	Speedway	f	234456	nickle
-684	t3@email.com	2021-11-06	0.250	4320 E Lake St	Minneapolis	MN	55406	Speedway	f	1234	quarter
-672	t3@email.com	2021-11-02	0.250	2929 36th Ave S	Minneapolis	MN	55406	My House	t	123	quarter
 686	t3@email.com	2020-10-06	0.100	84 Church Street Southeast	Minneapolis	MN	\N	Northrop	f	1988	dime
 687	t3@email.com	2020-10-07	0.100	199 W Kellogg Blvd	Saint Paul	MN	\N	Xcel Energy Center	f	1923	dime
 77	tdurden@email.com	2019-06-07	20.000	1504 7th St S	Minneapolis	MN	55454	House of Balls	t	\N	$20
@@ -155,6 +140,19 @@ COPY public.monies (id, email, date, amount, address, city, state, zip, locname,
 434	tdurden@email.com	2020-01-22	0.250	1335 6th Ave	New York	NY	10019	NY Hilton Midtown	f	1972	quarter
 192	tdurden@email.com	2020-08-08	0.010	4320 E Lake St	Minneapolis 	MN	55406	Speedway	f	1988	penny
 161	tdurden@email.com	2018-05-22	0.100	\N	Minneapolis 	MN	\N	\N	f	\N	dime
+677	t3@email.com	2021-11-04	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	f	2020	penny
+680	t3@email.com	2021-11-04	0.010	350 Canal Park Dr	Duluth	MN	55802	Inn On Lake Superior	f	2013	penny
+678	t3@email.com	2021-11-04	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	f	2014	penny
+681	t3@email.com	2021-11-06	0.010	4320 E Lake St	Minneapolis	MN	55406	Speedway	f	2021	penny
+682	t3@email.com	2021-11-06	0.010	4320 E Lake St	Minneapolis	MN	55406	Speedway	f	2006	penny
+683	t3@email.com	2021-11-06	0.050	4320 E Lake St	Minneapolis	MN	55406	Speedway	f	2014	nickle
+671	t3@email.com	2021-11-02	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	f	2005	penny
+675	t3@email.com	2021-11-02	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	f	2012	penny
+669	t3@email.com	2021-11-02	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	f	2015	penny
+670	t3@email.com	2021-11-01	0.010	2929 36th Ave S	Minneapolis	MN	55406	My House	f	2020	penny
+685	t3@email.com	2021-11-06	0.050	4320 E Lake St	Minneapolis	MN	55406	Speedway	f	2016	nickle
+684	t3@email.com	2021-11-06	0.250	4320 E Lake St	Minneapolis	MN	55406	Speedway	f	2018	quarter
+672	t3@email.com	2021-11-02	0.250	2929 36th Ave S	Minneapolis	MN	55406	My House	f	2015	quarter
 573	tdurden@email.com	2018-06-03	0.050	\N	Saint Paul	MN	\N	Grand Ole Day	f	\N	nickel
 387	tdurden@email.com	2020-01-14	0.010	2136 E Lake St	Minneapolis 	MN	55407	Dollar General	t	\N	penny
 650	tdurden@email.com	2018-06-19	0.010	1 Valley Fair Dr	Shakopee	MN	55379	Valleyfair	f	\N	penny
@@ -1211,6 +1209,8 @@ COPY public.monies (id, email, date, amount, address, city, state, zip, locname,
 1119	hisnameis@email.com	2020-05-17	0.250	\N	Minneapolis 	MN	\N	29th and 32nd St	f	1974	quarter
 1120	hisnameis@email.com	2021-06-18	0.250	2100 E Snelling Dr	Roseville	MN	55113	Marshall's	f	1981	quarter
 1121	hisnameis@email.com	2021-07-10	0.250	4320 E Lake St	Minneapolis 	MN	55406	Speedway	f	2009	quarter
+676	t3@email.com	2021-11-04	0.250	2929 36th Ave S	Minneapolis	MN	55406	My House	f	2015	quarter
+679	t3@email.com	2021-11-04	0.050	350 Canal Park Dr	Duluth	MN	55802	Inn On Lake Superior	f	2020	nickle
 \.
 
 

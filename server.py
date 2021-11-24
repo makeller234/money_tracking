@@ -1,7 +1,7 @@
 
 from datetime import datetime
 from flask import Flask, render_template, request, flash, session, redirect, jsonify
-from model import connect_to_db
+from model import connect_to_db, uri
 from jinja2 import StrictUndefined
 import os, re
 import crud
@@ -269,5 +269,5 @@ def coin_counts():
 
 
 if __name__ == "__main__":
-    connect_to_db(app)
+    connect_to_db(app, uri)
     app.run(host="0.0.0.0", debug=True)

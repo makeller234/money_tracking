@@ -24,8 +24,7 @@ class FlaskTestDatabase(unittest.TestCase):
         """Before every test."""
         self.client = app.test_client()
         app.config['TESTING'] = True
-
-        connect_to_db(app) # ,echo=False? #I'm also not specifying the test_monies here, but it's working....
+        connect_to_db(app,'postgresql:///test_monies')
 
         db.create_all()
         example_data()
@@ -53,6 +52,10 @@ class FlaskTestDatabase(unittest.TestCase):
                                     follow_redirects = True)
         self.assertIn(b'Interested in logging some money today?', result.data)
 
+    def test_money_entries(self):
+        """Test that the user can get to the money entries page to update their entries"""
+        result = self.client.get('/return_update_entry')
+        self.assertIn(b'What needs to be updated?', result.data)
 
 
 if __name__ == "__main__":

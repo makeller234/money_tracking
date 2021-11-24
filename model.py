@@ -38,11 +38,11 @@ class Monies(db.Model):
     def __repr__(self):
         return f'<email = {self.email}, amount = {self.amount}, locname = {self.locname}, id = {self.id}>'
 
-
-def connect_to_db(app):
+uri = "postgresql:///money"
+def connect_to_db(app, uri):
     """Connect the database to our Flask app."""
 
-    app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///money"
+    app.config["SQLALCHEMY_DATABASE_URI"] = uri
     app.config["SQLALCHEMY_ECHO"] = False
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
@@ -53,4 +53,4 @@ def connect_to_db(app):
 if __name__ == "__main__":
     from server import app
 
-    connect_to_db(app)
+    connect_to_db(app, uri)
