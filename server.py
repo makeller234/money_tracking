@@ -224,8 +224,6 @@ def update_monies_entry():
     if request.form.get('del_entry') == 'y':
         crud.delete_entry(request.form.get('entry_id'))
 
-
-    #data  = crud.all_addresses(session['email'])
     return render_template('update_entry.html')
 
 @app.route('/update_account', methods = ['POST'])

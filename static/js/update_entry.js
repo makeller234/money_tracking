@@ -5,15 +5,16 @@ function displayResults(data,start,end){
 	for(start; start <= end; start++){
 	
 		let date = new Date(data[start].date)
+
+		let status = '';
+		if (data[start].missed == false){
+			status = 'found';
+		}
+		else{
+			status = 'missed';
+		}
 		let radioButton = $(`<input type="radio" name="entry_id" value="${data[start].id}">
-		<label>Location: ${data[start].loc}
-		Address: ${data[start].addr} ${data[start].city}, ${data[start].state} ${data[start].zip}
-		Date: ${date.toLocaleDateString()}
-		Amount: ${data[start].amount}
-		Money Type: ${data[start].money_type}
-		Money Year: ${data[start].money_year}
-		Status: ${data[start].missed}
-		entry_id: ${data[start].id}
+		<label>${data[start].money_type} ${status} at ${data[start].loc} (${data[start].addr}) on ${date.toLocaleDateString()}
 		</label> <br>`)
 	radioButton.appendTo('#entry_info')
 	}
@@ -38,6 +39,9 @@ function endBound(dataLength, start){
 	return end;
 }
 $.get('/all_addresses.json', res =>{
+//$.get('/search_entries', res =>{
+	//console.log(res.data);
+
 
 	let start = 0
 	let end = endBound(Object.keys(res.data).length, start)
@@ -92,12 +96,6 @@ $.get('/all_addresses.json', res =>{
 			$('#prev_entries').attr('disabled', 'disabled');
 		}
 	
-		displayResults(res.data, start, end);
-		
+		displayResults(res.data, start, end);	
 	})
-
-
-
-
-
 })

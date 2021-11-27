@@ -1,6 +1,6 @@
 """CRUD Operations"""
 from model import db, User, Monies, connect_to_db, uri
-from sqlalchemy import extract
+from sqlalchemy import extract, func
 from collections import Counter #counter takes in a list and returns a dictionary where the key is the count of an item and the value is the item
 import calendar
 from datetime import date, datetime
@@ -193,7 +193,7 @@ def most_freq_dow(user_email,year, missed):
     for idx, val in enumerate(list(calendar.day_name)):
         if idx in dow_list_nums:
             dow_list_days.append(val)
-            
+
     return dow_list_days
 
     
@@ -365,17 +365,6 @@ def all_addresses(user_email):
         i+=1
 
     return addresses
-
-def coin_polar(user_email):
-    """Takes in a users email and returns a dictionary that has a count of the coin types"""
-    all_user_coins = user_query(user_email)
-
-    coin_list = []
-    for item in all_user_coins:
-        coin_list.append(item.money_type)
-    coin_counts = Counter(coin_list)
-
-    return coin_counts
 
 def years_list(user_email):
     """returns a unique list of all the years in the database, given a specific user"""

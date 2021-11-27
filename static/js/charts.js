@@ -3,37 +3,6 @@
 const labels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 
-// //Polar Area
-// $.get('/coin_counts.json', res=>{
-//   // const year = $('#year').html();
-
-  
-
-//   const data_array = [];
-//   const backg_color = []
-//   for (const item in res.data){
-//     data_array.push(res.data[item]);
-
-//     backg_color.push(`rgb(${Math.random()*256},${Math.random()*256},${Math.random()*256})`)
-//   }
-//   const data = {
-//     labels: Object.keys(res.data),
-//     datasets: [{
-//       label: 'Money Quantities',
-//       data: data_array,
-//       backgroundColor: backg_color
-//     }]
-    
-//   };
-//   new Chart($('#polar'), {
-//     type: 'polarArea',
-//     data: data,
-//     options: {}
-//   });
-
-// })
-// //end polar area graph.
-
 function createGraphLabels(resData, year, status){
   //returns an array of the labels (unique money types) for the stacks on the bar graph.  Array is filtered based on the year and status.
   let dataObjLabelsBoth = [];

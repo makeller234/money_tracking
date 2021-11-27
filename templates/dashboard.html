@@ -65,14 +65,14 @@
             {% endif %}
             <br>
             <h3>Most Frequents</h3>
-            Coin/Bill: {%for money in money_type %} {{money}} {%endfor%} <br>
-            Coin/Bill Count: {{type_count}} <br>
+            Coin/Bill {%for money in money_type %} <li>{{money}}</li> {%endfor%} <br>
+            Coin/Bill Count <li>{{type_count}}</li> <br>
             <!-- Set up condition to only show this if missed is NOT selected, as this information is not available for missed money -->
             {% if missed != "missed" %}
-            Coin/Bill Year: {% for mon_year in money_year%} {{mon_year}} {%endfor%}<br>
-            Coin/Bill Year Count: {{money_count}}<br>
+            Coin/Bill Year {% for mon_year in money_year%} <li>{{mon_year}}</li> {%endfor%}<br>
+            Coin/Bill Year Count <li>{{money_count}}</li><br>
             {%endif%}
-            Day of the Week: {%for day in dow%} {{day}} {%endfor%}
+            Day of the Week {%for day in dow%} <li>{{day}}</li> {%endfor%}
 
         </div>
         <div class="col-9">

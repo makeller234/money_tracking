@@ -44,8 +44,9 @@ name and amount of money logged for that location.  The dashboard can be filtere
 - Sign up for the [Google APIs](https://developers.google.com/maps): Places, Geocoding, Maps JavaScript
 
 - Create a 'secrets.sh' file and add your API key as ```export API_KEY="api_key_here"```
+- Also, add your API key to the 2 get requests for the Google Maps url, in the map.js file
 
-- Source your key into the virtual environment. In terminal, in your virtual environment, run this command
+- Source your key into the virtual environment. You will have to source the secrets.sh file every time you open a new terminal. In terminal, in your virtual environment, run this command
 ```
 source secrets.sh
 ```
