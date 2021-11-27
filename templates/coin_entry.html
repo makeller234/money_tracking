@@ -18,7 +18,7 @@
                 <h4>Interested in logging some money today?</h4>
             </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-12">
                 <form action="coin_entry" method="POST">
                     Date (Leave blank if today): <input type="date" name="date">
@@ -32,7 +32,28 @@
                     <input type="submit">
                 </form>
             </div>
-        </div>
+        </div> -->
+        <!-- <div class="row">
+            <div class="col-12"> -->
+                <form action="coin_entry" method="POST" class="row">
+                    <div class="col-6">
+                        Date (Leave blank if today): <input type="date" name="date"> <br>
+                        Address: <input type="text" name="places_api" id="places_api"> <br>
+                        Location Name: <input type="text" name="locname">
+                    </div>
+                    <div class="col-6">
+                        Amount: <input type="number" name="amount" step="0.001" min="0"> <br>
+                        Missed: <input type="radio" name="missed" value="y"><label>Yes</label>
+                        <input type="radio" name="missed" value="n"><label>No</label> <br>
+                        Money Year: <input type="number" name="money_year"> <br>
+                        Money Type: <input type="text" name="money_type">
+                        <input type="submit">
+                    </div>
+                    
+
+                </form>
+            <!-- </div>
+        </div> -->
                
         <div class="row">
             <div class="col-12">

@@ -2,7 +2,6 @@
 
 const labels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-
 function createGraphLabels(resData, year, status){
   //returns an array of the labels (unique money types) for the stacks on the bar graph.  Array is filtered based on the year and status.
   let dataObjLabelsBoth = [];

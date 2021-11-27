@@ -14,25 +14,10 @@
     <div class="row">
         <div class="col-12">
             <h1>A Tale of Two Cents</h1>
-
-            {% if missed == None %}
-
-                <h3><span id="year">{{year}}</span> Years Info for <span id="missed">Missed and Found Money</span></h3>
-
-            {% elif missed == "both" %}
-
-                <h3><span id="year">{{year}}</span> Info for <span id="missed">Missed and Found Money</span></h3>
-
-            {% elif missed == "found" %}
-                <h3><span id="year">{{year}}</span> Info for <span id="missed">Found Money</span></h3>
-        
-            {% elif missed == "missed" %}
-                <h3><span id="year">{{year}}</span> Info for <span id="missed">Missed Money</span></h3>
-            {% endif %}
         </div>
     </div>
     <div class="row">
-        <div class="col-3">
+        <div class="col-12">
             <form action="/dashboard">
                 <label for="years">Filter Your Tale</label>
                 <br>
@@ -51,39 +36,81 @@
                     <input type="submit">
                 </form>
 
-            <br>
+            {% if missed == None %}
+
+            <h3><span id="year">{{year}}</span> Years Info for <span id="missed">Missed and Found Money</span></h3>
+
+            {% elif missed == "both" %}
+
+                <h3><span id="year">{{year}}</span> Info for <span id="missed">Missed and Found Money</span></h3>
+
+            {% elif missed == "found" %}
+                <h3><span id="year">{{year}}</span> Info for <span id="missed">Found Money</span></h3>
+        
+            {% elif missed == "missed" %}
+                <h3><span id="year">{{year}}</span> Info for <span id="missed">Missed Money</span></h3>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
             Grand Total: {{ "$%.2f"|format(total_found + total_missed)}}
-            <br>
+        </div>
+        <div class="col-3">
             You Found: {{ "$%.2f"|format(total_found) }} 
-            <br>
+        </div>
+        <div class="col-3">
             You Missed: {{ "$%.2f"|format(total_missed) }} 
-                <br>
+        </div>
+        <div class="col-3">
             {% if day_avg == 'N/A' %}
                 A Daily Average: {{day_avg}}
             {% else %}
                 A daily Average: {{ "$%.3f"|format(day_avg) }}
             {% endif %}
-            <br>
-            <h3>Most Frequents</h3>
-            Coin/Bill {%for money in money_type %} <li>{{money}}</li> {%endfor%} <br>
-            Coin/Bill Count <li>{{type_count}}</li> <br>
-            <!-- Set up condition to only show this if missed is NOT selected, as this information is not available for missed money -->
-            {% if missed != "missed" %}
-            Coin/Bill Year {% for mon_year in money_year%} <li>{{mon_year}}</li> {%endfor%}<br>
-            Coin/Bill Year Count <li>{{money_count}}</li><br>
-            {%endif%}
-            Day of the Week {%for day in dow%} <li>{{day}}</li> {%endfor%}
-
         </div>
-        <div class="col-9">
-            <canvas id="stackedbar"></canvas>
+
+    </div>
+    <div class="row">
+            <div class="col-12">
+                <h3>Most Frequents</h3>
+            </div>
+    </div>
+    {% if missed != 'missed'%}
+    <div class="row">
+        <div class="col-4">
+            Coin/Bill {%for money in money_type %} <li>{{money}}</li> {%endfor%}
+            Coin/Bill Count <li>{{type_count}}</li>
+        </div>
+        <div class="col-4">
+            Coin/Bill Year {% for mon_year in money_year%} <li>{{mon_year}}</li> {%endfor%}
+            Coin/Bill Year Count <li>{{money_count}}</li>
+        </div>
+        <div class="col-4">
+            Day of the Week {%for day in dow%} <li>{{day}}</li> {%endfor%}
         </div>
     </div>
-
+    {% else %}
     <div class="row">
-        <div class="col-12">
+        <div class="col-6">
+            Coin/Bill {%for money in money_type %} <li>{{money}}</li> {%endfor%}
+            Coin/Bill Count <li>{{type_count}}</li>
+        </div>
+
+        <div class="col-6">
+            Day of the Week {%for day in dow%} <li>{{day}}</li> {%endfor%}
+        </div>
+    </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-6">
+            <canvas id="stackedbar"></canvas>
+        </div>
+    <!-- </div>
+
+    <div class="row"> -->
+        <div class="col-6">
             <div id="map">
-            </div>
         </div>
     </div>
 </div>
