@@ -5,3 +5,7 @@
 .container{
     max-width: 95%;
 }
+.centered{
+   text-align: center;
+   margin: 0 auto;
+}

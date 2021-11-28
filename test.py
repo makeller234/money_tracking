@@ -59,7 +59,7 @@ class FlaskTestDatabase(unittest.TestCase):
     def test_money_entries(self):
         """Test that the user can get to the money entries page to update their entries"""
         result = self.client.get('/return_update_entry')
-        self.assertIn(b'What needs to be updated?', result.data)
+        self.assertIn(b'always be right on the money', result.data)
 
     def test_user_update(self):
         """Testing update user info page"""
