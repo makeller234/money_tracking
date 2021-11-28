@@ -13,32 +13,40 @@
             Current info: {{user.fname}} {{user.lname}} 
         </div>
     </div>
-    <div class="row">
+    <form action = '/update_account' method = 'POST' class="row g-3">
         <div class="col-6">
-            <form action = '/update_account' method = 'POST'>
-                <div class="row">
-                    <div class="col">
-                        Update Name:
-                        First Name:<input type=text, name='fname' class="form-control">
-                        Last Name:<input type=text, name='lname' class="form-control">
-                    </div>
+            Update Name:
+            <div class="row">
+                <div class="col">
+                    First Name<input type=text, name='fname' class="form-control">
                 </div>
-                <div class="row">
-                    <div class="col">
-                        Update Password:
-                        Current Password: <input type=password name='cur_pass' class="form-control">
-                        New Password: <input type=password name='new_pass' class="form-control">
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    Last Name<input type=text, name='lname' class="form-control">
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <input type="submit" class="form-control">
-                    </div>
-                </div>
-                
-            </form>
+            </div>
         </div>
-    </div>
+        <div class="col-6">
+            Update Password:
+            <div class="row">
+                <div class="col">
+                    Current Password<input type=password name='cur_pass' class="form-control">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    New Password<input type=password name='new_pass' class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <input type="submit" class="form-control">
+            </div>
+        </div>
+        
+    </form>
 </div>
 
 
