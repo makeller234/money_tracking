@@ -13,9 +13,9 @@ function displayResults(data,start,end){
 		else{
 			status = 'missed';
 		}
-		let radioButton = $(`<input type="radio" name="entry_id" value="${data[start].id}">
+		let radioButton = $(`<div class="row"><div class="col"><input type="radio" name="entry_id" value="${data[start].id}">
 		<label>${data[start].money_type} ${status} at ${data[start].loc} (${data[start].addr}) on ${date.toLocaleDateString()}
-		</label> <br>`)
+		</label></div></div>`)
 	radioButton.appendTo('#entry_info')
 	}
 }

@@ -1,27 +1,27 @@
 {% extends "base.html"%}
 {%block title%} Update Entry {%endblock%}
 {% block head %}
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.1/underscore-umd-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.1/underscore-umd-min.js"></script> -->
     <script src="../static/js/update_entry.js" type="text/javascript"></script>
 {% endblock %}
 {% block body %}
-<div class="container-fluid">
+<div class="container">
     <div class="row">
         <div class="col-12">
             <h2>You can't always be right on the money</h2>
             <h3>Anything need updating?</h3>
         </div>
     </div>
-    <form action="update_entry" METHOD="POST" class="row g-3">
-        <div class="col-6">
+    <form action="update_entry" METHOD="POST" class="row g-0">
+        <div class="col-7">
             <!-- div to hold the radio buttons that are created in js -->
             <div id="entry_info"></div>
             <button id="prev_entries" disabled='disabled'>Previous Entries</button>
             <button id="next_entries">Next Entries</button>
         </div>
-        <div class="col-6">
+        <div class="col-5">
             Date: <input type="date" name="date" class="form-control">
             Amount: <input type="number" name="amount" step="0.001" min="0" class="form-control">
             Address: <input type="text" name="address" id="address" class="form-control">
@@ -41,42 +41,5 @@
             </div>
         </div>
     </form>
-    <!-- <div class="row">
-        <div class="col-12">
-            <form action="update_entry" METHOD="POST">
-                <div class="row">
-                    <div class="col-6"> -->
-                        <!-- div to hold the radio buttons that are created in js -->
-                        <!-- <div id="entry_info"></div>
-
-                        <button id="prev_entries" disabled='disabled'>Previous Entries</button>
-                        <button id="next_entries">Next Entries</button>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        Date: <input type="date" name="date">
-                        Amount: <input type="number" name="amount" step="0.001" min="0">
-                        Address: <input type="text" name="address" id="address">
-                        City: <input type="text" name="city" id="city">
-                        State: <input type="text" name="state" id="state">
-                        Zipcode: <input type="text" name="zipcode" id="zipcode">
-                        Location Name: <input type="text" name="locname">
-                        Missed: <input type="radio" name="missed" value="y"><label>Yes</label>
-                        <input type="radio" name="missed" value="n"><label>No</label>
-                        Money Year: <input type="number" name="money_year">
-                        Money Type: <input type="text" name="money_type">
-                        Delete Entry: <input type="radio" name="del_entry" value="y"><label>Yes</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <input type="submit">
-                    </div>
-                </div>
-            </form>
-        </div>
-
-    </div> -->
 </div>
 {% endblock %}
