@@ -7,20 +7,56 @@
         <div class = "col-6">
             <h1>Log In</h1>
             <form action = '/user_login' method = 'POST'>
-                Email:<input type=text, name='email' autofocus="autofocus" required></input> <br>
-                Password:<input type=password name='password' required></input> <br>
-                <input type="submit">
+                <div class="row">
+                    <div class="col">
+                        Email:<input type="text" class="form-control" name='email' autofocus="autofocus" required></input>
+                        
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col">
+                        Password:<input type=password class="form-control" name='password' required></input>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="submit" class="form-control">
+                    </div>
+                </div>
+                
+                
             </form>
         </div>
         <div class = "col-6">
             <h1>Create An Account</h1>
                 <form action='/create_account' method='POST'>
-    
-                    First Name:<input type=text, name='fname' required></input> <br>
-                    Last Name:<input type=text, name='lname' required></input> <br>
-                    Email:<input type=text, name='email' required></input> <br>
-                    Password:<input type=password name='password' required></input> <br>
-                    <input type="submit">
+                    <div class="row">
+                        <div class="col">
+                            First Name:<input type="text" class="form-control" name='fname' required></input>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            Last Name:<input type="text" class="form-control" name='lname' required></input>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            Email:<input type="text" class="form-control" name='email' required></input>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            Password:<input class="form-control" type=password name='password' required></input>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <input class="form-control" type="submit">
+                        </div>
+                    </div>
+
                 </form>
         </div>
     </div>

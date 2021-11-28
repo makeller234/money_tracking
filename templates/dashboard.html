@@ -18,24 +18,46 @@
     </div>
     <div class="row">
         <div class="col-12">
+            <h3>Filter Your Tale</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
             <form action="/dashboard">
-                <label for="years">Filter Your Tale</label>
-                <br>
-                    <select name="years" >
-                        <option value="All" class="year">All Years</option>
-                        {% for year in years_list %}
-                            <option value={{year}} class="year">{{year}}</option>
-                        {%endfor%}
-                    </select>
-                    <select name="missed">
-                        <option value="both" class="missed">Both Missed & Found</option>
-                        <option value="found" class="missed">Found</option>
-                        <option value="missed" class="missed">Missed</option>
-                      
-                    </select>
-                    <input type="submit">
-                </form>
-
+                <!-- <label for="years">Filter Your Tale</label> -->
+                <div class="row">
+                    <div class="col">
+                        <label class="form-label">Year</label>
+                        <select class="form-select" name="years">
+                            <option value="All" class="year">All Years</option>
+                            {% for year in years_list %}
+                                <option value={{year}} class="year">{{year}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                </div>                
+                <div class="row">
+                    <div class="col">
+                        <label class="form-label">Status</label>
+                        <select class="form-select" name="missed">
+                            <option value="both" class="missed">Both Missed & Found</option>
+                            <option value="found" class="missed">Found</option>
+                            <option value="missed" class="missed">Missed</option>
+                          
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input class="form-control" type="submit">
+                    </div>
+                </div>
+                    
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
             {% if missed == None %}
 
             <h3><span id="year">{{year}}</span> Years Info for <span id="missed">Missed and Found Money</span></h3>
@@ -52,6 +74,8 @@
             {% endif %}
         </div>
     </div>
+
+
     <div class="row">
         <div class="col-3">
             Grand Total: {{ "$%.2f"|format(total_found + total_missed)}}

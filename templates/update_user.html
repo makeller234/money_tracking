@@ -2,16 +2,46 @@
 {%block title%} Update User {%endblock%}
 
 {% block body %}
-<h1>Update Your Account</h1>
-Current info: {{user.fname}} {{user.lname}} 
-<form action = '/update_account' method = 'POST'>
-   
-    Update First Name:<input type=text, name='fname'>
-    Update Last Name:<input type=text, name='lname'>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1>Update Your Account</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            Current info: {{user.fname}} {{user.lname}} 
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <form action = '/update_account' method = 'POST'>
+                <div class="row">
+                    <div class="col">
+                        Update Name:
+                        First Name:<input type=text, name='fname' class="form-control">
+                        Last Name:<input type=text, name='lname' class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        Update Password:
+                        Current Password: <input type=password name='cur_pass' class="form-control">
+                        New Password: <input type=password name='new_pass' class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="submit" class="form-control">
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div>
 
-    Update Password:
-    Current Password: <input type=password name='cur_pass'>
-    New Password: <input type=password name='new_pass'>
-    <input type="submit">
-</form>
+
+
+
 {% endblock %}

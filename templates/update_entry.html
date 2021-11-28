@@ -10,31 +10,73 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
+            <h2>You can't always be right on the money</h2>
+            <h3>Anything need updating?</h3>
+        </div>
+    </div>
+    <form action="update_entry" METHOD="POST" class="row g-3">
+        <div class="col-6">
+            <!-- div to hold the radio buttons that are created in js -->
+            <div id="entry_info"></div>
+            <button id="prev_entries" disabled='disabled'>Previous Entries</button>
+            <button id="next_entries">Next Entries</button>
+        </div>
+        <div class="col-6">
+            Date: <input type="date" name="date" class="form-control">
+            Amount: <input type="number" name="amount" step="0.001" min="0" class="form-control">
+            Address: <input type="text" name="address" id="address" class="form-control">
+            City: <input type="text" name="city" id="city" class="form-control">
+            State: <input type="text" name="state" id="state" class="form-control">
+            Zipcode: <input type="text" name="zipcode" id="zipcode" class="form-control">
+            Location Name: <input type="text" name="locname" class="form-control">
+            Money Year: <input type="number" name="money_year" class="form-control">
+            Money Type: <input type="text" name="money_type" class="form-control">
+            Missed: <input type="radio" name="missed" value="y"><label>Yes</label>
+            <input type="radio" name="missed" value="n"><label>No</label> <br>
+            Delete Entry: <input type="radio" name="del_entry" value="y"><label>Yes</label>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <input type="submit" class="form-control">
+            </div>
+        </div>
+    </form>
+    <!-- <div class="row">
+        <div class="col-12">
             <form action="update_entry" METHOD="POST">
+                <div class="row">
+                    <div class="col-6"> -->
+                        <!-- div to hold the radio buttons that are created in js -->
+                        <!-- <div id="entry_info"></div>
 
-                <!-- div to hold the radio buttons that are created in js -->
-
-                <div id="entry_info"></div>
-                <button id="prev_entries" disabled='disabled'>Previous Entries</button>
-                <button id="next_entries">Next Entries</button>
-                <h3>What needs to be updated?</h3>
-                    Date: <input type="date" name="date">
-                    Amount: <input type="number" name="amount" step="0.001" min="0">
-                    Address: <input type="text" name="address" id="address">
-                    City: <input type="text" name="city" id="city">
-                    State: <input type="text" name="state" id="state">
-                    Zipcode: <input type="text" name="zipcode" id="zipcode">
-                    Location Name: <input type="text" name="locname">
-                    Missed: <input type="radio" name="missed" value="y"><label>Yes</label>
-                    <input type="radio" name="missed" value="n"><label>No</label>
-                    Money Year: <input type="number" name="money_year">
-                    Money Type: <input type="text" name="money_type">
-                    Delete Entry: <input type="radio" name="del_entry" value="y"><label>Yes</label>
-                    <input type="submit">
-
+                        <button id="prev_entries" disabled='disabled'>Previous Entries</button>
+                        <button id="next_entries">Next Entries</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        Date: <input type="date" name="date">
+                        Amount: <input type="number" name="amount" step="0.001" min="0">
+                        Address: <input type="text" name="address" id="address">
+                        City: <input type="text" name="city" id="city">
+                        State: <input type="text" name="state" id="state">
+                        Zipcode: <input type="text" name="zipcode" id="zipcode">
+                        Location Name: <input type="text" name="locname">
+                        Missed: <input type="radio" name="missed" value="y"><label>Yes</label>
+                        <input type="radio" name="missed" value="n"><label>No</label>
+                        Money Year: <input type="number" name="money_year">
+                        Money Type: <input type="text" name="money_type">
+                        Delete Entry: <input type="radio" name="del_entry" value="y"><label>Yes</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="submit">
+                    </div>
+                </div>
             </form>
         </div>
 
-    </div>
+    </div> -->
 </div>
 {% endblock %}

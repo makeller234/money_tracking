@@ -18,42 +18,25 @@
                 <h4>Interested in logging some money today?</h4>
             </div>
         </div>
-        <!-- <div class="row">
-            <div class="col-12">
-                <form action="coin_entry" method="POST">
-                    Date (Leave blank if today): <input type="date" name="date">
-                    Amount: <input type="number" name="amount" step="0.001" min="0">
-                    Address: <input type="text" name="places_api" id="places_api">
-                    Location Name: <input type="text" name="locname">
-                    Missed: <input type="radio" name="missed" value="y"><label>Yes</label>
-                    <input type="radio" name="missed" value="n"><label>No</label>
-                    Money Year: <input type="number" name="money_year">
-                    Money Type: <input type="text" name="money_type">
-                    <input type="submit">
-                </form>
-            </div>
-        </div> -->
-        <!-- <div class="row">
-            <div class="col-12"> -->
-                <form action="coin_entry" method="POST" class="row">
+                <form action="coin_entry" method="POST" class="row g-3">
                     <div class="col-6">
-                        Date (Leave blank if today): <input type="date" name="date"> <br>
-                        Address: <input type="text" name="places_api" id="places_api"> <br>
-                        Location Name: <input type="text" name="locname">
+                        Date (Leave blank if today): <input type="date" name="date" class="form-control">
+                        Address: <input type="text" name="places_api" id="places_api" class="form-control">
+                        Location Name: <input type="text" name="locname" class="form-control">
                     </div>
                     <div class="col-6">
-                        Amount: <input type="number" name="amount" step="0.001" min="0"> <br>
+                        Amount: <input type="number" name="amount" step="0.001" min="0" class="form-control">
+                        Money Year: <input type="number" name="money_year" class="form-control">
+                        Money Type: <input type="text" name="money_type" class="form-control">
                         Missed: <input type="radio" name="missed" value="y"><label>Yes</label>
-                        <input type="radio" name="missed" value="n"><label>No</label> <br>
-                        Money Year: <input type="number" name="money_year"> <br>
-                        Money Type: <input type="text" name="money_type">
-                        <input type="submit">
-                    </div>
-                    
+                        <input type="radio" name="missed" value="n"><label>No</label>
 
+                    </div>
+                    <div class="col-12">
+                        <input class="form-control" type="submit">
+                    </div>
                 </form>
-            <!-- </div>
-        </div> -->
+
                
         <div class="row">
             <div class="col-12">
