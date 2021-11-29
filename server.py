@@ -102,7 +102,7 @@ def dashboard():
         return redirect('/')
     
     if len(crud.user_query(session['email'])) == 0:
-        flash('Log some money to view the dashboard')
+        flash('Log some money to view the dashboard.')
         return redirect('/return_coin_entry')
     #read in data from the form, if the user is landing on the page, assign it to All years and Both for the missed status.
     year = request.args.get('years')
@@ -183,6 +183,9 @@ def return_update_entry():
     if 'email' not in session:
         flash('Please log in to update an entry.')
         return redirect('/')
+    if len(crud.user_query(session['email'])) == 0:
+        flash('You need to log some money before you can edit it.')
+        return redirect('/return_coin_entry')
 
     data  = crud.all_addresses(session['email'])
 
@@ -271,7 +274,7 @@ def return_coin_entry():
     """A route that allows the user to get from the dashboard to the coin entry page"""
 
     if 'email' not in session:
-        flash('Please Log in enter a coin.')
+        flash('Please log in to enter a coin.')
         return redirect('/')
 
     return render_template('coin_entry.html', first_name = session['fname'], API_KEY = API_KEY)

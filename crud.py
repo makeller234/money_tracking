@@ -146,14 +146,16 @@ def most_freq_money_and_year(user_email, year, missed):
     for k,v in money_year_counter.items():
         max_year_dict[v].append(k)
 
-    #find the max key in the dictionary, and check to make sure it's not none
-    max_year = max(max_year_dict, key=int)
-    max_type = max(max_type_dict, key=int)
+    print(max_year_dict)
 
-    if len(max_year_dict) == 1 and max_year_dict[max_year] == [None]:
+    
+    if len(max_year_dict) <= 1:
         return {'year_count': 'N/A', 'money_year': 'N/A',
             'type_count': 'N/A', 'money_type': 'N/A'}
     else:
+        #find the max key in the dictionary, and check to make sure it's not none
+        max_year = max(max_year_dict, key=int)
+        max_type = max(max_type_dict, key=int)
         if max_year_dict[max_year] == [None]:
             del max_year_dict[max_year]
             max_year = max(max_year_dict, key=int)
@@ -188,17 +190,21 @@ def most_freq_dow(user_email,year, missed):
     for k,v in dow_counter.items():
         dow_dict[v].append(k)
     
-    #find the max key and add the values to a list
-    max_dow = max(dow_dict, key=int)
-    dow_list_nums = [dow for dow in dow_dict[max_dow]]
-  
-    #make a list and loop over the calendar names and add them to the list if they match the number from the down_list_nums
-    dow_list_days = []
-    for idx, val in enumerate(list(calendar.day_name)):
-        if idx in dow_list_nums:
-            dow_list_days.append(val)
+   #check if it's empty and return N/A
+    if len(dow_dict)==0:
+        return 'N/A'
+    else:
+         #find the max key and add the values to a list
+        max_dow = max(dow_dict, key=int)
+        dow_list_nums = [dow for dow in dow_dict[max_dow]]
+    
+        #make a list and loop over the calendar names and add them to the list if they match the number from the down_list_nums
+        dow_list_days = []
+        for idx, val in enumerate(list(calendar.day_name)):
+            if idx in dow_list_nums:
+                dow_list_days.append(val)
 
-    return dow_list_days
+        return dow_list_days
 
     
 def daily_coin_amounts(user_email):

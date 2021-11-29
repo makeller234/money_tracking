@@ -113,7 +113,7 @@
                 Coin/Bill <li>{{money_year}}</li>
             {%else%}
                 Coin/Bill Year {% for mon_year in money_year%} <li>{{mon_year}}</li> {%endfor%}
-            {%endif%
+            {%endif%}
             Coin/Bill Year Count <li>{{money_count}}</li>
         </div>
         <div class="col-4">
@@ -123,12 +123,20 @@
     {% else %}
     <div class="row">
         <div class="col-6">
-            Coin/Bill {%for money in money_type %} <li>{{money}}</li> {%endfor%}
+            {% if money_type == "N/A" %}
+                Coin/Bill <li>{{money_type}}</li>
+            {%else%}
+                Coin/Bill {%for money in money_type %} <li>{{money}}</li> {%endfor%}
+            {%endif%}
             Coin/Bill Count <li>{{type_count}}</li>
         </div>
 
         <div class="col-6">
-            Day of the Week {%for day in dow%} <li>{{day}}</li> {%endfor%}
+            {% if dow =='N/A'%}
+                Day of the Week <li>{{dow}}</li>
+            {%else%}
+                Day of the Week {%for day in dow%} <li>{{day}}</li> {%endfor%}
+            {%endif%}
         </div>
     </div>
     {% endif %}
