@@ -85,7 +85,7 @@ function createDataObjBoth(resData, dataObjLabels, year){
     //Set up color as random color
     for (const moneyType of dataObjLabels){
       dataObj['label'] = moneyType;
-      dataObj['backgroundColor'] = `rgb(${Math.random()*256},${Math.random()*256},${Math.random()*256})`;
+      dataObj['backgroundColor'] = `rgb(${Math.random()*256},128,${Math.random()*256})`;
 
       //Create empty array that will hold the amount of money on that specific day, array has a length of 7 one spot for each day of the week.
       const dataArray = [0,0,0,0,0,0,0];
@@ -122,7 +122,7 @@ function createDataObjBoth(resData, dataObjLabels, year){
   else if (year === 'All'){
     for (const moneyType of dataObjLabels){
       dataObj['label'] = moneyType;
-      dataObj['backgroundColor'] = `rgb(${Math.random()*256},${Math.random()*256},${Math.random()*256})`;
+      dataObj['backgroundColor'] = `rgb(${Math.random()*256},128,${Math.random()*256})`;
 
       let dataArray = [0,0,0,0,0,0,0];
       
@@ -171,7 +171,7 @@ function createDataObjSpecific(resData, dataObjLabels, year, status){
   if (year !=='All'){
     for (const moneyType of dataObjLabels){
       dataObj['label'] = moneyType;
-      dataObj['backgroundColor'] = `rgb(${Math.random()*256},${Math.random()*256},${Math.random()*256})`;
+      dataObj['backgroundColor'] = `rgb(${Math.random()*256},128,${Math.random()*256})`;
 
       const dataArray = [0,0,0,0,0,0,0];
       
@@ -192,7 +192,7 @@ function createDataObjSpecific(resData, dataObjLabels, year, status){
   else if (year === 'All'){
     for (const moneyType of dataObjLabels){
       dataObj['label'] = moneyType;
-      dataObj['backgroundColor'] = `rgb(${Math.random()*256},${Math.random()*256},${Math.random()*256})`;
+      dataObj['backgroundColor'] = `rgb(${Math.random()*256},128,${Math.random()*256})`;
 
       let dataArray = [0,0,0,0,0,0,0];
 

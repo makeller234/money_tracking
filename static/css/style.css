@@ -1,11 +1,51 @@
-
-#map, #coinMap{
-    height: 400px;
+body{
+    margin-bottom: 40px;
 }
+.beige-font{
+    color: #f5eec2;
+}
+
 .container{
     max-width: 95%;
 }
 .centered{
    text-align: center;
    margin: 0 auto;
+}
+.footer {
+    background: linear-gradient(to left, #214E34, #5C7457);
+    height: 40px;
+    /* position: fixed; */
+    margin-top: 15px;
+}
+.form-control:focus, .form-select:focus{
+    box-shadow: #92bc88 !important;
+    border-color: #92bc88;
+}
+.form-select, .form-control{
+    border-color: #92bc88;
+}
+
+#map, #coinMap{
+    height: 400px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.navbar {
+    background: linear-gradient(to left, #5C7457, #214E34);
+    color:#f5eec2;
+}
+
+.navbar-light .navbar-toggler {
+    color:#f5eec2;
+    border-color: #f5eec2;
+}
+.navbar-light .navbar-toggler-icon{
+    background-image: url('../img/hamburger_icon.png');
+}
+.navbar-light .navbar-nav .nav-link{
+    color: #f5eec2;
+}
+.top-margin{
+    margin-top: 10px;;
 }
