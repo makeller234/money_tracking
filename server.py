@@ -137,7 +137,7 @@ def places_api():
 
     place = request.form.get('places_api')
     place_formatted = place.replace(' ', '%20')
-  
+
     query_url = f'https://maps.googleapis.com/maps/api/place/queryautocomplete/json?input={place_formatted}&key={API_KEY}'
 
     response = requests.request('GET', query_url)
@@ -175,7 +175,6 @@ def places_api():
 
     return render_template('coin_entry.html', first_name = session['fname'], API_KEY=API_KEY)
 
-
 @app.route('/return_update_entry')
 def return_update_entry():
     """Allows the user to go back to the update entry page, if they're logged in; otherwise, routes user to the log in page."""
@@ -185,7 +184,7 @@ def return_update_entry():
         return redirect('/')
     if len(crud.user_query(session['email'])) == 0:
         flash('You need to log some money before you can edit it.')
-        return redirect('/return_coin_entry')
+        return redirect('/return_coin_entry', API_KEY=API_KEY)
 
     data  = crud.all_addresses(session['email'])
 
