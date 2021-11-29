@@ -24,7 +24,6 @@
     <div class="row">
         <div class="col-12">
             <form action="/dashboard">
-                <!-- <label for="years">Filter Your Tale</label> -->
                 <div class="row">
                     <div class="col">
                         <label class="form-label">Year</label>
@@ -75,7 +74,6 @@
         </div>
     </div>
 
-
     <div class="row">
         <div class="col-3">
             Grand Total: {{ "$%.2f"|format(total_found + total_missed)}}
@@ -103,11 +101,19 @@
     {% if missed != 'missed'%}
     <div class="row">
         <div class="col-4">
-            Coin/Bill {%for money in money_type %} <li>{{money}}</li> {%endfor%}
+            {% if money_type == "N/A" %}
+                Coin/Bill <li>{{money_type}}</li>
+            {%else%}
+                Coin/Bill {%for money in money_type %} <li>{{money}}</li> {%endfor%}
+            {%endif%}
             Coin/Bill Count <li>{{type_count}}</li>
         </div>
         <div class="col-4">
-            Coin/Bill Year {% for mon_year in money_year%} <li>{{mon_year}}</li> {%endfor%}
+            {% if money_year == 'N/A' %}
+                Coin/Bill <li>{{money_year}}</li>
+            {%else%}
+                Coin/Bill Year {% for mon_year in money_year%} <li>{{mon_year}}</li> {%endfor%}
+            {%endif%}
             Coin/Bill Year Count <li>{{money_count}}</li>
         </div>
         <div class="col-4">

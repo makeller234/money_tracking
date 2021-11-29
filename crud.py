@@ -150,17 +150,21 @@ def most_freq_money_and_year(user_email, year, missed):
     max_year = max(max_year_dict, key=int)
     max_type = max(max_type_dict, key=int)
 
-    if max_year_dict[max_year] == [None]:
-        del max_year_dict[max_year]
-        max_year = max(max_year_dict, key=int)
-    
-    if max_type_dict[max_type] == [None]:
-        del max_type_dict[max_type]
-        max_type = max(max_type_dict, key=int)
+    if len(max_year_dict) == 1 and max_year_dict[max_year] == [None]:
+        return {'year_count': 'N/A', 'money_year': 'N/A',
+            'type_count': 'N/A', 'money_type': 'N/A'}
+    else:
+        if max_year_dict[max_year] == [None]:
+            del max_year_dict[max_year]
+            max_year = max(max_year_dict, key=int)
+        
+        if max_type_dict[max_type] == [None]:
+            del max_type_dict[max_type]
+            max_type = max(max_type_dict, key=int)
 
 
-    return {'year_count': max_year, 'money_year': max_year_dict[max_year],
-            'type_count': max_type, 'money_type': max_type_dict[max_type]}
+        return {'year_count': max_year, 'money_year': max_year_dict[max_year],
+                'type_count': max_type, 'money_type': max_type_dict[max_type]}
 
 
 def most_freq_dow(user_email,year, missed):
