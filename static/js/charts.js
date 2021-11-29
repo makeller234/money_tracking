@@ -16,14 +16,14 @@ function createGraphLabels(resData, year, status){
           for (const dayStatus in resData[jsonYear][dayStatusCounts]){
             if (dayStatus === 'missed'){
               for (const item in resData[jsonYear][dayStatusCounts][dayStatus]){                
-                if (dataObjLabelsMissed.indexOf(item)=== -1){
+                if (dataObjLabelsMissed.indexOf(item) === -1){
                   dataObjLabelsMissed.push(item);
                 }
               }
             }
             else if (dayStatus ==='found'){
               for (const item in resData[jsonYear][dayStatusCounts][dayStatus]){
-                if (dataObjLabelsFound.indexOf(item)=== -1){
+                if (dataObjLabelsFound.indexOf(item) === -1){
                   dataObjLabelsFound.push(item);
                 }
               }
