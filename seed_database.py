@@ -1,13 +1,10 @@
 from model import User, Monies, db
 
 def example_data():
-
+    """Add sample data to the testing database for the test"""
     #In case the tests are run more than one, this empties the existing data.
-
     Monies.query.delete()
     User.query.delete()
-
-    
 
     # add sample data
     test_user_1 = User(email = 'tester1@email.com', fname = 'Test1', lname = 'McTest1', password = 'Pword1!')

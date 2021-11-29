@@ -4,6 +4,7 @@ db = SQLAlchemy()
 
 class User(db.Model):
     """Model for a User"""
+
     __tablename__ = 'users'
 
     email = db.Column(db.String(30), primary_key = True)
@@ -18,6 +19,7 @@ class User(db.Model):
 
 class Monies(db.Model):
     """Model For the Money"""
+
     __tablename__= 'monies'
 
     id = db.Column(db.Integer, primary_key = True, autoincrement = True)
@@ -40,17 +42,14 @@ class Monies(db.Model):
 
 uri = "postgresql:///money"
 def connect_to_db(app, uri):
-    """Connect the database to our Flask app."""
+    """Connect the database to the Flask app."""
 
     app.config["SQLALCHEMY_DATABASE_URI"] = uri
     app.config["SQLALCHEMY_ECHO"] = False
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
-    # print("Connected to db!")
-
 
 if __name__ == "__main__":
     from server import app
-
     connect_to_db(app, uri)

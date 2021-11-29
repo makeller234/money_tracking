@@ -1,6 +1,5 @@
 'use strict';
 
-const markers = [];
 // Create our number formatter for dollar values.
 const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
