@@ -5,46 +5,46 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h1>Update Your Account</h1>
+            <h1 class="centered">Update Your Account</h1>
         </div>
     </div>
     <div class="row">
         <div class="col-12">
-            Current info: {{user.fname}} {{user.lname}} 
+            <h3 class="centered">Hello, {{user.fname}} {{user.lname}}</h3>
         </div>
     </div>
-    <form action = '/update_account' method = 'POST' class="row">
+    <form action = "/update_account" method="POST" class="row">
         <div class="col-6">
-            Update Name:
+            <h6 class="centered top-margin">Update Name:</h6>
             <div class="row">
                 <div class="col">
-                    First Name<input type=text, name='fname' class="form-control">
+                    <p class="centered">First Name</p><input type=text, name='fname' class="form-control">
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    Last Name<input type=text, name='lname' class="form-control">
+                    <p class="centered">Last Name</p><input type=text, name='lname' class="form-control">
                 </div>
             </div>
         </div>
         <div class="col-6">
-            Update Password:
+            <h6 class="centered top-margin">Update Password:</h6>
             <div class="row">
                 <div class="col">
-                    Current Password<input type=password name='cur_pass' class="form-control">
+                    <p class="centered">Current Password</p><input type=password name='cur_pass' class="form-control">
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    New Password<input type=password name='new_pass' class="form-control">
+                    <p class="centered">New Password</p><input type=password name='new_pass' class="form-control">
                 </div>
             </div>
         </div>
-        <div class="row">
+
             <div class="col-12">
-                <input type="submit" class="form-control top-margin">
+                <input type="submit" class="form-control top-margin p-color">
             </div>
-        </div>
+
         
     </form>
 </div>

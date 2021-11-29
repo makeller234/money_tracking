@@ -26,9 +26,9 @@
             <form action="/dashboard">
                 <div class="row">
                     <div class="col">
-                        <label class="form-label">Year</label>
-                        <select class="form-select" name="years">
-                            <option value="All" class="year">All Years</option>
+                        <label class="form-label centered47 p-color">Year</label>
+                        <select class="form-select p-color" name="years">
+                            <option value="All" class="year centered p-color">All Years</option>
                             {% for year in years_list %}
                                 <option value={{year}} class="year">{{year}}</option>
                             {%endfor%}
@@ -37,8 +37,8 @@
                 </div>                
                 <div class="row">
                     <div class="col">
-                        <label class="form-label">Status</label>
-                        <select class="form-select" name="missed">
+                        <label class="form-label centered47 p-color">Status</label>
+                        <select class="form-select centered p-color" name="missed">
                             <option value="both" class="missed">Both Missed & Found</option>
                             <option value="found" class="missed">Found</option>
                             <option value="missed" class="missed">Missed</option>
@@ -48,106 +48,108 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <input class="form-control top-margin" type="submit">
+                        <input class="form-control top-margin p-color" type="submit">
                     </div>
                 </div>
                     
             </form>
         </div>
     </div>
-    <div class="row">
-        <div class="col-12">
-            {% if missed == None %}
-
-            <h3><span id="year">{{year}}</span> Years Info for <span id="missed">Missed and Found Money</span></h3>
-
-            {% elif missed == "both" %}
-
-                <h3><span id="year">{{year}}</span> Info for <span id="missed">Missed and Found Money</span></h3>
-
-            {% elif missed == "found" %}
-                <h3><span id="year">{{year}}</span> Info for <span id="missed">Found Money</span></h3>
-        
-            {% elif missed == "missed" %}
-                <h3><span id="year">{{year}}</span> Info for <span id="missed">Missed Money</span></h3>
-            {% endif %}
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-3">
-            Grand Total: {{ "$%.2f"|format(total_found + total_missed)}}
-        </div>
-        <div class="col-3">
-            You Found: {{ "$%.2f"|format(total_found) }} 
-        </div>
-        <div class="col-3">
-            You Missed: {{ "$%.2f"|format(total_missed) }} 
-        </div>
-        <div class="col-3">
-            {% if day_avg == 'N/A' %}
-                A Daily Average: {{day_avg}}
-            {% else %}
-                A daily Average: {{ "$%.3f"|format(day_avg) }}
-            {% endif %}
-        </div>
-
-    </div>
-    <div class="row">
+    <div class="container" id="money-growth">
+        <div class="row">
             <div class="col-12">
-                <h3>Most Frequents</h3>
+                {% if missed == None %}
+
+                <h3 class="centered"><span id="year">{{year}}</span> Years Info for <span id="missed">Missed and Found Money</span></h3>
+
+                {% elif missed == "both" %}
+
+                    <h3 class="centered"><span id="year">{{year}}</span> Info for <span id="missed">Missed and Found Money</span></h3>
+
+                {% elif missed == "found" %}
+                    <h3 class="centered"><span id="year">{{year}}</span> Info for <span id="missed">Found Money</span></h3>
+            
+                {% elif missed == "missed" %}
+                    <h3 class="centered"><span id="year">{{year}}</span> Info for <span id="missed">Missed Money</span></h3>
+                {% endif %}
             </div>
-    </div>
-    {% if missed != 'missed'%}
-    <div class="row">
-        <div class="col-4">
-            {% if money_type == "N/A" %}
-                Coin/Bill <li>{{money_type}}</li>
-            {%else%}
-                Coin/Bill {%for money in money_type %} <li>{{money}}</li> {%endfor%}
-            {%endif%}
-            Coin/Bill Count <li>{{type_count}}</li>
-        </div>
-        <div class="col-4">
-            {% if money_year == 'N/A' %}
-                Coin/Bill <li>{{money_year}}</li>
-            {%else%}
-                Coin/Bill Year {% for mon_year in money_year%} <li>{{mon_year}}</li> {%endfor%}
-            {%endif%}
-            Coin/Bill Year Count <li>{{money_count}}</li>
-        </div>
-        <div class="col-4">
-            Day of the Week {%for day in dow%} <li>{{day}}</li> {%endfor%}
-        </div>
-    </div>
-    {% else %}
-    <div class="row">
-        <div class="col-6">
-            {% if money_type == "N/A" %}
-                Coin/Bill <li>{{money_type}}</li>
-            {%else%}
-                Coin/Bill {%for money in money_type %} <li>{{money}}</li> {%endfor%}
-            {%endif%}
-            Coin/Bill Count <li>{{type_count}}</li>
         </div>
 
-        <div class="col-6">
-            {% if dow =='N/A'%}
-                Day of the Week <li>{{dow}}</li>
-            {%else%}
-                Day of the Week {%for day in dow%} <li>{{day}}</li> {%endfor%}
-            {%endif%}
+        <div class="row">
+            <div class="col-3 centered">
+                Grand Total: {{ "$%.2f"|format(total_found + total_missed)}}
+            </div>
+            <div class="col-3 centered">
+                You Found: {{ "$%.2f"|format(total_found) }} 
+            </div>
+            <div class="col-3 centered">
+                You Missed: {{ "$%.2f"|format(total_missed) }} 
+            </div>
+            <div class="col-3 centered">
+                {% if day_avg == 'N/A' %}
+                    A Daily Average: {{day_avg}}
+                {% else %}
+                    A daily Average: {{ "$%.3f"|format(day_avg) }}
+                {% endif %}
+            </div>
+
         </div>
+        <div class="row">
+                <div class="col-12">
+                    <h3 class="centered top-margin">Most Frequents</h3>
+                </div>
+        </div>
+        {% if missed != 'missed'%}
+        <div class="row">
+            <div class="col-4 centered">
+                {% if money_type == "N/A" %}
+                    Coin/Bill <li>{{money_type}}</li>
+                {%else%}
+                    Coin/Bill {%for money in money_type %} <li>{{money}}</li> {%endfor%}
+                {%endif%}
+                Coin/Bill Count <li>{{type_count}}</li>
+            </div>
+            <div class="col-4 centered">
+                {% if money_year == 'N/A' %}
+                    Coin/Bill <li>{{money_year}}</li>
+                {%else%}
+                    Coin/Bill Year {% for mon_year in money_year%} <li>{{mon_year}}</li> {%endfor%}
+                {%endif%}
+                Coin/Bill Year Count <li>{{money_count}}</li>
+            </div>
+            <div class="col-4 centered">
+                Day of the Week {%for day in dow%} <li>{{day}}</li> {%endfor%}
+            </div>
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="col-6 centered">
+                {% if money_type == "N/A" %}
+                    Coin/Bill <li>{{money_type}}</li>
+                {%else%}
+                    Coin/Bill {%for money in money_type %} <li>{{money}}</li> {%endfor%}
+                {%endif%}
+                Coin/Bill Count <li>{{type_count}}</li>
+            </div>
+
+            <div class="col-6 centered">
+                {% if dow =='N/A'%}
+                    Day of the Week <li>{{dow}}</li>
+                {%else%}
+                    Day of the Week {%for day in dow%} <li>{{day}}</li> {%endfor%}
+                {%endif%}
+            </div>
+        </div>
+        {% endif %}
     </div>
-    {% endif %}
     <div class="row">
-        <div class="col-6">
+        <div class="col-lg-6 col-xs-12">
             <canvas id="stackedbar"></canvas>
         </div>
     <!-- </div>
 
     <div class="row"> -->
-        <div class="col-6">
+        <div class="col-lg-6 col-xs-12">
             <div id="map">
         </div>
     </div>
