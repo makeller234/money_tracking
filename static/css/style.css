@@ -9,7 +9,8 @@ button{
     color:#f5eec2;
 }
 button:disabled{
-    background-color: #5c7457;
+    background-color: #b9d8c2;
+    color:#214E34;
 }
 .container{
     max-width: 95%;
@@ -22,7 +23,6 @@ button:disabled{
     margin-left:46%;
 }
 .footer {
-    
     background: linear-gradient(to left, #214E34, #5C7457);
     height: 40px;
 
