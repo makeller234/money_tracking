@@ -19,12 +19,14 @@ button:disabled{
    margin: 0 auto;
 }
 .centered47{
-    margin-left:47%;
+    margin-left:46%;
 }
 .footer {
+    
     background: linear-gradient(to left, #214E34, #5C7457);
     height: 40px;
-    margin-top: 15px;
+
+
 }
 .form-control:focus, .form-select:focus{
     box-shadow: 0 0 0 0.2rem #92bc88 !important;
@@ -46,6 +48,7 @@ h3{
 h6{
     color: #415A3F;
 }
+
 #map, #coinMap{
     height: 400px;
     margin-top: 15px;
@@ -77,6 +80,8 @@ p, .p-color{
     color: #3B5442;
 }
 .right-align{
+    /* margin: 0 auto; */
+    padding:5px;
     text-align: right;
 }
 .size-small{

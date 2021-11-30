@@ -18,7 +18,7 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <h3 class="centered">Filter Your Tale</h3>
+            <h3 class="centered top-margin">Filter Your Tale</h3>
         </div>
     </div>
     <div class="row">
@@ -34,8 +34,6 @@
                             {%endfor%}
                         </select>
                     </div>
-                </div>                
-                <div class="row">
                     <div class="col">
                         <label class="form-label centered47 p-color">Status</label>
                         <select class="form-select centered p-color" name="missed">
@@ -45,7 +43,10 @@
                           
                         </select>
                     </div>
-                </div>
+                </div>                
+               
+
+            
                 <div class="row">
                     <div class="col">
                         <input class="form-control top-margin p-color" type="submit">
@@ -60,17 +61,17 @@
             <div class="col-12">
                 {% if missed == None %}
 
-                <h3 class="centered"><span id="year">{{year}}</span> Years Info for <span id="missed">Missed and Found Money</span></h3>
+                <h3 class="centered top-margin"><span id="year">{{year}}</span> Years Info for <span id="missed">Missed and Found Money</span></h3>
 
                 {% elif missed == "both" %}
 
-                    <h3 class="centered"><span id="year">{{year}}</span> Info for <span id="missed">Missed and Found Money</span></h3>
+                    <h3 class="centered top-margin"><span id="year">{{year}}</span> Info for <span id="missed">Missed and Found Money</span></h3>
 
                 {% elif missed == "found" %}
-                    <h3 class="centered"><span id="year">{{year}}</span> Info for <span id="missed">Found Money</span></h3>
+                    <h3 class="centered top-margin"><span id="year">{{year}}</span> Info for <span id="missed">Found Money</span></h3>
             
                 {% elif missed == "missed" %}
-                    <h3 class="centered"><span id="year">{{year}}</span> Info for <span id="missed">Missed Money</span></h3>
+                    <h3 class="centered top-margin"><span id="year">{{year}}</span> Info for <span id="missed">Missed Money</span></h3>
                 {% endif %}
             </div>
         </div>
@@ -80,7 +81,7 @@
                 Grand Total: {{ "$%.2f"|format(total_found + total_missed)}}
             </div>
             <div class="col-3 centered">
-                You Found: {{ "$%.2f"|format(total_found) }} 
+                You Found: {{ "$%.2f"|format(total_found) }}
             </div>
             <div class="col-3 centered">
                 You Missed: {{ "$%.2f"|format(total_missed) }} 
@@ -96,7 +97,7 @@
         </div>
         <div class="row">
                 <div class="col-12">
-                    <h3 class="centered top-margin">Most Frequents</h3>
+                    <h3 class="centered top-margin  ">Most Frequents</h3>
                 </div>
         </div>
         {% if missed != 'missed'%}
