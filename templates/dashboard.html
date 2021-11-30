@@ -56,7 +56,7 @@
             </form>
         </div>
     </div>
-    <div class="container" id="money-growth">
+    <div class="container-fluid top-margin" id="money-growth">
         <div class="row">
             <div class="col-12">
                 {% if missed == None %}
@@ -76,7 +76,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row top-margin">
             <div class="col-3 centered">
                 Grand Total: {{ "$%.2f"|format(total_found + total_missed)}}
             </div>

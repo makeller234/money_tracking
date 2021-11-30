@@ -63,7 +63,7 @@ class FlaskTestDatabase(unittest.TestCase):
     def test_user_update(self):
         """Testing update user info page"""
         result = self.client.get('/user_update')
-        self.assertIn(b'Current info: Test1 McTest1', result.data)
+        self.assertIn(b'Hello, Test1 McTest1', result.data)
 
 
 if __name__ == "__main__":

@@ -25,7 +25,7 @@ name and amount of money logged for that location.  The dashboard can be filtere
 - Install [Python](https://www.python.org/downloads/)
 - Fork the Repo
     ```
-    https://github.com/makeller234/money_tracking.git
+    https://github.com/makeller234/my_two_cents.git
     ```
 
 - Create and Activate a Virtual Environment

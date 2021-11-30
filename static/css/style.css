@@ -22,6 +22,9 @@ button:disabled{
 .centered47{
     margin-left:46%;
 }
+.flash-msg{
+    background-image: url('../img/gold_scale2.png');
+}
 .footer {
     background: linear-gradient(to left, #214E34, #5C7457);
     height: 40px;
@@ -52,10 +55,9 @@ h6{
     margin-top: 15px;
     margin-bottom: 15px;
 }
-/* #money-growth{
-    background-image: url('../img/money_growth.jpg');
-    background-size: contain;
-} */
+#money-growth{
+    background-image: url('../img/wavy-dots.png');
+}
 .navbar {
     background: linear-gradient(to left, #5C7457, #214E34);
     color:#f5eec2;
