@@ -23,7 +23,7 @@ name and amount of money logged for that location.  The dashboard can be filtere
 ## Set up/Installation
 - Install [PostgreSQL](https://www.postgresql.org/download/)
 - Install [Python](https://www.python.org/downloads/)
-- Clone or fork this repo
+- Fork the Repo
     ```
     https://github.com/makeller234/money_tracking.git
     ```
