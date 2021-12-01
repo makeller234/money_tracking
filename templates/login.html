@@ -4,7 +4,7 @@
 {% block body %}
 <div class="container">
     <div class="row">
-        <div class = "col-6">
+        <div class = "col-lg-6 col-xs-12">
             <h1 class="centered">Log In</h1>
             <form action = '/user_login' method = 'POST'>
                 <div class="row">
@@ -21,14 +21,14 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <input type="submit" class="form-control top-margin p-color">
+                        <input type="submit" class="form-control top-margin p-color submit" value="Log In">
                     </div>
                 </div>
                 
                 
             </form>
         </div>
-        <div class = "col-6">
+        <div class = "col-lg-6 col-xs-12">
             <h1 class="centered">Create An Account</h1>
                 <form action='/create_account' method='POST'>
                     <div class="row">
@@ -53,7 +53,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <input class="form-control top-margin p-color" type="submit">
+                            <input class="form-control top-margin p-color submit" type="submit" value="Create Account">
                         </div>
                     </div>
 

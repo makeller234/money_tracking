@@ -15,13 +15,13 @@
         </div>
     </div>
     <form action="update_entry" METHOD="POST" class="row g-0 top-margin">
-        <div class="col-6">
+        <div class="col-lg-6 col-xs-12">
             <!-- div to hold the radio buttons that are created in js -->
             <div id="entry_info"></div>
             <button id="prev_entries" disabled='disabled'>Previous Entries</button>
             <button id="next_entries">Next Entries</button>
         </div>
-        <div class="col-6">
+        <div class="col-lg-6 col-xs-12">
             <p class="centered">Date:</p><input type="date" name="date" class="form-control centered">
             <p class="centered">Amount:</p><input type="number" name="amount" step="0.001" min="0" class="form-control">
             <p class="centered">Address:</p><input type="text" name="address" id="address" class="form-control">
@@ -37,7 +37,7 @@
         </div>
 
         <div class="col-12">
-            <input type="submit" class="form-control p-color">
+            <input type="submit" class="form-control p-color submit">
         </div>
 
     </form>

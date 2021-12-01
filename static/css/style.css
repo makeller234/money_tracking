@@ -1,5 +1,6 @@
 body{
-    margin-bottom: 40px;
+    position: relative;
+    min-height: 100vh;
 }
 .beige-font{
     color: #f5eec2;
@@ -12,9 +13,7 @@ button:disabled{
     background-color: #b9d8c2;
     color:#214E34;
 }
-.container{
-    max-width: 95%;
-}
+
 .centered{
    text-align: center;
    margin: 0 auto;
@@ -22,22 +21,38 @@ button:disabled{
 .centered47{
     margin-left:46%;
 }
-.flash-msg{
-    background-image: url('../img/gold_scale2.png');
+.container{
+    max-width: 95%;
 }
+.content-wrapper{
+    padding-bottom: 50px;
+}
+
 .footer {
+    position: absolute;
+    bottom:0;
+    width: 100%;
     background: linear-gradient(to left, #214E34, #5C7457);
     height: 40px;
 }
-.form-control:focus, .form-select:focus{
+.form-control:focus {
     box-shadow: 0 0 0 0.2rem #92bc88 !important;
     border-color: #92bc88;
-    background-color: #214E34; /* is it dumb to have the text input change to gree, too?*/
+    background-color: #214E34; 
     color: #f5eec2;
+    
 }
 
-.form-select, .form-control{
+
+.form-control{
     border-color: #92bc88;
+}
+.form-select:focus {
+    box-shadow: 0 0 0 0.2rem #92bc88 !important;
+    border-color: #92bc88;
+    background-color: #214E34; 
+    color: #f5eec2;
+    
 }
 
 h1{
@@ -51,7 +66,7 @@ h6{
 }
 
 #map, #coinMap{
-    height: 400px;
+    height: 50vh;
     margin-top: 15px;
     margin-bottom: 15px;
 }
@@ -86,6 +101,14 @@ p, .p-color{
 }
 .size-small{
     font-size: 12px;
+}
+.submit{
+    border-color: #92bc88;
+    background-color: #214E34; 
+    color: #f5eec2;
+}
+.submit:hover{
+    background-color: #92bc88;
 }
 .top-margin{
     margin-top: 10px;
