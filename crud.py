@@ -147,8 +147,12 @@ def most_freq_money_and_year(user_email, year, missed):
         max_year_dict[v].append(k)
 
     if len(max_year_dict) <= 1:
+        max_type = max(max_type_dict, key=int)
+        if max_type_dict[max_type] == [None]:
+            del max_type_dict[max_type]
+            max_type = max(max_type_dict, key=int)
         return {'year_count': 'N/A', 'money_year': 'N/A',
-            'type_count': 'N/A', 'money_type': 'N/A'}
+            'type_count': max_type, 'money_type': max_type_dict[max_type]}
     else:
         #find the max key in the dictionary, and check to make sure it's not none
         max_year = max(max_year_dict, key=int)
