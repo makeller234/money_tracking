@@ -248,12 +248,9 @@ $.get('/data_by_user.json', res => {
         data: data,
         options: {
           plugins: {
-            title: {
-              
+            title: { 
               display: true
-              // ,
-              // text: `${userYear} ${moneyStatus} by Day`
-            },
+            }
           },
           responsive: true,
           scales: {

@@ -2,13 +2,16 @@ body{
     position: relative;
     min-height: 100vh;
 }
+
 .beige-font{
     color: #f5eec2;
 }
+
 button{
     background-color: #214E34;
     color:#f5eec2;
 }
+
 button:disabled{
     background-color: #b9d8c2;
     color:#214E34;
@@ -18,12 +21,15 @@ button:disabled{
    text-align: center;
    margin: 0 auto;
 }
+
 .centered47{
     margin-left:46%;
 }
+
 .container{
     max-width: 95%;
 }
+
 .content-wrapper{
     padding-bottom: 50px;
 }
@@ -35,32 +41,33 @@ button:disabled{
     background: linear-gradient(to left, #214E34, #5C7457);
     height: 40px;
 }
+
+.form-control{
+    border-color: #92bc88;
+}
+
 .form-control:focus {
     box-shadow: 0 0 0 0.2rem #92bc88 !important;
     border-color: #92bc88;
     background-color: #214E34; 
     color: #f5eec2;
-    
 }
 
-
-.form-control{
-    border-color: #92bc88;
-}
 .form-select:focus {
     box-shadow: 0 0 0 0.2rem #92bc88 !important;
     border-color: #92bc88;
     background-color: #214E34; 
-    color: #f5eec2;
-    
+    color: #f5eec2;  
 }
 
 h1{
     color:#315545;
 }
+
 h3{
     color:#396746;
 }
+
 h6{
     color: #415A3F;
 }
@@ -70,9 +77,11 @@ h6{
     margin-top: 15px;
     margin-bottom: 15px;
 }
-#money-growth{
+
+#stats-display{
     background-image: url('../img/wavy-dots.png');
 }
+
 .navbar {
     background: linear-gradient(to left, #5C7457, #214E34);
     color:#f5eec2;
@@ -82,34 +91,42 @@ h6{
     color:#f5eec2;
     border-color: #f5eec2;
 }
+
 .navbar-light .navbar-toggler-icon{
     background-image: url('../img/hamburger_icon.png');
 }
+
 .navbar-light .navbar-nav .nav-link{
     color: #f5eec2;
 }
+
 .navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover{
     color: #92bc88;
 }
+
 p, .p-color{
     color: #3B5442;
 }
+
 .right-align{
-    /* margin: 0 auto; */
     padding:5px;
     text-align: right;
 }
+
 .size-small{
     font-size: 12px;
 }
+
 .submit{
     border-color: #92bc88;
     background-color: #214E34; 
     color: #f5eec2;
 }
+
 .submit:hover{
     background-color: #92bc88;
 }
+
 .top-margin{
     margin-top: 10px;
 }
