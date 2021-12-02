@@ -146,7 +146,7 @@ def most_freq_money_and_year(user_email, year, missed):
     for k,v in money_year_counter.items():
         max_year_dict[v].append(k)
 
-    if len(max_year_dict) <= 1:
+    if len(max_year_dict) < 1:
         max_type = max(max_type_dict, key=int)
         if max_type_dict[max_type] == [None]:
             del max_type_dict[max_type]
