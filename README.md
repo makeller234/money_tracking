@@ -68,13 +68,8 @@ psql money < money.sql
 python3 server.py
 ```
 
-- Go to 'localhost:5000/' in your browser. You can create an account and add some data, or you can view the users table and log in as
-one of them. To view the users table, use these commands in the terminal
+- Go to 'localhost:5000/' in your browser. You can create an account and add some data, or you can log in as a test user.  Email: marla@email.com, password: Logcoins1!
 
-```
-psql money
-SELECT * FROM users;
-```
 
 ## About Me
 Melissa Keller is software engineer in the Twin Cities Metro area.  To see more about her career journey, find her on [LinkedIn](https://www.linkedin.com/in/makeller234).
