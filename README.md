@@ -5,6 +5,12 @@ I decided there's a better way to track it. So I started a spreadsheet that held
 For this project, I wanted to make a better way of logging the money and create a dashboard that showed a map of the locations where the money was found as well
 as some stats.  
 
+Watch the demo:
+
+[![Watch the demo](https://img.youtube.com/vi/0h8zBtb5Dms/0.jpg)](https://www.youtube.com/watch?v=0h8zBtb5Dms)
+
+
+
 ## Tech Stack
 - Backend: Python, Flask, PostgreSQL, SQLAlchemy
 - Frontend: JavaScript, jQuery, AJAX, Jinja2, Bootstrap, HTML, CSS, Chart.js
