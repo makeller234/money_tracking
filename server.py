@@ -3,6 +3,7 @@ from datetime import datetime
 from flask import Flask, render_template, request, flash, session, redirect, jsonify
 from model import connect_to_db, uri
 from jinja2 import StrictUndefined
+from passlib.hash import pbkdf2_sha256
 import os, re
 import crud
 import requests, json
@@ -63,7 +64,7 @@ def create_account():
         return redirect('/')
 
     else:
-        new_user = crud.create_user(email, first_name, last_name, password)
+        new_user = crud.create_user(email, first_name, last_name, pbkdf2_sha256.hash(password))
         session['email'] = email
         session['fname'] = new_user.fname
         return render_template('coin_entry.html', first_name = session['fname'], API_KEY=API_KEY)
@@ -79,11 +80,12 @@ def login():
 
     user = crud.get_user_by_email(email)
 
-    if not user or user.password != password:
-        flash(f'The email or password you entered is not correct. Please try again')
-
+    if not user:
+        flash(f'The email you entered is not correct. Please try again')
         return redirect('/')
-
+    elif not pbkdf2_sha256.verify(password, user.password):
+        flash('Incorrect password, please try again.')
+        return redirect('/')
     else:
         session['email'] = email
         session['fname'] = user.fname
@@ -242,17 +244,21 @@ def update_user():
     """Allows the user to update their first name, last name and/or password.  User has to enter current password, correctly, to update the password."""
     if request.form.get('fname') != '':
         crud.update_user_fname(session['email'], request.form.get('fname'))
+        flash('First Name Updated')
     if request.form.get('lname') != '':
         crud.update_user_lname(session['email'], request.form.get('lname'))
+        flash('Last Name Updated')
+
 
     pass_criteria = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])"
     pass_crit_compiled = re.compile(pass_criteria)
     pass_crit_bool = re.search(pass_crit_compiled, request.form.get('new_pass'))
 
-    if request.form.get('cur_pass') == crud.get_user_password(session['email']) and \
-        request.form.get('new_pass') != '':
+    if pbkdf2_sha256.verify(request.form.get('cur_pass'), crud.get_user_password(session['email'])) \
+        and request.form.get('new_pass') != '':
         if pass_crit_bool:
-            crud.update_user_password(session['email'], request.form.get('new_pass'))
+            crud.update_user_password(session['email'], pbkdf2_sha256.hash(request.form.get('new_pass')))
+            flash('Your password has been updated.')
         else:
             flash('Not a valid password, please try again.')
 
