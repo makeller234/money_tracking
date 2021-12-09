@@ -3,7 +3,7 @@ from datetime import datetime
 from flask import Flask, render_template, request, flash, session, redirect, jsonify
 from model import connect_to_db, uri
 from jinja2 import StrictUndefined
-from passlib.hash import pbkdf2_sha256
+from passlib.hash import pbkdf2_sha256, argon2
 import os, re
 import crud
 import requests, json
@@ -64,7 +64,7 @@ def create_account():
         return redirect('/')
 
     else:
-        new_user = crud.create_user(email, first_name, last_name, pbkdf2_sha256.hash(password))
+        new_user = crud.create_user(email, first_name, last_name, argon2.hash(password))
         session['email'] = email
         session['fname'] = new_user.fname
         return render_template('coin_entry.html', first_name = session['fname'], API_KEY=API_KEY)
@@ -83,7 +83,7 @@ def login():
     if not user:
         flash(f'The email you entered is not correct. Please try again')
         return redirect('/')
-    elif not pbkdf2_sha256.verify(password, user.password):
+    elif not argon2.verify(password, user.password):
         flash('Incorrect password, please try again.')
         return redirect('/')
     else:
@@ -254,10 +254,10 @@ def update_user():
     pass_crit_compiled = re.compile(pass_criteria)
     pass_crit_bool = re.search(pass_crit_compiled, request.form.get('new_pass'))
 
-    if pbkdf2_sha256.verify(request.form.get('cur_pass'), crud.get_user_password(session['email'])) \
+    if argon2.verify(request.form.get('cur_pass'), crud.get_user_password(session['email'])) \
         and request.form.get('new_pass') != '':
         if pass_crit_bool:
-            crud.update_user_password(session['email'], pbkdf2_sha256.hash(request.form.get('new_pass')))
+            crud.update_user_password(session['email'], argon2.hash(request.form.get('new_pass')))
             flash('Your password has been updated.')
         else:
             flash('Not a valid password, please try again.')

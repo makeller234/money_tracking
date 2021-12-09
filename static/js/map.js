@@ -115,9 +115,10 @@ function initMap() {
 				//use google maps API to get the lat/lng information for each address so that it can be used to put a marker on the map
 				$.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${addr},${city},${state}&key=AIzaSyCUeZby2DFNDpmdijQONTq4yfhsDknpD3I`, loc_res =>{
 					
+					//sets up custom map icon to be green if the value is at or above .1 and black if less than .1
 					let iconUrl = '';
 					if (amount >= .1){
-						iconUrl = '/static/img/green_coin.png';
+						iconUrl = '/static/img/darker_green_coin.png';
 					
 					}
 					else{
@@ -128,7 +129,6 @@ function initMap() {
 					position: loc_res['results'][0]['geometry']['location'],
 					title: locName,
 					map:map,
-					//custom icon of a coin
 					icon: {
 							url: iconUrl,
 							scaledSize: {
@@ -181,10 +181,11 @@ function coinMap(){
 
 		//pull the lat/lng info from the google maps api, so that the location can be marked on the map	
 		$.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${mostRecEntry['addr']},${mostRecEntry['city']},${mostRecEntry['state']}&key=AIzaSyCUeZby2DFNDpmdijQONTq4yfhsDknpD3I`, loc_res =>{
+
+			//sets up custom map icon to be green if the value is at or above .1 and black if less than .1
 			let iconUrl = '';
 			if (mostRecEntry['amount'] >= .1){
-				iconUrl = '/static/img/green_coin.png';
-			
+				iconUrl = '/static/img/darker_green_coin.png';
 			}
 			else{
 				iconUrl = '/static/img/coin.png';

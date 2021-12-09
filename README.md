@@ -68,7 +68,7 @@ psql money < money.sql
 python3 server.py
 ```
 
-- Go to 'localhost:5000/' in your browser. You can create an account and add some data, or you can log in as a test user.  Email: marla@email.com, password: Logcoins1!
+- Go to 'localhost:5000/' in your browser. You can create an account and add some data, or you can log in as a test user.  Email: tdurden@email.com, password: Logcoins1!
 
 
 ## About Me
