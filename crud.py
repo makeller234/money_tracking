@@ -2,7 +2,6 @@
 from model import db, User, Monies, connect_to_db, uri
 from sqlalchemy import extract
 from collections import Counter #counter takes in a list and returns a dictionary where the key is the count of an item and the value is the item
-from passlib.hash import pbkdf2_sha256
 from datetime import date, datetime
 import calendar
 

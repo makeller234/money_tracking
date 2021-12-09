@@ -8,7 +8,7 @@
     <script src="../static/js/map.js" type="text/javascript"></script>
     
     <script async defer src="https://maps.googleapis.com/maps/api/js?key={{API_KEY}}&callback=coinMap"></script>
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key={{API_KEY}}&libraries=places"></script> -->
+
 {%endblock%}
 {% block body %}
     <div class="container">
@@ -18,7 +18,7 @@
                 <h3 class="centered">Interested in logging some money today?</h3>
             </div>
         </div>
-                <form action="coin_entry" method="POST" class="row g-3 top-margin">
+                <form action="coin_entry" class="row g-3 top-margin">
                     <div class="col-6">
                         <p class="centered">Date (Leave blank if today):</p> <input type="date" name="date" class="form-control centered">
                         <p class="centered">Address:</p> <input type="text" name="places_api" id="places_api" class="form-control">

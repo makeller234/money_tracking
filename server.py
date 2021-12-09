@@ -131,13 +131,13 @@ def dashboard():
                                             years_list = years_list, year = year, missed = missed)
 
 
-@app.route('/coin_entry', methods =['POST'])
+@app.route('/coin_entry')
 def places_api():
     """Allows the user to enter money information with an abbreviated address and the places API will find the full address, minus zip code (which isn't needed to 
     put a marker on the map).
     The entry is saved in the database."""
 
-    place = request.form.get('places_api')
+    place = request.args.get('places_api')
     place_formatted = place.replace(' ', '%20')
 
     query_url = f'https://maps.googleapis.com/maps/api/place/queryautocomplete/json?input={place_formatted}&key={API_KEY}'
@@ -147,7 +147,7 @@ def places_api():
 
     addr_split = res_json['predictions'][0]['description'].split(", ") #space is necessary to eliminate the spaces from the words
 
-    date = request.form.get('date')
+    date = request.args.get('date')
     #Check if date is empty and assign it today's date, format to YYYY-MM-DD
     #If it isn't blank, formats it to correct format
     if date == '':
@@ -157,20 +157,20 @@ def places_api():
         date = datetime.strptime(date,'%Y-%m-%d')
 
     email = session['email']
-    amount = request.form.get('amount')
+    amount = request.args.get('amount')
     address = addr_split[0]
     city = addr_split[1]
     state = addr_split[2]
     zip = None
-    locname = request.form.get('locname')
-    money_type = request.form.get('money_type')
-    missed = request.form.get('missed')
+    locname = request.args.get('locname')
+    money_type = request.args.get('money_type')
+    missed = request.args.get('missed')
     if missed =='y':
         missed = True
         money_year = None
     else:
         missed = False
-        money_year = request.form.get('money_year')
+        money_year = request.args.get('money_year')
 
     crud.create_money_entry(email, date, amount, address, city, state, zip, locname, missed, money_year, money_type)
     flash("You've successfully added money, add some more?")
